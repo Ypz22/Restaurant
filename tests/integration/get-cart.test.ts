@@ -8,7 +8,6 @@ const admin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
-let tableSessionId: string
 let deviceToken: string
 
 beforeAll(async () => {
@@ -24,14 +23,13 @@ beforeAll(async () => {
     }).select().single()
 
   const session = await startSession(table!.qr_token, 'Ana')
-  tableSessionId = session.tableSessionId
   deviceToken = session.deviceToken
   await addCartItem(deviceToken, dish!.id, 1)
 })
 
 describe('getCart', () => {
   it('returns in-cart items with dish name and diner nickname', async () => {
-    const items = await getCart(tableSessionId)
+    const items = await getCart(deviceToken)
     expect(items).toHaveLength(1)
     expect(items[0].dishName).toBe('Plato')
     expect(items[0].dinerNickname).toBe('Ana')

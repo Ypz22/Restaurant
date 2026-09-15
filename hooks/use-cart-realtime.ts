@@ -4,16 +4,17 @@ import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { getCart, type CartItemWithDetails } from '@/lib/data/cart'
 
-export function useCartRealtime(tableSessionId: string | null) {
+export function useCartRealtime(params: { tableSessionId: string | null; deviceToken: string | null }) {
+  const { tableSessionId, deviceToken } = params
   const [items, setItems] = useState<CartItemWithDetails[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!tableSessionId) return
+    if (!tableSessionId || !deviceToken) return
     const supabase = createClient()
 
     async function refresh() {
-      const fresh = await getCart(tableSessionId!)
+      const fresh = await getCart(deviceToken!)
       setItems(fresh)
       setLoading(false)
     }
@@ -32,7 +33,7 @@ export function useCartRealtime(tableSessionId: string | null) {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [tableSessionId])
+  }, [tableSessionId, deviceToken])
 
   return { items, loading }
 }

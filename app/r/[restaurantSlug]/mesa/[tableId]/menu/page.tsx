@@ -19,6 +19,7 @@ export default function MenuPage() {
   const [initialDishes, setInitialDishes] = useState<MenuDish[]>([])
   const [activeCategoryId, setActiveCategoryId] = useState<string>('')
   const [query, setQuery] = useState('')
+  const [deviceToken, setDeviceToken] = useState<string | null>(null)
 
   const dishes = useDishAvailabilityRealtime(restaurantId, initialDishes)
 
@@ -31,6 +32,7 @@ export default function MenuPage() {
       setRestaurantId(table.restaurantId)
       setInitialDishes(menu.dishes)
       setActiveCategoryId(menu.categories[0]?.id ?? '')
+      setDeviceToken(getDeviceToken())
     }
     load()
   }, [params.tableId])
@@ -54,7 +56,7 @@ export default function MenuPage() {
           />
         ))}
       </div>
-      {getDeviceToken() && <CallWaiterButton deviceToken={getDeviceToken()!} />}
+      {deviceToken && <CallWaiterButton deviceToken={deviceToken} />}
     </main>
   )
 }

@@ -30,7 +30,7 @@ test('dos comensales de la misma mesa comparten carrito y envían un pedido', as
 
   await pageBeto.getByRole('button', { name: /enviar pedido/i }).click()
   await pageBeto.waitForURL(/\/orden\/confirmado$/)
-  await expect(pageBeto.getByText(/pedido enviado/i)).toBeVisible()
+  await expect(pageBeto.getByRole('heading', { name: /pedido enviado/i })).toBeVisible()
 
   await expect(pageAna.getByText(/tu pedido está vacío/i)).toBeVisible({ timeout: 10000 })
 

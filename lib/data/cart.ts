@@ -48,21 +48,16 @@ export async function addCartItem(
 
 export type CartItemWithDetails = CartItem & { dishName: string; dinerNickname: string }
 
-export async function getCart(tableSessionId: string): Promise<CartItemWithDetails[]> {
+export async function getCart(deviceToken: string): Promise<CartItemWithDetails[]> {
   const supabase = createClient()
-  const { data, error } = await supabase
-    .from('cart_items')
-    .select('*, dishes(name), diners(nickname)')
-    .eq('table_session_id', tableSessionId)
-    .eq('status', 'in_cart')
-    .order('created_at')
+  const { data, error } = await supabase.rpc('rpc_get_cart', { p_device_token: deviceToken })
 
   if (error) throw new Error(error.message)
 
   return (data ?? []).map((row: any) => ({
     ...mapRow(row),
-    dishName: row.dishes.name,
-    dinerNickname: row.diners.nickname,
+    dishName: row.dish_name,
+    dinerNickname: row.diner_nickname,
   }))
 }
 

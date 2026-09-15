@@ -42,4 +42,31 @@ describe('session RPCs', () => {
     const resumed = await resumeSession('00000000-0000-0000-0000-000000000000')
     expect(resumed).toBeNull()
   })
+
+  it('under concurrent scans of the same table, both diners land in the same session', async () => {
+    const { data: restaurant } = await admin
+      .from('restaurants')
+      .insert({ name: 'Concurrent', slug: 'concurrent-' + Date.now() })
+      .select()
+      .single()
+    const { data: table } = await admin
+      .from('tables')
+      .insert({ restaurant_id: restaurant!.id, label: 'Mesa Concurrente' })
+      .select()
+      .single()
+
+    const [first, second] = await Promise.all([
+      startSession(table!.qr_token, 'Dani'),
+      startSession(table!.qr_token, 'Eli'),
+    ])
+
+    expect(second.tableSessionId).toBe(first.tableSessionId)
+
+    const { data: openSessions } = await admin
+      .from('table_sessions')
+      .select('id')
+      .eq('table_id', table!.id)
+      .eq('status', 'open')
+    expect(openSessions).toHaveLength(1)
+  })
 })

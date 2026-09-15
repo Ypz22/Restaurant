@@ -14,6 +14,8 @@ export default function DishDetailPage() {
   const [dish, setDish] = useState<MenuDish | null>(null)
   const [quantity, setQuantity] = useState(1)
   const [notes, setNotes] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [adding, setAdding] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -28,8 +30,15 @@ export default function DishDetailPage() {
   async function handleAdd() {
     const token = getDeviceToken()
     if (!token || !dish) return
-    await addCartItem(token, dish.id, quantity, notes)
-    router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/orden`)
+    setError(null)
+    setAdding(true)
+    try {
+      await addCartItem(token, dish.id, quantity, notes)
+      router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/orden`)
+    } catch {
+      setError('No se pudo agregar el plato, intenta de nuevo.')
+      setAdding(false)
+    }
   }
 
   if (!dish) return null
@@ -46,9 +55,11 @@ export default function DishDetailPage() {
         className="rounded-md border border-outline bg-surface p-3"
       />
       <QuantityStepper value={quantity} onChange={(v) => setQuantity(Math.max(1, v))} min={1} />
+      {error && <p className="text-primary">{error}</p>}
       <button
         onClick={handleAdd}
-        className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary"
+        disabled={adding}
+        className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
       >
         Agregar al pedido
       </button>

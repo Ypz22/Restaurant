@@ -14,6 +14,7 @@ export type ResumedSession = {
   tableLabel: string
   restaurantName: string
   restaurantSlug: string
+  qrToken: string
 }
 
 export async function startSession(qrToken: string, nickname: string): Promise<StartedSession> {
@@ -53,6 +54,7 @@ export async function resumeSession(deviceToken: string): Promise<ResumedSession
     table_label: string
     restaurant_name: string
     restaurant_slug: string
+    qr_token: string
   }
 
   return {
@@ -63,5 +65,6 @@ export async function resumeSession(deviceToken: string): Promise<ResumedSession
     tableLabel: row.table_label,
     restaurantName: row.restaurant_name,
     restaurantSlug: row.restaurant_slug,
+    qrToken: row.qr_token,
   }
 }

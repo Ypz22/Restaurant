@@ -10,7 +10,6 @@ const admin = createClient(
 
 let deviceTokenA: string
 let deviceTokenB: string
-let tableSessionId: string
 let dishId: string
 
 beforeAll(async () => {
@@ -28,7 +27,6 @@ beforeAll(async () => {
 
   const sessionA = await startSession(table!.qr_token, 'Ana')
   deviceTokenA = sessionA.deviceToken
-  tableSessionId = sessionA.tableSessionId
   const sessionB = await startSession(table!.qr_token, 'Beto')
   deviceTokenB = sessionB.deviceToken
 })
@@ -43,7 +41,7 @@ describe('cart mutations', () => {
   it('lets a different diner remove the item, and it disappears from getCart', async () => {
     const item = await addCartItem(deviceTokenA, dishId, 1)
     await removeCartItem(deviceTokenB, item.id)
-    const cart = await getCart(tableSessionId)
+    const cart = await getCart(deviceTokenA)
     expect(cart.find((c) => c.id === item.id)).toBeUndefined()
   })
 })

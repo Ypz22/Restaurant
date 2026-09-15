@@ -32,7 +32,7 @@ describe('submitOrderRound', () => {
     const round = await submitOrderRound(session.deviceToken)
     expect(round.status).toBe('pending')
 
-    const remaining = await getCart(session.tableSessionId)
+    const remaining = await getCart(session.deviceToken)
     expect(remaining).toHaveLength(0)
 
     const { data: submittedItems } = await admin

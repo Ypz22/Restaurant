@@ -11,6 +11,7 @@ const admin = createClient(
 let deviceToken: string
 let availableDishId: string
 let unavailableDishId: string
+let otherRestaurantDishId: string
 
 beforeAll(async () => {
   const { data: restaurant } = await admin
@@ -30,8 +31,19 @@ beforeAll(async () => {
       name: 'Agotado', price: 5, is_available: false,
     }).select().single()
 
+  const { data: otherRestaurant } = await admin
+    .from('restaurants').insert({ name: 'Other', slug: 'other-' + Date.now() }).select().single()
+  const { data: otherCategory } = await admin
+    .from('menu_categories').insert({ restaurant_id: otherRestaurant!.id, name: 'Cat' }).select().single()
+  const { data: otherDish } = await admin
+    .from('dishes').insert({
+      restaurant_id: otherRestaurant!.id, category_id: otherCategory!.id,
+      name: 'Plato de otro restaurante', price: 20, is_available: true,
+    }).select().single()
+
   availableDishId = dish!.id
   unavailableDishId = outOfStock!.id
+  otherRestaurantDishId = otherDish!.id
 
   const session = await startSession(table!.qr_token, 'Ana')
   deviceToken = session.deviceToken
@@ -47,5 +59,9 @@ describe('addCartItem', () => {
 
   it('rejects adding an unavailable dish', async () => {
     await expect(addCartItem(deviceToken, unavailableDishId, 1)).rejects.toThrow()
+  })
+
+  it('rejects adding a dish that belongs to a different restaurant than the table session', async () => {
+    await expect(addCartItem(deviceToken, otherRestaurantDishId, 1)).rejects.toThrow()
   })
 })

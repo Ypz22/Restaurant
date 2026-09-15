@@ -14,6 +14,9 @@ export default function MiOrdenPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string }>()
   const router = useRouter()
   const [tableSessionId, setTableSessionId] = useState<string | null>(null)
+  const [deviceToken, setDeviceToken] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -28,27 +31,45 @@ export default function MiOrdenPage() {
         return
       }
       setTableSessionId(session.tableSessionId)
+      setDeviceToken(token)
     }
     load()
   }, [params.restaurantSlug, params.tableId, router])
 
-  const { items, loading } = useCartRealtime(tableSessionId)
+  const { items, loading } = useCartRealtime({ tableSessionId, deviceToken })
   const total = items.reduce((sum, i) => sum + i.quantity * i.unitPriceSnapshot, 0)
 
   async function handleQuantityChange(cartItemId: string, quantity: number) {
     const token = getDeviceToken()!
-    await updateCartItemQuantity(token, cartItemId, quantity)
+    setError(null)
+    try {
+      await updateCartItemQuantity(token, cartItemId, quantity)
+    } catch {
+      setError('No se pudo actualizar la cantidad, intenta de nuevo.')
+    }
   }
 
   async function handleRemove(cartItemId: string) {
     const token = getDeviceToken()!
-    await removeCartItem(token, cartItemId)
+    setError(null)
+    try {
+      await removeCartItem(token, cartItemId)
+    } catch {
+      setError('No se pudo quitar el ítem, intenta de nuevo.')
+    }
   }
 
   async function handleSubmit() {
     const token = getDeviceToken()!
-    await submitOrderRound(token)
-    router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/orden/confirmado`)
+    setError(null)
+    setSubmitting(true)
+    try {
+      await submitOrderRound(token)
+      router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/orden/confirmado`)
+    } catch {
+      setError('No se pudo enviar el pedido, intenta de nuevo.')
+      setSubmitting(false)
+    }
   }
 
   if (loading) return null
@@ -69,11 +90,18 @@ export default function MiOrdenPage() {
           <CartItemRow key={item.id} item={item} onQuantityChange={handleQuantityChange} onRemove={handleRemove} />
         ))}
       </div>
-      <div className="mt-auto flex items-center justify-between border-t border-outline pt-4">
-        <p className="text-title-lg text-onSurface">Total: ${total.toFixed(2)}</p>
-        <button onClick={handleSubmit} className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary">
-          Enviar pedido
-        </button>
+      <div className="mt-auto flex flex-col gap-2 border-t border-outline pt-4">
+        {error && <p className="text-primary">{error}</p>}
+        <div className="flex items-center justify-between">
+          <p className="text-title-lg text-onSurface">Total: ${total.toFixed(2)}</p>
+          <button
+            onClick={handleSubmit}
+            disabled={submitting}
+            className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
+          >
+            Enviar pedido
+          </button>
+        </div>
       </div>
     </main>
   )

@@ -2,7 +2,13 @@
 
 import { useState } from 'react'
 
-export function NicknameForm({ onSubmit }: { onSubmit: (nickname: string) => void }) {
+export function NicknameForm({
+  onSubmit,
+  disabled = false,
+}: {
+  onSubmit: (nickname: string) => void
+  disabled?: boolean
+}) {
   const [nickname, setNickname] = useState('')
 
   function handleSubmit(e: React.FormEvent) {
@@ -27,7 +33,8 @@ export function NicknameForm({ onSubmit }: { onSubmit: (nickname: string) => voi
       />
       <button
         type="submit"
-        className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary"
+        disabled={disabled}
+        className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
       >
         Entrar
       </button>
