@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { CategoryTabs } from '@/components/category-tabs'
 import { DishCard } from '@/components/dish-card'
+import { DishSearchBar } from '@/components/dish-search-bar'
 import { getMenu, type MenuCategory, type MenuDish } from '@/lib/data/menu'
 import { getTableByQrToken } from '@/lib/data/table'
 
@@ -13,6 +14,7 @@ export default function MenuPage() {
   const [categories, setCategories] = useState<MenuCategory[]>([])
   const [dishes, setDishes] = useState<MenuDish[]>([])
   const [activeCategoryId, setActiveCategoryId] = useState<string>('')
+  const [query, setQuery] = useState('')
 
   useEffect(() => {
     async function load() {
@@ -26,11 +28,16 @@ export default function MenuPage() {
     load()
   }, [params.tableId])
 
-  const visibleDishes = dishes.filter((d) => d.categoryId === activeCategoryId)
+  const visibleDishes = query.trim()
+    ? dishes.filter((d) => d.name.toLowerCase().includes(query.trim().toLowerCase()))
+    : dishes.filter((d) => d.categoryId === activeCategoryId)
 
   return (
     <main className="flex min-h-screen flex-col gap-4 bg-background p-4">
-      <CategoryTabs categories={categories} activeId={activeCategoryId} onSelect={setActiveCategoryId} />
+      <DishSearchBar value={query} onChange={setQuery} />
+      {!query.trim() && (
+        <CategoryTabs categories={categories} activeId={activeCategoryId} onSelect={setActiveCategoryId} />
+      )}
       <div className="flex flex-col gap-3">
         {visibleDishes.map((dish) => (
           <DishCard
