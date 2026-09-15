@@ -65,3 +65,30 @@ export async function getCart(tableSessionId: string): Promise<CartItemWithDetai
     dinerNickname: row.diners.nickname,
   }))
 }
+
+export async function updateCartItemQuantity(
+  deviceToken: string,
+  cartItemId: string,
+  quantity: number
+): Promise<CartItem> {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .rpc('rpc_update_cart_item_quantity', {
+      p_device_token: deviceToken,
+      p_cart_item_id: cartItemId,
+      p_quantity: quantity,
+    })
+    .single()
+
+  if (error || !data) throw new Error(error?.message ?? 'update_cart_item_failed')
+  return mapRow(data)
+}
+
+export async function removeCartItem(deviceToken: string, cartItemId: string): Promise<void> {
+  const supabase = createClient()
+  const { error } = await supabase.rpc('rpc_remove_cart_item', {
+    p_device_token: deviceToken,
+    p_cart_item_id: cartItemId,
+  })
+  if (error) throw new Error(error.message)
+}
