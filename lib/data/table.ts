@@ -16,11 +16,19 @@ export async function getTableByQrToken(qrToken: string): Promise<TableInfo | nu
 
   if (error || !data) return null
 
+  const row = data as {
+    table_id: string
+    table_label: string
+    restaurant_id: string
+    restaurant_name: string
+    restaurant_slug: string
+  }
+
   return {
-    tableId: data.table_id,
-    tableLabel: data.table_label,
-    restaurantId: data.restaurant_id,
-    restaurantName: data.restaurant_name,
-    restaurantSlug: data.restaurant_slug,
+    tableId: row.table_id,
+    tableLabel: row.table_label,
+    restaurantId: row.restaurant_id,
+    restaurantName: row.restaurant_name,
+    restaurantSlug: row.restaurant_slug,
   }
 }

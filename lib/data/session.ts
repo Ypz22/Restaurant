@@ -24,10 +24,16 @@ export async function startSession(qrToken: string, nickname: string): Promise<S
 
   if (error || !data) throw new Error(error?.message ?? 'start_session_failed')
 
+  const row = data as {
+    table_session_id: string
+    diner_id: string
+    device_token: string
+  }
+
   return {
-    tableSessionId: data.table_session_id,
-    dinerId: data.diner_id,
-    deviceToken: data.device_token,
+    tableSessionId: row.table_session_id,
+    dinerId: row.diner_id,
+    deviceToken: row.device_token,
   }
 }
 
@@ -39,13 +45,23 @@ export async function resumeSession(deviceToken: string): Promise<ResumedSession
 
   if (error || !data) return null
 
+  const row = data as {
+    table_session_id: string
+    diner_id: string
+    nickname: string
+    session_status: 'open' | 'closed'
+    table_label: string
+    restaurant_name: string
+    restaurant_slug: string
+  }
+
   return {
-    tableSessionId: data.table_session_id,
-    dinerId: data.diner_id,
-    nickname: data.nickname,
-    sessionStatus: data.session_status,
-    tableLabel: data.table_label,
-    restaurantName: data.restaurant_name,
-    restaurantSlug: data.restaurant_slug,
+    tableSessionId: row.table_session_id,
+    dinerId: row.diner_id,
+    nickname: row.nickname,
+    sessionStatus: row.session_status,
+    tableLabel: row.table_label,
+    restaurantName: row.restaurant_name,
+    restaurantSlug: row.restaurant_slug,
   }
 }
