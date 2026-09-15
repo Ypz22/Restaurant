@@ -1,0 +1,20 @@
+# Skills: se versionan (todos los agentes siguen las mismas reglas al clonar).
+# Solo se excluye el binario nativo de impeccable (16 MB por copia y específico de cada SO);
+# el launcher lo descarga solo a ~/.impeccable/bin/ la primera vez.
+**/skills/impeccable/scripts/bin/
+
+# Configuración local por desarrollador
+.claude/settings.local.json
+.impeccable/*.local.json
+.impeccable/live/
+
+# Entorno
+.env*
+!.env.example
+
+# Next.js / Node
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
