@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { CategoryTabs } from '@/components/category-tabs'
+import { CallWaiterButton } from '@/components/call-waiter-button'
 import { DishCard } from '@/components/dish-card'
 import { DishSearchBar } from '@/components/dish-search-bar'
 import { getMenu, type MenuCategory, type MenuDish } from '@/lib/data/menu'
 import { getTableByQrToken } from '@/lib/data/table'
+import { getDeviceToken } from '@/lib/session/device-token'
 
 export default function MenuPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string }>()
@@ -47,6 +49,7 @@ export default function MenuPage() {
           />
         ))}
       </div>
+      {getDeviceToken() && <CallWaiterButton deviceToken={getDeviceToken()!} />}
     </main>
   )
 }
