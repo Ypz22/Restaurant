@@ -9,14 +9,18 @@ import { DishSearchBar } from '@/components/dish-search-bar'
 import { getMenu, type MenuCategory, type MenuDish } from '@/lib/data/menu'
 import { getTableByQrToken } from '@/lib/data/table'
 import { getDeviceToken } from '@/lib/session/device-token'
+import { useDishAvailabilityRealtime } from '@/hooks/use-dish-availability-realtime'
 
 export default function MenuPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string }>()
   const router = useRouter()
   const [categories, setCategories] = useState<MenuCategory[]>([])
-  const [dishes, setDishes] = useState<MenuDish[]>([])
+  const [restaurantId, setRestaurantId] = useState<string | null>(null)
+  const [initialDishes, setInitialDishes] = useState<MenuDish[]>([])
   const [activeCategoryId, setActiveCategoryId] = useState<string>('')
   const [query, setQuery] = useState('')
+
+  const dishes = useDishAvailabilityRealtime(restaurantId, initialDishes)
 
   useEffect(() => {
     async function load() {
@@ -24,7 +28,8 @@ export default function MenuPage() {
       if (!table) return
       const menu = await getMenu(table.restaurantId)
       setCategories(menu.categories)
-      setDishes(menu.dishes)
+      setRestaurantId(table.restaurantId)
+      setInitialDishes(menu.dishes)
       setActiveCategoryId(menu.categories[0]?.id ?? '')
     }
     load()
