@@ -29,13 +29,8 @@ begin
   end if;
 
   insert into diners (table_session_id, nickname)
-    values (v_session_id, p_nickname);
-
-  select diners.id, diners.device_token into v_diner_id, v_device_token
-    from diners
-    where diners.table_session_id = v_session_id
-    order by diners.created_at desc
-    limit 1;
+    values (v_session_id, p_nickname)
+    returning diners.id, diners.device_token into v_diner_id, v_device_token;
 
   return query select v_session_id, v_diner_id, v_device_token;
 end;
