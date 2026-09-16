@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { Armchair, QrCode, ConciergeBell, Droplets } from 'lucide-react'
 import { useAdminRestaurant } from '@/components/admin/restaurant-context'
-import {
-  getTablesWithSessions, closeTableSession, getPendingRequests, acknowledgeRequest,
-  type AdminTable, type PendingRequest,
-} from '@/lib/data/admin-tables'
+import { useTableRequests } from '@/components/admin/requests-context'
+import { requestLabel } from '@/components/admin/requests-bar'
+import { getTablesWithSessions, closeTableSession, type AdminTable } from '@/lib/data/admin-tables'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
+import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -25,7 +25,7 @@ function minutesSince(iso: string, now: number) {
 export default function AdminMesasPage() {
   const restaurant = useAdminRestaurant()
   const [tables, setTables] = useState<AdminTable[]>([])
-  const [requests, setRequests] = useState<PendingRequest[]>([])
+  const { requests } = useTableRequests()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [now, setNow] = useState(Date.now())
@@ -42,12 +42,7 @@ export default function AdminMesasPage() {
     setLoading(true)
     setError(false)
     try {
-      const [tablesData, requestsData] = await Promise.all([
-        getTablesWithSessions(restaurant.id),
-        getPendingRequests(restaurant.id),
-      ])
-      setTables(tablesData)
-      setRequests(requestsData)
+      setTables(await getTablesWithSessions(restaurant.id))
     } catch {
       setError(true)
     } finally {
@@ -68,19 +63,9 @@ export default function AdminMesasPage() {
     }
   }
 
-  async function handleAcknowledge(request: PendingRequest) {
-    setRequests((current) => current.filter((r) => r.id !== request.id))
-    try {
-      await acknowledgeRequest(restaurant.id, request.id)
-    } catch {
-      toast.error('No se pudo marcar la solicitud como atendida.')
-      setRequests((current) => [...current, request])
-    }
-  }
-
   if (loading) {
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
         {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-40 w-full" />)}
       </div>
     )
@@ -98,66 +83,65 @@ export default function AdminMesasPage() {
     <div className="flex flex-col gap-5">
       <h1 className="text-title-lg text-foreground">Mesas</h1>
 
-      {requests.length > 0 && (
-        <section className="flex flex-col gap-2">
-          <h2 className="text-label-lg uppercase text-muted-foreground">Solicitudes pendientes</h2>
-          <div className="flex flex-col gap-2">
-            {requests.map((r) => (
-              <div key={r.id} className="flex items-center justify-between gap-4 rounded-xl bg-card p-3 shadow-sm">
-                <div className="flex items-center gap-2.5">
-                  {r.type === 'agua' ? <Droplets className="size-4 text-secondary-foreground" /> : <ConciergeBell className="size-4 text-secondary-foreground" />}
-                  <div>
-                    <p className="text-body-md font-medium text-foreground">{r.tableLabel} · {r.reason || (r.type === 'agua' ? 'Agua' : 'Llamar al mesero')}</p>
-                    {r.notes && <p className="text-label-sm text-muted-foreground">{r.notes}</p>}
-                  </div>
-                </div>
-                <Button size="sm" onClick={() => handleAcknowledge(r)}>Atender</Button>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
       {tables.length === 0 ? (
         <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-12 text-center">
           <Armchair className="size-6 text-muted-foreground" />
           <p className="text-body-md text-muted-foreground">Todavía no hay mesas registradas.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3">
-          {tables.map((table) => (
-            <Card key={table.id}>
-              <CardHeader className="flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-1.5"><Armchair className="size-4" />{table.label}</CardTitle>
-                {table.session ? (
-                  <Badge variant="success">Abierta</Badge>
-                ) : (
-                  <Badge variant="muted">Sin sesión</Badge>
-                )}
-              </CardHeader>
-              <CardContent>
-                {table.session ? (
-                  <p className="text-body-md text-muted-foreground">
-                    Abierta hace <span className="tabular-nums">{minutesSince(table.session.openedAt, now)}</span> min
-                  </p>
-                ) : (
-                  <p className="text-body-md text-muted-foreground">Lista para un nuevo escaneo de QR.</p>
-                )}
-              </CardContent>
-              <CardFooter>
-                <Button variant="ghost" size="sm" className="flex-1" onClick={() => setQrTable(table)}>
-                  <QrCode className="size-4" /> Ver QR
-                </Button>
-                <Button
-                  variant="destructive" size="sm" className="flex-1"
-                  disabled={!table.session}
-                  onClick={() => setClosingTable(table)}
-                >
-                  Cerrar mesa
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+          {tables.map((table) => {
+            const tableRequests = requests.filter((r) => r.tableId === table.id)
+            const firstRequest = tableRequests[0]
+            const RequestIcon = firstRequest?.type === 'agua' ? Droplets : ConciergeBell
+            return (
+              <Card key={table.id} className={cn(firstRequest && 'ring-2 ring-primary')}>
+                <CardHeader className="flex-row items-center justify-between gap-2">
+                  <CardTitle className="flex min-w-0 items-center gap-1.5">
+                    <Armchair className="size-4 shrink-0" />
+                    <span className="truncate">{table.label}</span>
+                  </CardTitle>
+                  {table.session ? (
+                    <Badge variant="success">Abierta</Badge>
+                  ) : (
+                    <Badge variant="muted">Sin sesión</Badge>
+                  )}
+                </CardHeader>
+                <CardContent className="flex flex-col items-start gap-2">
+                  {firstRequest && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-warning-soft px-2.5 py-1 text-label-md text-warning-soft-foreground">
+                      <RequestIcon className="size-3.5" />
+                      {requestLabel(firstRequest)}
+                      {tableRequests.length > 1 && <span className="tabular-nums">+{tableRequests.length - 1}</span>}
+                    </span>
+                  )}
+                  {table.session ? (
+                    <p className="text-body-md text-muted-foreground">
+                      Abierta hace <span className="tabular-nums">{minutesSince(table.session.openedAt, now)}</span> min
+                    </p>
+                  ) : (
+                    <p className="text-body-md text-muted-foreground">Lista para un nuevo escaneo de QR.</p>
+                  )}
+                </CardContent>
+                <CardFooter className="gap-2">
+                  <Button
+                    variant="ghost" size="icon"
+                    aria-label={`Ver QR de ${table.label}`} title="Ver QR"
+                    onClick={() => setQrTable(table)}
+                  >
+                    <QrCode />
+                  </Button>
+                  <Button
+                    variant="ghost" className="min-w-0 flex-1"
+                    disabled={!table.session}
+                    onClick={() => setClosingTable(table)}
+                  >
+                    Cerrar mesa
+                  </Button>
+                </CardFooter>
+              </Card>
+            )
+          })}
         </div>
       )}
 

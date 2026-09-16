@@ -9,6 +9,7 @@ export type AdminTable = {
 
 export type PendingRequest = {
   id: string
+  tableId: string
   tableLabel: string
   type: 'llamar_mesero' | 'agua'
   reason: string
@@ -44,9 +45,10 @@ export async function getPendingRequests(restaurantId: string): Promise<PendingR
   const { data, error } = await supabase.rpc('rpc_admin_get_pending_requests', { p_restaurant_id: restaurantId })
   if (error) throw new Error(error.message)
 
-  type Row = { id: string; table_label: string; type: 'llamar_mesero' | 'agua'; reason: string; notes: string; created_at: string }
+  type Row = { id: string; table_id: string; table_label: string; type: 'llamar_mesero' | 'agua'; reason: string; notes: string; created_at: string }
   return ((data ?? []) as Row[]).map((row) => ({
     id: row.id,
+    tableId: row.table_id,
     tableLabel: row.table_label,
     type: row.type,
     reason: row.reason,

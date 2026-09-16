@@ -4,7 +4,7 @@ import {
   upsertCategory, deleteCategory, upsertDish, deleteDish, setDishAvailability,
 } from '@/lib/data/admin-menu'
 import { closeTableSession, acknowledgeRequest, getTablesWithSessions, getPendingRequests } from '@/lib/data/admin-tables'
-import { advanceOrderRound, getActiveTickets } from '@/lib/data/admin-kitchen'
+import { advanceOrderRound, getActiveTickets, setItemPrepared } from '@/lib/data/admin-kitchen'
 
 const admin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -156,6 +156,7 @@ describe('admin KDS RPC: rpc_admin_advance_order_round', () => {
   it('walks pending -> preparing -> ready -> delivered', async () => {
     const restaurantId = await makeRestaurant()
     const roundId = await makeOrderRound(restaurantId, 'pending')
+    // Ronda sin ítems: nada que marcar, puede pasar a ready.
 
     await advanceOrderRound(restaurantId, roundId, 'preparing')
     await advanceOrderRound(restaurantId, roundId, 'ready')
@@ -182,5 +183,71 @@ describe('admin KDS RPC: rpc_admin_advance_order_round', () => {
     const restaurantB = await makeRestaurant()
     const roundId = await makeOrderRound(restaurantB, 'pending')
     await expect(advanceOrderRound(restaurantA, roundId, 'preparing')).rejects.toThrow()
+  })
+})
+
+async function makeRoundWithItems(restaurantId: string, status: string, count: number) {
+  const sessionId = await makeTableSession(restaurantId)
+  const { data: category } = await admin.from('menu_categories').insert({ restaurant_id: restaurantId, name: 'C' }).select().single()
+  const { data: dish } = await admin
+    .from('dishes').insert({ restaurant_id: restaurantId, category_id: category!.id, name: 'Lomo', price: 10 }).select().single()
+  const { data: diner } = await admin.from('diners').insert({ table_session_id: sessionId, nickname: 'T' }).select().single()
+  const { data: round } = await admin.from('order_rounds').insert({ table_session_id: sessionId, status }).select().single()
+  const { data: items } = await admin.from('cart_items').insert(
+    Array.from({ length: count }, () => ({
+      table_session_id: sessionId, dish_id: dish!.id, diner_id: diner!.id,
+      quantity: 1, unit_price_snapshot: 10, status: 'submitted', order_round_id: round!.id,
+    }))
+  ).select()
+  return { roundId: round!.id as string, itemIds: items!.map((i) => i.id as string) }
+}
+
+describe('admin KDS RPC: rpc_admin_set_item_prepared', () => {
+  it('marks an item and moves a pending round to preparing', async () => {
+    const restaurantId = await makeRestaurant()
+    const { roundId, itemIds } = await makeRoundWithItems(restaurantId, 'pending', 2)
+
+    expect(await setItemPrepared(restaurantId, itemIds[0], true)).toBe('preparing')
+    const { data: item } = await admin.from('cart_items').select('prepared_at').eq('id', itemIds[0]).single()
+    expect(item!.prepared_at).not.toBeNull()
+    const { data: round } = await admin.from('order_rounds').select('status').eq('id', roundId).single()
+    expect(round!.status).toBe('preparing')
+
+    await setItemPrepared(restaurantId, itemIds[0], false)
+    const { data: unmarked } = await admin.from('cart_items').select('prepared_at').eq('id', itemIds[0]).single()
+    expect(unmarked!.prepared_at).toBeNull()
+  })
+
+  it('exposes preparedAt in active tickets', async () => {
+    const restaurantId = await makeRestaurant()
+    const { itemIds } = await makeRoundWithItems(restaurantId, 'preparing', 1)
+    await setItemPrepared(restaurantId, itemIds[0], true)
+
+    const [ticket] = await getActiveTickets(restaurantId)
+    expect(ticket.items[0].preparedAt).not.toBeNull()
+  })
+
+  it('rejects ready while items are unprepared, allows it once all are marked', async () => {
+    const restaurantId = await makeRestaurant()
+    const { roundId, itemIds } = await makeRoundWithItems(restaurantId, 'preparing', 2)
+
+    await setItemPrepared(restaurantId, itemIds[0], true)
+    await expect(advanceOrderRound(restaurantId, roundId, 'ready')).rejects.toThrow()
+
+    await setItemPrepared(restaurantId, itemIds[1], true)
+    await expect(advanceOrderRound(restaurantId, roundId, 'ready')).resolves.not.toThrow()
+  })
+
+  it('rejects changing items of a round that is already ready', async () => {
+    const restaurantId = await makeRestaurant()
+    const { itemIds } = await makeRoundWithItems(restaurantId, 'ready', 1)
+    await expect(setItemPrepared(restaurantId, itemIds[0], true)).rejects.toThrow()
+  })
+
+  it('rejects an item from another restaurant', async () => {
+    const restaurantA = await makeRestaurant()
+    const restaurantB = await makeRestaurant()
+    const { itemIds } = await makeRoundWithItems(restaurantB, 'pending', 1)
+    await expect(setItemPrepared(restaurantA, itemIds[0], true)).rejects.toThrow()
   })
 })

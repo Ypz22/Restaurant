@@ -91,6 +91,12 @@ El layout de `/r/[restaurante]` pone `data-theme={restaurant.theme}`; el layout 
   --highlight-foreground: oklch(0.42 calc(var(--accent-c) * 0.8) var(--accent-h));
   --inverse:              oklch(0.25 calc(var(--neutral-c) * 2) var(--neutral-h));
   --inverse-foreground:   oklch(0.97 var(--neutral-c) var(--neutral-h));
+  /* Gráficas (dashboard): series en orden --chart-1..5. --chart-4 es neutro, para comparación (periodo anterior). */
+  --chart-1:              var(--primary);
+  --chart-2:              oklch(0.72 calc(var(--accent-c) * 1.1) var(--accent-h));
+  --chart-3:              oklch(0.68 calc(var(--brand-c) * 1.5) var(--brand-h));
+  --chart-4:              oklch(0.62 calc(var(--neutral-c) * 2) var(--neutral-h));
+  --chart-5:              oklch(0.84 calc(var(--brand-c) * 0.6) var(--brand-h));
 }
 ```
 

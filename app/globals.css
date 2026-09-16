@@ -103,6 +103,11 @@ body {
   --highlight-foreground: oklch(0.42 calc(var(--accent-c) * 0.8) var(--accent-h));
   --inverse:              oklch(0.25 calc(var(--neutral-c) * 2) var(--neutral-h));
   --inverse-foreground:   oklch(0.97 var(--neutral-c) var(--neutral-h));
+  --chart-1:              var(--primary);
+  --chart-2:              oklch(0.72 calc(var(--accent-c) * 1.1) var(--accent-h));
+  --chart-3:              oklch(0.68 calc(var(--brand-c) * 1.5) var(--brand-h));
+  --chart-4:              oklch(0.62 calc(var(--neutral-c) * 2) var(--neutral-h));
+  --chart-5:              oklch(0.84 calc(var(--brand-c) * 0.6) var(--brand-h));
 
   --destructive:              oklch(0.52 0.18 27);
   --destructive-foreground:   oklch(0.99 0 0);
@@ -144,6 +149,11 @@ body {
   --color-highlight-foreground: var(--highlight-foreground);
   --color-inverse: var(--inverse);
   --color-inverse-foreground: var(--inverse-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-danger-soft: var(--danger-soft);
