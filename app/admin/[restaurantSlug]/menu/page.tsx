@@ -18,6 +18,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { DishSheet } from '@/components/admin/dish-sheet'
 import { CategoryDialog } from '@/components/admin/category-dialog'
+import { DetailSectionBulkDialog } from '@/components/admin/detail-section-bulk-dialog'
 
 export default function AdminMenuPage() {
   const restaurant = useAdminRestaurant()
@@ -30,6 +31,7 @@ export default function AdminMenuPage() {
   const [dishSheetOpen, setDishSheetOpen] = useState(false)
   const [editingDish, setEditingDish] = useState<AdminDish | null>(null)
   const [deletingDish, setDeletingDish] = useState<AdminDish | null>(null)
+  const [sectionBulkOpen, setSectionBulkOpen] = useState(false)
 
   const [categoryDialogOpen, setCategoryDialogOpen] = useState(false)
   const [editingCategory, setEditingCategory] = useState<AdminCategory | null>(null)
@@ -112,12 +114,10 @@ export default function AdminMenuPage() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-title-lg text-foreground">Menú</h1>
-        <Button
-          onClick={() => { setEditingDish(null); setDishSheetOpen(true) }}
-          disabled={categories.length === 0}
-        >
-          <Plus className="size-4" /> Nuevo plato
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="secondary" onClick={() => setSectionBulkOpen(true)} disabled={dishes.length === 0}>Secciones del detalle</Button>
+          <Button onClick={() => { setEditingDish(null); setDishSheetOpen(true) }} disabled={categories.length === 0}><Plus className="size-4" /> Nuevo plato</Button>
+        </div>
       </div>
 
       {categories.length === 0 ? (
@@ -228,6 +228,16 @@ export default function AdminMenuPage() {
           const exists = current.some((d) => d.id === saved.id)
           return exists ? current.map((d) => (d.id === saved.id ? saved : d)) : [...current, saved]
         })}
+      />
+
+      <DetailSectionBulkDialog
+        key={sectionBulkOpen ? 'open' : 'closed'}
+        open={sectionBulkOpen}
+        onOpenChange={setSectionBulkOpen}
+        restaurantId={restaurant.id}
+        categories={categories}
+        dishes={dishes}
+        onApplied={(saved) => setDishes((current) => current.map((dish) => saved.find((item) => item.id === dish.id) ?? dish))}
       />
 
       <CategoryDialog

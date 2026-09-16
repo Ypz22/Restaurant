@@ -14,9 +14,10 @@ import {
 const selectClass = 'h-11 w-full rounded-xl border border-input bg-card px-3 text-body-md text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
 const iconNames = { portion: 'Porción', fire: 'Fuego', calendar: 'Maduración / fecha', time: 'Tiempo', leaf: 'Origen / vegetal', info: 'Información' } as const
 
-export function DishDetailsEditor({ value, onChange }: {
+export function DishDetailsEditor({ value, onChange, maxSections = 20 }: {
   value: DishDetailSection[]
   onChange: (sections: DishDetailSection[]) => void
+  maxSections?: number
 }) {
   const [newKind, setNewKind] = useState<DishDetailKind>('characteristics')
 
@@ -101,7 +102,7 @@ export function DishDetailsEditor({ value, onChange }: {
     })}
     <div className="flex flex-col gap-2 sm:flex-row">
       <label className="min-w-0 flex-1"><span className="sr-only">Tipo de nueva sección</span><select className={selectClass} value={newKind} onChange={e => setNewKind(e.target.value as DishDetailKind)}>{Object.entries(detailKinds).map(([kind, name]) => <option key={kind} value={kind} disabled={kind === 'notes' && value.some(s => s.kind === 'notes')}>{name}</option>)}</select></label>
-      <Button type="button" variant="secondary" disabled={value.length >= 20 || (newKind === 'notes' && value.some(s => s.kind === 'notes'))} onClick={() => onChange([...value, createDetailSection(newKind)])}><Plus className="size-4" /> Añadir sección</Button>
+      <Button type="button" variant="secondary" disabled={value.length >= maxSections || (newKind === 'notes' && value.some(s => s.kind === 'notes'))} onClick={() => onChange([...value, createDetailSection(newKind)])}><Plus className="size-4" /> Añadir sección</Button>
     </div>
     <p className="text-label-md text-muted-foreground">Los precios adicionales se cobran por cada unidad del plato. Quitar una sección no cambia pedidos ya guardados.</p>
   </section>
