@@ -6,6 +6,7 @@ export type TableInfo = {
   restaurantId: string
   restaurantName: string
   restaurantSlug: string
+  availability: 'available' | 'reserved' | 'unavailable'
 }
 
 export async function getTableByQrToken(qrToken: string): Promise<TableInfo | null> {
@@ -22,6 +23,7 @@ export async function getTableByQrToken(qrToken: string): Promise<TableInfo | nu
     restaurant_id: string
     restaurant_name: string
     restaurant_slug: string
+    availability: TableInfo['availability']
   }
 
   return {
@@ -30,5 +32,6 @@ export async function getTableByQrToken(qrToken: string): Promise<TableInfo | nu
     restaurantId: row.restaurant_id,
     restaurantName: row.restaurant_name,
     restaurantSlug: row.restaurant_slug,
+    availability: row.availability,
   }
 }

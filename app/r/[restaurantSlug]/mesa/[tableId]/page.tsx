@@ -51,14 +51,27 @@ export default function BienvenidaPage() {
       const session = await startSession(params.tableId, nickname)
       saveDeviceToken(session.deviceToken)
       router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}/menu`)
-    } catch {
-      setError('No se pudo unir a la mesa, intenta de nuevo.')
+    } catch (err) {
+      if (err instanceof Error && err.message.includes('table_unavailable')) {
+        setTable((current) => (current ? { ...current, availability: 'unavailable' } : current))
+      } else {
+        setError('No se pudo unir a la mesa, intenta de nuevo.')
+      }
       setSubmitting(false)
     }
   }
 
   if (checking) return <main className="sb-login"><p>Cargando mesa…</p></main>
   if (!table) return <main className="sb-login"><p role="alert">{error || 'Mesa no encontrada. Verifica el código QR.'}</p></main>
+
+  if (table.availability === 'unavailable') {
+    return (
+      <main className="sb-login"><section className="sb-login-card">
+        <span className="sb-eyebrow">{table.restaurantName.toUpperCase()}</span><h1>{table.tableLabel}</h1>
+        <p role="alert">Esta mesa no está disponible en este momento. Pide ayuda al personal.</p>
+      </section></main>
+    )
+  }
 
   return (
     <main className="sb-login"><section className="sb-login-card"><div className="sb-login-photo"><Image src="/brasa/365a2f7b9a.png" alt="Costillar a la brasa" width={700} height={280} unoptimized /></div>

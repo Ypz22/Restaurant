@@ -12,6 +12,8 @@ const badgeVariants = cva(
         success: 'bg-success-soft text-success-soft-foreground',
         danger: 'bg-danger-soft text-danger-soft-foreground',
         secondary: 'bg-secondary text-secondary-foreground',
+        info: 'bg-info-soft text-info-soft-foreground',
+        highlight: 'bg-highlight text-highlight-foreground',
       },
     },
     defaultVariants: { variant: 'muted' },
