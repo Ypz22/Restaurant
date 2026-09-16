@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client'
+import type { DishDetailSection } from '@/lib/dish-details'
 
 export type MenuCategory = { id: string; name: string; sortOrder: number }
 export type MenuDish = {
@@ -9,6 +10,7 @@ export type MenuDish = {
   price: number
   photoUrl: string | null
   isAvailable: boolean
+  detailSections?: DishDetailSection[]
 }
 
 export async function getMenu(restaurantId: string): Promise<{ categories: MenuCategory[]; dishes: MenuDish[] }> {
@@ -22,7 +24,7 @@ export async function getMenu(restaurantId: string): Promise<{ categories: MenuC
       .order('sort_order'),
     supabase
       .from('dishes')
-      .select('id, category_id, name, description, price, photo_url, is_available')
+      .select('id, category_id, name, description, price, photo_url, is_available, detail_sections')
       .eq('restaurant_id', restaurantId),
   ])
 
@@ -38,6 +40,7 @@ export async function getMenu(restaurantId: string): Promise<{ categories: MenuC
       price: Number(d.price),
       photoUrl: d.photo_url,
       isAvailable: d.is_available,
+      detailSections: d.detail_sections ?? [],
     })),
   }
 }

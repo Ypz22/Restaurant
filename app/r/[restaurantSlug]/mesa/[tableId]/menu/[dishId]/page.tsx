@@ -2,74 +2,103 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { QuantityStepper } from '@/components/quantity-stepper'
+import { DishDetail } from '@/components/dish-detail'
+import { DishDetailShell } from '@/components/dish-detail-shell'
+import { Button } from '@/components/ui/button'
+import { Skeleton } from '@/components/ui/skeleton'
 import { getTableByQrToken } from '@/lib/data/table'
 import { getMenu, type MenuDish } from '@/lib/data/menu'
 import { getDeviceToken } from '@/lib/session/device-token'
 import { addCartItem } from '@/lib/data/cart'
-import Image from 'next/image'
-import { BrasaShell } from '@/components/brasa/shell'
 import { resumeSession } from '@/lib/data/session'
+import type { DishSelections } from '@/lib/dish-details'
+import { useCartRealtime } from '@/hooks/use-cart-realtime'
+import { useDishAvailabilityRealtime } from '@/hooks/use-dish-availability-realtime'
 
 export default function DishDetailPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string; dishId: string }>()
   const router = useRouter()
-  const [dish, setDish] = useState<MenuDish | null>(null)
-  const [quantity, setQuantity] = useState(1)
-  const [notes, setNotes] = useState('')
+  const [initialDishes, setInitialDishes] = useState<MenuDish[]>([])
+  const [restaurantId, setRestaurantId] = useState<string | null>(null)
+  const [deviceToken, setDeviceToken] = useState<string | null>(null)
+  const [tableSessionId, setTableSessionId] = useState<string | null>(null)
+  const [restaurantName, setRestaurantName] = useState('Menú del restaurante')
   const [error, setError] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
   const [tableLabel, setTableLabel] = useState('Tu mesa')
   const [loading, setLoading] = useState(true)
+  const [favorite, setFavorite] = useState(false)
+  const [offline, setOffline] = useState(false)
+  const [retry, setRetry] = useState(0)
+  const dishes = useDishAvailabilityRealtime(restaurantId, initialDishes)
+  const dish = dishes.find(d => d.id === params.dishId)
+  const { items } = useCartRealtime({ tableSessionId, deviceToken })
+  const count = items.reduce((sum, item) => sum + item.quantity, 0)
+  const base = `/r/${params.restaurantSlug}/mesa/${params.tableId}`
 
   useEffect(() => {
+    let cancelled = false
     async function load() {
+      setLoading(true)
+      setError(null)
       try {
         const token = getDeviceToken()
         const session = token ? await resumeSession(token) : null
-        if (!session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId) {
-          router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}`)
+        if (!session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId || session.restaurantSlug !== params.restaurantSlug) {
+          router.replace(base)
           return
         }
         const table = await getTableByQrToken(params.tableId)
         if (!table) throw new Error('Mesa no encontrada')
-        setTableLabel(table.tableLabel)
         const menu = await getMenu(table.restaurantId)
-        setDish(menu.dishes.find((d) => d.id === params.dishId) ?? null)
-      } catch { setError('No se pudo cargar el plato. Inténtalo de nuevo.') }
-      finally { setLoading(false) }
+        if (cancelled) return
+        setRestaurantId(table.restaurantId)
+        setRestaurantName(table.restaurantName)
+        setTableLabel(table.tableLabel)
+        setInitialDishes(menu.dishes)
+        setDeviceToken(token)
+        setTableSessionId(session.tableSessionId)
+        try { setFavorite(JSON.parse(localStorage.getItem('brasa:favorites') || '[]').includes(params.dishId)) } catch { setFavorite(false) }
+      } catch { if (!cancelled) setError('No se pudo cargar el plato. Comprueba tu conexión e inténtalo de nuevo.') }
+      finally { if (!cancelled) setLoading(false) }
     }
-    load()
-  }, [params.tableId, params.dishId, params.restaurantSlug, router])
+    void load()
+    return () => { cancelled = true }
+  }, [params.tableId, params.dishId, params.restaurantSlug, router, base, retry])
 
-  async function handleAdd() {
-    const token = getDeviceToken()
-    if (!token || !dish) { router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}`); return }
+  useEffect(() => {
+    const update = () => setOffline(!navigator.onLine)
+    update()
+    window.addEventListener('online', update)
+    window.addEventListener('offline', update)
+    return () => { window.removeEventListener('online', update); window.removeEventListener('offline', update) }
+  }, [])
+
+  function toggleFavorite() {
+    try {
+      const current: string[] = JSON.parse(localStorage.getItem('brasa:favorites') || '[]')
+      const next = favorite ? current.filter(id => id !== params.dishId) : [...current, params.dishId]
+      localStorage.setItem('brasa:favorites', JSON.stringify(next))
+      setFavorite(!favorite)
+    } catch { setError('No se pudo guardar el favorito en este dispositivo.') }
+  }
+
+  async function handleAdd(quantity: number, notes: string, selections: DishSelections) {
+    if (!deviceToken || !dish) { router.replace(base); return }
     setError(null)
     setAdding(true)
     try {
-      await addCartItem(token, dish.id, quantity, notes)
-      router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/orden`)
-    } catch {
-      setError('No se pudo agregar el plato, intenta de nuevo.')
+      await addCartItem(deviceToken, dish.id, quantity, notes, selections)
+      router.push(`${base}/orden`)
+    } catch (cause) {
+      const message = cause instanceof Error ? cause.message : ''
+      setError(message.includes('required_') ? 'Completa las opciones obligatorias del plato.' : message.includes('invalid_selections') ? 'Las opciones del plato cambiaron. Recarga el detalle antes de pedir.' : message.includes('dish_unavailable') ? 'Este plato acaba de agotarse. Elige otro plato del menú.' : 'No se pudo agregar el plato. Comprueba tu conexión e inténtalo de nuevo.')
       setAdding(false)
     }
   }
 
-  if (!dish) return <BrasaShell slug={params.restaurantSlug} tableId={params.tableId} tableLabel={tableLabel} active="menu"><main className="sb-main">{loading ? 'Cargando plato…' : error ? <div className="sb-alert" role="alert">{error}</div> : <p>Plato no encontrado.</p>}</main></BrasaShell>
-
-  return (
-    <BrasaShell slug={params.restaurantSlug} tableId={params.tableId} tableLabel={tableLabel} active="menu"><main className="sb-main">
-      <button className="sb-secondary" onClick={() => router.push(`/r/${params.restaurantSlug}/mesa/${params.tableId}/menu`)}>← Volver al menú</button>
-      <section className="sb-panel sb-panel-wide sb-detail">
-        <div>{dish.photoUrl ? <Image className="sb-detail-photo" src={dish.photoUrl} alt={dish.name} width={700} height={525} unoptimized /> : <div className="sb-detail-photo sb-empty">Sin fotografía</div>}</div>
-        <div className="sb-detail-copy"><span className="sb-eyebrow">SABOR & BRASA · {tableLabel}</span><h1 className="sb-title">{dish.name}</h1><p className="sb-subtitle">{dish.description}</p><div className="sb-total"><span>Precio por plato</span><strong>${dish.price.toFixed(2)}</strong></div>
-          <label className="sb-label" htmlFor="dish-notes">Notas para este plato (opcional)</label><textarea id="dish-notes" className="sb-textarea" value={notes} onChange={e => setNotes(e.target.value)} maxLength={140} rows={4} placeholder="Ej. término medio, sin cebolla…" />
-          <label className="sb-label">Cantidad</label><QuantityStepper value={quantity} onChange={v => setQuantity(Math.max(1, v))} min={1} />
-          {error && <div className="sb-alert" role="alert">{error}</div>}
-          <div className="sb-inline-actions"><button className="sb-primary" onClick={handleAdd} disabled={adding || !dish.isAvailable}>{adding ? 'Agregando…' : 'Agregar al pedido'}</button>{!dish.isAvailable && <span>No disponible en este momento</span>}</div>
-        </div>
-      </section>
-    </main></BrasaShell>
-  )
+  return <DishDetailShell base={base} restaurantName={restaurantName} tableLabel={tableLabel} favorite={favorite} onToggleFavorite={toggleFavorite} count={count}>
+    {offline && <p role="status" className="mb-4 rounded-xl bg-warning-soft p-3 text-body-md text-warning-soft-foreground">Sin conexión. Reconéctate antes de agregar el plato.</p>}
+    {loading ? <div className="space-y-4 pb-32" aria-label="Cargando plato"><Skeleton className="aspect-[4/3] w-full rounded-2xl" /><Skeleton className="h-6 w-3/4" /><Skeleton className="h-16 w-full" /><Skeleton className="h-24 w-full" /></div> : dish ? <DishDetail key={dish.id} dish={dish} onAdd={handleAdd} adding={adding} offline={offline} error={error} /> : <div className="space-y-4 py-12 text-body-md">{error ? <p role="alert" className="rounded-xl bg-danger-soft p-3 text-danger-soft-foreground">{error}</p> : <p>Este plato no se encuentra en el menú.</p>}<Button variant="secondary" onClick={() => error ? setRetry(n => n + 1) : router.push(`${base}/menu`)}>{error ? 'Reintentar' : 'Volver al menú'}</Button></div>}
+  </DishDetailShell>
 }

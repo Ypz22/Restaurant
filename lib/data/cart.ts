@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client'
+import type { DishSelections } from '@/lib/dish-details'
 
 export type CartItem = {
   id: string
@@ -30,7 +31,8 @@ export async function addCartItem(
   deviceToken: string,
   dishId: string,
   quantity: number,
-  notes = ''
+  notes = '',
+  selections: DishSelections = {}
 ): Promise<CartItem> {
   const supabase = createClient()
   const { data, error } = await supabase
@@ -39,6 +41,7 @@ export async function addCartItem(
       p_dish_id: dishId,
       p_quantity: quantity,
       p_notes: notes,
+      p_selections: selections,
     })
     .single()
 

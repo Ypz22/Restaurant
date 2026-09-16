@@ -21,7 +21,7 @@ test('dos comensales de la misma mesa comparten carrito y envían un pedido', as
   await pageBeto.waitForURL(/\/menu$/)
 
   await pageAna.getByText('Ojo de Bife a la Leña').click()
-  await pageAna.getByRole('button', { name: /agregar al pedido/i }).click()
+  await pageAna.getByRole('button', { name: /^agregar/i }).click()
   await pageAna.waitForURL(/\/orden$/)
 
   await pageBeto.goto(`/r/${RESTAURANT_SLUG}/mesa/${QR_TOKEN}/orden`)

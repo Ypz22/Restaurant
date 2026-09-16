@@ -12,10 +12,12 @@
   --color-onSurface: #2c2523;
   --color-outline: #d6cfc7;
 
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
 
   --font-sans: var(--font-plus-jakarta), sans-serif;
 

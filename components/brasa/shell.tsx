@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import type { ReactNode } from 'react'
 import './live.css'
+import './contrast.css'
 
 export function BrasaShell({ children, slug, tableId, tableLabel = 'Tu mesa', active, count = 0 }: {
   children: ReactNode; slug: string; tableId: string; tableLabel?: string

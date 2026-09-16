@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/client'
+import type { DishDetailSection } from '@/lib/dish-details'
 
 export type AdminCategory = { id: string; name: string; sortOrder: number }
 export type AdminDish = {
@@ -9,6 +10,7 @@ export type AdminDish = {
   price: number
   photoUrl: string | null
   isAvailable: boolean
+  detailSections?: DishDetailSection[]
 }
 
 export async function getAdminMenu(restaurantId: string): Promise<{ categories: AdminCategory[]; dishes: AdminDish[] }> {
@@ -22,7 +24,7 @@ export async function getAdminMenu(restaurantId: string): Promise<{ categories: 
       .order('sort_order'),
     supabase
       .from('dishes')
-      .select('id, category_id, name, description, price, photo_url, is_available')
+      .select('id, category_id, name, description, price, photo_url, is_available, detail_sections')
       .eq('restaurant_id', restaurantId),
   ])
 
@@ -38,6 +40,7 @@ export async function getAdminMenu(restaurantId: string): Promise<{ categories: 
       price: Number(d.price),
       photoUrl: d.photo_url,
       isAvailable: d.is_available,
+      detailSections: d.detail_sections ?? [],
     })),
   }
 }
@@ -77,6 +80,7 @@ export async function upsertDish(
     price: number
     photoUrl: string | null
     isAvailable: boolean
+    detailSections?: DishDetailSection[]
   }
 ): Promise<AdminDish> {
   const supabase = createClient()
@@ -90,6 +94,7 @@ export async function upsertDish(
       p_price: dish.price,
       p_photo_url: dish.photoUrl,
       p_is_available: dish.isAvailable,
+      p_detail_sections: dish.detailSections ?? null,
     })
     .single()
 
@@ -97,6 +102,7 @@ export async function upsertDish(
   const row = data as {
     id: string; category_id: string; name: string; description: string
     price: number; photo_url: string | null; is_available: boolean
+    detail_sections: DishDetailSection[]
   }
   return {
     id: row.id,
@@ -106,6 +112,7 @@ export async function upsertDish(
     price: Number(row.price),
     photoUrl: row.photo_url,
     isAvailable: row.is_available,
+    detailSections: row.detail_sections ?? [],
   }
 }
 

@@ -14,6 +14,20 @@ test('menú móvil y escritorio permiten buscar, filtrar y solicitar ayuda', asy
   await expect(page.locator('.sb-mobile-nav')).toBeVisible()
   await expect(page.getByText('STITCH REMIX')).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'Costillar al Quebracho' }).first()).toBeVisible()
+  const menuDescription = page.locator('article.sb-card').filter({ hasText: 'Tacos de Asado al Carbón' }).locator('p')
+  await expect(menuDescription).toBeVisible()
+  const menuTextColor = await menuDescription.evaluate((element) => ({
+    color: getComputedStyle(element).color,
+    mutedSurface: (() => {
+      const sample = document.createElement('span')
+      sample.style.color = 'var(--muted)'
+      element.parentElement?.append(sample)
+      const color = getComputedStyle(sample).color
+      sample.remove()
+      return color
+    })(),
+  }))
+  expect(menuTextColor.color).not.toBe(menuTextColor.mutedSurface)
   for (const dish of ['Calamares Fritos', 'Ceviche de Corvina']) {
     const photo = page.getByRole('img', { name: dish })
     await photo.scrollIntoViewIfNeeded()

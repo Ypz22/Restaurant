@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button'
 import { Switch } from '@/components/ui/switch'
 import type { AdminCategory, AdminDish } from '@/lib/data/admin-menu'
 import { upsertDish, uploadDishPhoto } from '@/lib/data/admin-menu'
+import { DishDetailsEditor } from '@/components/admin/dish-details-editor'
+import { detailValidationError } from '@/lib/dish-details'
 
 function DishForm({
   restaurantId, categories, dish, defaultCategoryId, onSaved, onClose,
@@ -29,6 +31,7 @@ function DishForm({
   const [photoUrl, setPhotoUrl] = useState<string | null>(dish?.photoUrl ?? null)
   const [uploading, setUploading] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [detailSections, setDetailSections] = useState(dish?.detailSections ?? [])
 
   async function handlePhotoChange(file: File | undefined) {
     if (!file) return
@@ -44,10 +47,12 @@ function DishForm({
 
   async function handleSave() {
     const parsedPrice = Number(price)
-    if (!name.trim() || !categoryId || Number.isNaN(parsedPrice) || parsedPrice < 0) {
+    if (!name.trim() || !categoryId || !price.trim() || !Number.isFinite(parsedPrice) || parsedPrice < 0) {
       toast.error('Completa nombre, categoría y un precio válido.')
       return
     }
+    const detailError = detailValidationError(detailSections)
+    if (detailError) { toast.error(detailError); return }
     setSaving(true)
     try {
       const saved = await upsertDish(restaurantId, {
@@ -58,6 +63,7 @@ function DishForm({
         price: parsedPrice,
         photoUrl,
         isAvailable,
+        detailSections,
       })
       onSaved(saved)
       onClose()
@@ -125,7 +131,9 @@ function DishForm({
         <Switch checked={isAvailable} onCheckedChange={setIsAvailable} />
       </div>
 
-      <Button onClick={handleSave} disabled={saving || uploading} className="w-full">
+      <DishDetailsEditor value={detailSections} onChange={setDetailSections} />
+
+      <Button onClick={handleSave} disabled={saving || uploading} className="sticky bottom-0 w-full">
         {saving ? 'Guardando…' : 'Guardar plato'}
       </Button>
     </div>
@@ -145,7 +153,7 @@ export function DishSheet({
 }) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[85vh] max-w-md overflow-y-auto">
+      <DialogContent className="max-h-[85vh] sm:max-w-2xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{dish ? 'Editar plato' : 'Nuevo plato'}</DialogTitle>
         </DialogHeader>
