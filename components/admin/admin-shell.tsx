@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { BookOpen, Armchair } from 'lucide-react'
+import { BookOpen, Armchair, ChartLine } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function AdminShell({
@@ -12,6 +12,7 @@ export function AdminShell({
   const pathname = usePathname()
   const base = `/admin/${restaurantSlug}`
   const links = [
+    { href: `${base}/dashboard`, label: 'Ventas', icon: ChartLine },
     { href: `${base}/menu`, label: 'Menú', icon: BookOpen },
     { href: `${base}/mesas`, label: 'Mesas', icon: Armchair },
   ]
@@ -24,7 +25,7 @@ export function AdminShell({
           <span className="text-label-sm uppercase text-muted-foreground">Administración</span>
         </div>
       </header>
-      <div className="mx-auto flex max-w-[1440px]">
+      <div className="mx-auto flex min-h-[calc(100dvh-3.5rem)] max-w-[1440px]">
         <nav className="hidden w-56 shrink-0 border-r border-border bg-card p-3 xl:block" aria-label="Navegación de administración">
           <ul className="flex flex-col gap-1">
             {links.map(({ href, label, icon: Icon }) => {

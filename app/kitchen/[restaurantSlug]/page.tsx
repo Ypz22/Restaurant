@@ -84,8 +84,8 @@ export default function KitchenPage() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
-        {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-56 w-full" />)}
+      <div className="columns-[240px] gap-3">
+        {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="mb-3 h-56 w-full break-inside-avoid" />)}
       </div>
     )
   }
@@ -108,19 +108,19 @@ export default function KitchenPage() {
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
+    <div className="columns-[240px] gap-3">
       {tickets.map((ticket) => {
         const badge = STATUS_BADGE[ticket.status]
         const next = nextStatus(ticket.status)
         return (
-          <article key={ticket.roundId} className="flex flex-col overflow-hidden rounded-xl bg-card shadow-sm">
+          <article key={ticket.roundId} className="mb-3 flex flex-col overflow-hidden rounded-xl bg-card shadow-sm break-inside-avoid">
             <header className="flex items-center justify-between gap-2 border-b border-border px-3 py-1.5">
-              <div className="flex items-center gap-2">
-                <span className="text-title-md tabular-nums text-foreground">{ticket.tableLabel}</span>
-                <Badge variant={badge.variant}>{badge.label}</Badge>
-              </div>
+              <span className="text-title-md tabular-nums text-foreground">{ticket.tableLabel}</span>
               <span className="text-label-md tabular-nums text-muted-foreground">{elapsedLabel(ticket.submittedAt, now)}</span>
             </header>
+            <div className="px-3 pt-1.5">
+              <Badge variant={badge.variant}>{badge.label}</Badge>
+            </div>
             <ul className="flex flex-col divide-y divide-border px-3">
               {ticket.items.map((item) => (
                 <li key={item.id} className="flex items-start justify-between gap-2 py-1.5">
@@ -133,7 +133,7 @@ export default function KitchenPage() {
               ))}
             </ul>
             {ticket.kitchenNotes && (
-              <p className="mx-3 mb-2 rounded-lg border-l-4 border-warning-soft-foreground/40 bg-muted px-2.5 py-1.5 text-label-md text-foreground">
+              <p className="mx-3 mb-2 rounded-lg bg-warning-soft px-2.5 py-1.5 text-label-md text-warning-soft-foreground">
                 {ticket.kitchenNotes}
               </p>
             )}

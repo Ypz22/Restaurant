@@ -145,11 +145,11 @@ export default function AdminMesasPage() {
                 )}
               </CardContent>
               <CardFooter>
-                <Button variant="ghost" size="sm" onClick={() => setQrTable(table)}>
+                <Button variant="ghost" size="sm" className="flex-1" onClick={() => setQrTable(table)}>
                   <QrCode className="size-4" /> Ver QR
                 </Button>
                 <Button
-                  variant="destructive" size="sm"
+                  variant="destructive" size="sm" className="flex-1"
                   disabled={!table.session}
                   onClick={() => setClosingTable(table)}
                 >
