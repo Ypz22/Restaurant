@@ -53,7 +53,7 @@ Un solo proyecto **Next.js** (App Router) con tres superficies:
 ## Modelo de datos
 
 **Cuentas y estructura del restaurante**
-- `restaurants` (id, name, slug)
+- `restaurants` (id, name, slug, theme: `brasa` / `mar` / `cafe` / `huerta`) — `theme` define la paleta de la vista del cliente; admin y KDS no la usan (ver `DESIGN.md`).
 - `staff_users` (id, restaurant_id, role: `admin` / `mesero` / `cocina`, vinculado a Supabase Auth)
 - `tables` (id, restaurant_id, label/número, qr_token único)
 
