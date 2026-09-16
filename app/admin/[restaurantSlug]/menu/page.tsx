@@ -109,9 +109,9 @@ export default function AdminMenuPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-headline-lg text-foreground">Menú</h1>
+        <h1 className="text-title-lg text-foreground">Menú</h1>
         <Button
           onClick={() => { setEditingDish(null); setDishSheetOpen(true) }}
           disabled={categories.length === 0}
@@ -142,14 +142,14 @@ export default function AdminMenuPage() {
             {categories.find((c) => c.id === activeCategoryId) && (
               <>
                 <Button
-                  variant="ghost" size="icon"
+                  variant="ghost" size="icon-sm"
                   aria-label="Editar categoría"
                   onClick={() => { setEditingCategory(categories.find((c) => c.id === activeCategoryId) ?? null); setCategoryDialogOpen(true) }}
                 >
                   <Pencil className="size-4" />
                 </Button>
                 <Button
-                  variant="ghost" size="icon"
+                  variant="ghost" size="icon-sm"
                   aria-label="Eliminar categoría"
                   onClick={() => setDeletingCategory(categories.find((c) => c.id === activeCategoryId) ?? null)}
                 >
@@ -180,15 +180,15 @@ export default function AdminMenuPage() {
                 {visibleDishes.map((dish) => (
                   <TableRow key={dish.id}>
                     <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
+                      <div className="flex items-center gap-2.5">
+                        <div className="flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted">
                           {dish.photoUrl && (
-                            <Image src={dish.photoUrl} alt="" width={48} height={48} className="size-12 object-cover" unoptimized />
+                            <Image src={dish.photoUrl} alt="" width={36} height={36} className="size-9 object-cover" unoptimized />
                           )}
                         </div>
                         <div>
-                          <p className="text-title-md text-foreground">{dish.name}</p>
-                          <p className="line-clamp-1 text-body-md text-muted-foreground">{dish.description}</p>
+                          <p className="text-body-md font-medium text-foreground">{dish.name}</p>
+                          <p className="line-clamp-1 text-label-sm text-muted-foreground">{dish.description}</p>
                         </div>
                       </div>
                     </TableCell>
@@ -201,10 +201,10 @@ export default function AdminMenuPage() {
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-2">
-                        <Button variant="ghost" size="icon" aria-label={`Editar ${dish.name}`} onClick={() => { setEditingDish(dish); setDishSheetOpen(true) }}>
+                        <Button variant="ghost" size="icon-sm" aria-label={`Editar ${dish.name}`} onClick={() => { setEditingDish(dish); setDishSheetOpen(true) }}>
                           <Pencil className="size-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" aria-label={`Eliminar ${dish.name}`} onClick={() => setDeletingDish(dish)}>
+                        <Button variant="ghost" size="icon-sm" aria-label={`Eliminar ${dish.name}`} onClick={() => setDeletingDish(dish)}>
                           <Trash2 className="size-4" />
                         </Button>
                       </div>

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
@@ -144,11 +144,11 @@ export function DishSheet({
   onSaved: (dish: AdminDish) => void
 }) {
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="mx-auto max-w-lg">
-        <SheetHeader>
-          <SheetTitle>{dish ? 'Editar plato' : 'Nuevo plato'}</SheetTitle>
-        </SheetHeader>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[85vh] max-w-md overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>{dish ? 'Editar plato' : 'Nuevo plato'}</DialogTitle>
+        </DialogHeader>
         {open && (
           <DishForm
             key={dish?.id ?? 'new'}
@@ -160,7 +160,7 @@ export function DishSheet({
             onClose={() => onOpenChange(false)}
           />
         )}
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   )
 }

@@ -95,20 +95,20 @@ export default function AdminMesasPage() {
   }
 
   return (
-    <div className="flex flex-col gap-8">
-      <h1 className="text-headline-lg text-foreground">Mesas</h1>
+    <div className="flex flex-col gap-5">
+      <h1 className="text-title-lg text-foreground">Mesas</h1>
 
       {requests.length > 0 && (
-        <section className="flex flex-col gap-3">
-          <h2 className="text-title-lg text-foreground">Solicitudes pendientes</h2>
+        <section className="flex flex-col gap-2">
+          <h2 className="text-label-lg uppercase text-muted-foreground">Solicitudes pendientes</h2>
           <div className="flex flex-col gap-2">
             {requests.map((r) => (
-              <div key={r.id} className="flex items-center justify-between gap-4 rounded-2xl border border-border bg-card p-4">
-                <div className="flex items-center gap-3">
-                  {r.type === 'agua' ? <Droplets className="size-5 text-secondary-foreground" /> : <ConciergeBell className="size-5 text-secondary-foreground" />}
+              <div key={r.id} className="flex items-center justify-between gap-4 rounded-xl bg-card p-3 shadow-sm">
+                <div className="flex items-center gap-2.5">
+                  {r.type === 'agua' ? <Droplets className="size-4 text-secondary-foreground" /> : <ConciergeBell className="size-4 text-secondary-foreground" />}
                   <div>
-                    <p className="text-title-md text-foreground">{r.tableLabel} · {r.reason || (r.type === 'agua' ? 'Agua' : 'Llamar al mesero')}</p>
-                    {r.notes && <p className="text-body-md text-muted-foreground">{r.notes}</p>}
+                    <p className="text-body-md font-medium text-foreground">{r.tableLabel} · {r.reason || (r.type === 'agua' ? 'Agua' : 'Llamar al mesero')}</p>
+                    {r.notes && <p className="text-label-sm text-muted-foreground">{r.notes}</p>}
                   </div>
                 </div>
                 <Button size="sm" onClick={() => handleAcknowledge(r)}>Atender</Button>
@@ -124,11 +124,11 @@ export default function AdminMesasPage() {
           <p className="text-body-md text-muted-foreground">Todavía no hay mesas registradas.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-6">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-3">
           {tables.map((table) => (
             <Card key={table.id}>
               <CardHeader className="flex-row items-center justify-between">
-                <CardTitle className="flex items-center gap-2"><Armchair className="size-5" />{table.label}</CardTitle>
+                <CardTitle className="flex items-center gap-1.5"><Armchair className="size-4" />{table.label}</CardTitle>
                 {table.session ? (
                   <Badge variant="success">Abierta</Badge>
                 ) : (

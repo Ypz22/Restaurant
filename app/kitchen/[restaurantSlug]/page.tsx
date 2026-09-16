@@ -31,7 +31,7 @@ function elapsedLabel(iso: string, now: number) {
   return `${minutes}:${String(remaining).padStart(2, '0')}`
 }
 
-export default function AdminKitchenPage() {
+export default function KitchenPage() {
   const restaurant = useAdminRestaurant()
   const [tickets, setTickets] = useState<KitchenTicket[]>([])
   const [loading, setLoading] = useState(true)
@@ -84,8 +84,8 @@ export default function AdminKitchenPage() {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
-        {Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-72 w-full" />)}
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
+        {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-56 w-full" />)}
       </div>
     )
   }
@@ -98,59 +98,53 @@ export default function AdminKitchenPage() {
     )
   }
 
-  return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-headline-lg text-foreground">Cocina</h1>
+  if (tickets.length === 0) {
+    return (
+      <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-12 text-center">
+        <ConciergeBell className="size-6 text-muted-foreground" />
+        <p className="text-body-md text-muted-foreground">No hay comandas activas por ahora.</p>
+      </div>
+    )
+  }
 
-      {tickets.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-12 text-center">
-          <ConciergeBell className="size-6 text-muted-foreground" />
-          <p className="text-body-md text-muted-foreground">No hay comandas activas por ahora.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
-          {tickets.map((ticket) => {
-            const badge = STATUS_BADGE[ticket.status]
-            const next = nextStatus(ticket.status)
-            return (
-              <article key={ticket.roundId} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-                <header className="flex items-center justify-between border-b border-border bg-muted px-4 py-2">
-                  <div className="flex items-center gap-2">
-                    <span className="rounded-lg border border-border bg-card px-2 py-0.5 text-headline-md tabular-nums text-foreground">
-                      {ticket.tableLabel}
-                    </span>
+  return (
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-3">
+      {tickets.map((ticket) => {
+        const badge = STATUS_BADGE[ticket.status]
+        const next = nextStatus(ticket.status)
+        return (
+          <article key={ticket.roundId} className="flex flex-col overflow-hidden rounded-xl bg-card shadow-sm">
+            <header className="flex items-center justify-between gap-2 border-b border-border px-3 py-1.5">
+              <div className="flex items-center gap-2">
+                <span className="text-title-md tabular-nums text-foreground">{ticket.tableLabel}</span>
+                <Badge variant={badge.variant}>{badge.label}</Badge>
+              </div>
+              <span className="text-label-md tabular-nums text-muted-foreground">{elapsedLabel(ticket.submittedAt, now)}</span>
+            </header>
+            <ul className="flex flex-col divide-y divide-border px-3">
+              {ticket.items.map((item) => (
+                <li key={item.id} className="flex items-start justify-between gap-2 py-1.5">
+                  <div>
+                    <p className="text-body-md text-foreground">{item.dishName}</p>
+                    {item.notes && <p className="text-label-sm text-muted-foreground">{item.notes}</p>}
                   </div>
-                  <span className="text-label-lg tabular-nums text-muted-foreground">{elapsedLabel(ticket.submittedAt, now)}</span>
-                </header>
-                <div className="flex flex-col gap-2 p-4">
-                  <Badge variant={badge.variant}>{badge.label}</Badge>
-                  <ul className="flex flex-col divide-y divide-border">
-                    {ticket.items.map((item) => (
-                      <li key={item.id} className="flex items-start justify-between gap-2 py-2">
-                        <div>
-                          <p className="text-body-md text-foreground">{item.dishName}</p>
-                          {item.notes && <p className="text-body-md text-muted-foreground">{item.notes}</p>}
-                        </div>
-                        <span className="text-label-lg tabular-nums text-foreground">×{item.quantity}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {ticket.kitchenNotes && (
-                    <p className="rounded-lg border-l-4 border-warning-soft-foreground/40 bg-muted px-3 py-2 text-body-md text-foreground">
-                      {ticket.kitchenNotes}
-                    </p>
-                  )}
-                </div>
-                {next && (
-                  <Button className="h-11 w-full rounded-none" onClick={() => handleAdvance(ticket)}>
-                    {ADVANCE_LABEL[next]}
-                  </Button>
-                )}
-              </article>
-            )
-          })}
-        </div>
-      )}
+                  <span className="text-label-md tabular-nums text-foreground">×{item.quantity}</span>
+                </li>
+              ))}
+            </ul>
+            {ticket.kitchenNotes && (
+              <p className="mx-3 mb-2 rounded-lg border-l-4 border-warning-soft-foreground/40 bg-muted px-2.5 py-1.5 text-label-md text-foreground">
+                {ticket.kitchenNotes}
+              </p>
+            )}
+            {next && (
+              <Button size="sm" className="h-9 w-full rounded-none" onClick={() => handleAdvance(ticket)}>
+                {ADVANCE_LABEL[next]}
+              </Button>
+            )}
+          </article>
+        )
+      })}
     </div>
   )
 }

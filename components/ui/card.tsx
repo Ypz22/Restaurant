@@ -6,11 +6,11 @@ function Card({ className, ...props }: React.ComponentProps<'div'>) {
 }
 
 function CardHeader({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex flex-col gap-1 p-6', className)} {...props} />
+  return <div className={cn('flex flex-col gap-1 p-4', className)} {...props} />
 }
 
 function CardTitle({ className, ...props }: React.ComponentProps<'h3'>) {
-  return <h3 className={cn('text-title-lg text-foreground', className)} {...props} />
+  return <h3 className={cn('text-title-md text-foreground', className)} {...props} />
 }
 
 function CardDescription({ className, ...props }: React.ComponentProps<'p'>) {
@@ -18,11 +18,11 @@ function CardDescription({ className, ...props }: React.ComponentProps<'p'>) {
 }
 
 function CardContent({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('p-6 pt-0', className)} {...props} />
+  return <div className={cn('p-4 pt-0', className)} {...props} />
 }
 
 function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
-  return <div className={cn('flex items-center gap-2 p-6 pt-0', className)} {...props} />
+  return <div className={cn('flex items-center gap-2 p-4 pt-0', className)} {...props} />
 }
 
 export { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
