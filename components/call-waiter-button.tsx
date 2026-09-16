@@ -15,7 +15,7 @@ export function CallWaiterButton({ deviceToken }: { deviceToken: string }) {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-6 right-6 rounded-full bg-primary px-5 py-3 font-semibold text-onPrimary shadow-lg"
+      className="fixed bottom-6 right-6 rounded-full bg-brasa-primary px-5 py-3 font-semibold text-onPrimary shadow-lg"
     >
       {confirmed ? 'Mesero en camino' : 'Llamar mesero'}
     </button>

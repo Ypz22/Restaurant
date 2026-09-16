@@ -34,7 +34,7 @@ export function NicknameForm({
       <button
         type="submit"
         disabled={disabled}
-        className="rounded-md bg-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
+        className="rounded-md bg-brasa-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
       >
         Entrar
       </button>

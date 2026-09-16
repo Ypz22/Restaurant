@@ -10,9 +10,9 @@ export function DishCard({ dish, onClick }: { dish: MenuDish; onClick: (id: stri
       <div>
         <p className="text-title-md text-onSurface">{dish.name}</p>
         <p className="text-body-md text-onSurface/70">{dish.description}</p>
-        {!dish.isAvailable && <p className="text-label-sm uppercase text-primary">Agotado</p>}
+        {!dish.isAvailable && <p className="text-label-sm uppercase text-brasa-primary">Agotado</p>}
       </div>
-      <p className="text-title-md font-semibold text-primary">${dish.price.toFixed(2)}</p>
+      <p className="text-title-md font-semibold text-brasa-primary">${dish.price.toFixed(2)}</p>
     </button>
   )
 }

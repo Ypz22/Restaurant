@@ -22,7 +22,7 @@ export function CartItemRow({
           min={0}
           onChange={(q) => (q === 0 ? onRemove(item.id) : onQuantityChange(item.id, q))}
         />
-        <p className="text-title-md font-semibold text-primary">
+        <p className="text-title-md font-semibold text-brasa-primary">
           ${(item.quantity * item.unitPriceSnapshot).toFixed(2)}
         </p>
       </div>

@@ -16,7 +16,7 @@ export function CategoryTabs({
           key={c.id}
           onClick={() => onSelect(c.id)}
           className={`rounded-full px-4 py-2 text-label-lg whitespace-nowrap ${
-            c.id === activeId ? 'bg-primary text-onPrimary' : 'bg-surface text-onSurface'
+            c.id === activeId ? 'bg-brasa-primary text-onPrimary' : 'bg-surface text-onSurface'
           }`}
         >
           {c.name}

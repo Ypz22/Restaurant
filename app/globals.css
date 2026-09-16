@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #bc4749;
+  --color-brasa-primary: #bc4749;
   --color-primary-dark: #a7333b;
   --color-onPrimary: #ffffff;
   --color-secondary: #e29578;
   --color-tertiary: #f4a261;
-  --color-background: #fdfbf7;
+  --color-brasa-background: #fdfbf7;
   --color-surface: #f4f1ea;
   --color-surface-elevated: #efece3;
   --color-onSurface: #2c2523;
@@ -19,6 +19,11 @@
 
   --font-sans: var(--font-plus-jakarta), sans-serif;
 
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--font-weight: 700;
+  --text-headline-lg--letter-spacing: -0.01em;
+
   --text-headline-md: 24px;
   --text-headline-md--line-height: 30px;
   --text-headline-md--font-weight: 600;
@@ -30,6 +35,7 @@
   --text-title-md: 16px;
   --text-title-md--line-height: 22px;
   --text-title-md--font-weight: 600;
+  --text-title-md--letter-spacing: 0.01em;
 
   --text-body-lg: 16px;
   --text-body-lg--line-height: 24px;
@@ -42,17 +48,116 @@
   --text-label-lg: 14px;
   --text-label-lg--line-height: 18px;
   --text-label-lg--font-weight: 600;
+  --text-label-lg--letter-spacing: 0.02em;
 
   --text-label-md: 12px;
   --text-label-md--line-height: 16px;
   --text-label-md--font-weight: 600;
+  --text-label-md--letter-spacing: 0.04em;
 
   --text-label-sm: 11px;
   --text-label-sm--line-height: 14px;
   --text-label-sm--font-weight: 700;
+  --text-label-sm--letter-spacing: 0.05em;
 }
 
 body {
-  background: var(--color-background);
+  background: var(--color-brasa-background);
   color: var(--color-onSurface);
+}
+
+/*
+ * Sistema de tokens de admin/KDS y temas de tenant (DESIGN.md §3).
+ * No usado todavía por las páginas de cliente existentes (bg-surface,
+ * text-onSurface arriba) — esa migración queda pendiente aparte.
+ */
+:root {
+  --brand-h: 250; --brand-c: 0.04;
+  --accent-h: 70;  --accent-c: 0.10;
+  --neutral-h: 250; --neutral-c: 0.006;
+}
+[data-theme="brasa"]  { --brand-h: 28;  --brand-c: 0.15; --accent-h: 55;  --accent-c: 0.11; --neutral-h: 60;  --neutral-c: 0.008; }
+[data-theme="mar"]    { --brand-h: 240; --brand-c: 0.11; --accent-h: 190; --accent-c: 0.08; --neutral-h: 230; --neutral-c: 0.008; }
+[data-theme="cafe"]   { --brand-h: 50;  --brand-c: 0.06; --accent-h: 65;  --accent-c: 0.11; --neutral-h: 70;  --neutral-c: 0.010; }
+[data-theme="huerta"] { --brand-h: 145; --brand-c: 0.10; --accent-h: 100; --accent-c: 0.09; --neutral-h: 110; --neutral-c: 0.008; }
+
+:root, [data-theme] {
+  --background:           oklch(0.985 var(--neutral-c) var(--neutral-h));
+  --foreground:           oklch(0.22  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --card:                 oklch(1 0 0);
+  --card-foreground:      var(--foreground);
+  --popover:              oklch(1 0 0);
+  --popover-foreground:   var(--foreground);
+  --muted:                oklch(0.955 var(--neutral-c) var(--neutral-h));
+  --muted-foreground:     oklch(0.50  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --border:               oklch(0.905 var(--neutral-c) var(--neutral-h));
+  --input:                var(--border);
+  --primary:              oklch(0.50 var(--brand-c) var(--brand-h));
+  --primary-foreground:   oklch(0.99 0 0);
+  --ring:                 var(--primary);
+  --secondary:            oklch(0.945 calc(var(--brand-c) * 0.15) var(--brand-h));
+  --secondary-foreground: oklch(0.40  calc(var(--brand-c) * 0.8)  var(--brand-h));
+  --accent:               var(--muted);
+  --accent-foreground:    var(--foreground);
+  --highlight:            oklch(0.94 calc(var(--accent-c) * 0.3) var(--accent-h));
+  --highlight-foreground: oklch(0.42 calc(var(--accent-c) * 0.8) var(--accent-h));
+  --inverse:              oklch(0.25 calc(var(--neutral-c) * 2) var(--neutral-h));
+  --inverse-foreground:   oklch(0.97 var(--neutral-c) var(--neutral-h));
+
+  --destructive:              oklch(0.52 0.18 27);
+  --destructive-foreground:   oklch(0.99 0 0);
+  --danger-soft:              oklch(0.95 0.025 27);
+  --danger-soft-foreground:   oklch(0.45 0.15 27);
+  --success-soft:             oklch(0.95 0.035 150);
+  --success-soft-foreground:  oklch(0.42 0.09 150);
+  --warning-soft:             oklch(0.95 0.05 85);
+  --warning-soft-foreground:  oklch(0.45 0.09 70);
+  --info-soft:                oklch(0.95 0.025 240);
+  --info-soft-foreground:     oklch(0.42 0.08 240);
+  --diet-vegan:                oklch(0.95 0.04 135);
+  --diet-vegan-foreground:     oklch(0.42 0.10 135);
+  --diet-gluten-free:          oklch(0.95 0.05 90);
+  --diet-gluten-free-foreground: oklch(0.45 0.09 80);
+  --diet-spicy:                oklch(0.95 0.024 35);
+  --diet-spicy-foreground:     oklch(0.48 0.16 35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--ring);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-inverse: var(--inverse);
+  --color-inverse-foreground: var(--inverse-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-soft-foreground: var(--danger-soft-foreground);
+  --color-success-soft: var(--success-soft);
+  --color-success-soft-foreground: var(--success-soft-foreground);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-soft-foreground: var(--warning-soft-foreground);
+  --color-info-soft: var(--info-soft);
+  --color-info-soft-foreground: var(--info-soft-foreground);
+  --color-diet-vegan: var(--diet-vegan);
+  --color-diet-vegan-foreground: var(--diet-vegan-foreground);
+  --color-diet-gluten-free: var(--diet-gluten-free);
+  --color-diet-gluten-free-foreground: var(--diet-gluten-free-foreground);
+  --color-diet-spicy: var(--diet-spicy);
+  --color-diet-spicy-foreground: var(--diet-spicy-foreground);
 }

@@ -12,12 +12,12 @@ export function QuantityStepper({
       <button
         aria-label="-"
         onClick={() => onChange(Math.max(min, value - 1))}
-        className="text-title-lg text-primary"
+        className="text-title-lg text-brasa-primary"
       >
         -
       </button>
       <span className="w-6 text-center text-title-md">{value}</span>
-      <button aria-label="+" onClick={() => onChange(value + 1)} className="text-title-lg text-primary">
+      <button aria-label="+" onClick={() => onChange(value + 1)} className="text-title-lg text-brasa-primary">
         +
       </button>
     </div>
