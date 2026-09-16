@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Check } from 'lucide-react'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { DishDetailsEditor } from '@/components/admin/dish-details-editor'
 import { upsertDish, type AdminCategory, type AdminDish } from '@/lib/data/admin-menu'
 import { detailValidationError, type DishDetailSection } from '@/lib/dish-details'
@@ -50,20 +50,21 @@ export function DetailSectionBulkDialog({ open, onOpenChange, restaurantId, cate
   }
 
   return <Dialog open={open} onOpenChange={onOpenChange}>
-    <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-2xl">
-      <DialogHeader><DialogTitle>Aplicar sección a varios platos</DialogTitle></DialogHeader>
-      <p className="text-body-md text-muted-foreground">Configura una sección y define qué platos la recibirán. Luego puedes ajustar el contenido de cada plato por separado.</p>
-      <DishDetailsEditor value={section ? [section] : []} onChange={sections => setSection(sections[0] ?? null)} maxSections={1} />
-      <fieldset className="space-y-3 border-t border-border pt-5">
-        <legend className="text-title-md text-foreground">Dónde aplicar</legend>
+    <DialogContent className="max-h-[85vh] overflow-y-auto sm:max-w-3xl">
+      <DialogHeader className="mb-0 border-b border-border pb-5 pr-8"><DialogTitle>Aplicar sección a varios platos</DialogTitle><DialogDescription>Define el contenido base y elige dónde aparecerá. Después puedes personalizarlo en cada plato.</DialogDescription></DialogHeader>
+      <div className="space-y-6 py-6">
+        <DishDetailsEditor value={section ? [section] : []} onChange={sections => setSection(sections[0] ?? null)} maxSections={1} title="1. Configura la sección" description="Esta será la base que recibirán los platos seleccionados." emptyMessage="Elige el tipo de sección para empezar a configurar su contenido." showPriceNote={false} showTopBorder={false} />
+      <fieldset className="space-y-4 rounded-2xl border border-border bg-card p-4">
+        <legend className="text-title-md text-foreground">2. Elige dónde aplicarla</legend><p className="text-body-md text-muted-foreground">Puedes usarla en todo el menú, por categoría o solo en platos específicos.</p>
         <div className="grid gap-2 sm:grid-cols-3">
-          {([['all', 'Todo el menú'], ['categories', 'Categorías'], ['dishes', 'Platos concretos']] as const).map(([value, label]) => <label key={value} className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-border bg-card px-3 text-label-md text-foreground has-[:checked]:border-primary has-[:checked]:ring-1 has-[:checked]:ring-primary"><input type="radio" name="section-scope" value={value} checked={scope === value} onChange={() => { setScope(value); setTargets([]) }} />{label}</label>)}
+          {([['all', 'Todo el menú'], ['categories', 'Categorías'], ['dishes', 'Platos concretos']] as const).map(([value, label]) => <label key={value} className="flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-border bg-background px-3 text-label-md text-foreground has-[:checked]:border-primary has-[:checked]:bg-secondary has-[:checked]:text-secondary-foreground has-[:checked]:ring-1 has-[:checked]:ring-primary"><input type="radio" name="section-scope" value={value} checked={scope === value} onChange={() => { setScope(value); setTargets([]) }} />{label}</label>)}
         </div>
         {scope !== 'all' && <div className="grid max-h-52 gap-2 overflow-y-auto rounded-2xl bg-muted p-3 sm:grid-cols-2">
           {availableTargets.map(target => <label key={target.id} className="flex min-h-11 items-center gap-2 rounded-xl bg-card px-3 text-label-md text-foreground"><input type="checkbox" checked={targets.includes(target.id)} onChange={() => toggle(target.id)} /><span>{target.name}</span></label>)}
         </div>}
       </fieldset>
-      <Button onClick={apply} disabled={saving}><Check className="size-4" />{saving ? 'Aplicando…' : 'Guardar y aplicar sección'}</Button>
+      </div>
+      <div className="sticky bottom-0 border-t border-border bg-background pt-4"><Button onClick={apply} disabled={saving} className="w-full sm:w-auto"><Check className="size-4" />{saving ? 'Aplicando…' : 'Guardar y aplicar sección'}</Button></div>
     </DialogContent>
   </Dialog>
 }

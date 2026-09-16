@@ -14,10 +14,20 @@ import {
 const selectClass = 'h-11 w-full rounded-xl border border-input bg-card px-3 text-body-md text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring'
 const iconNames = { portion: 'Porción', fire: 'Fuego', calendar: 'Maduración / fecha', time: 'Tiempo', leaf: 'Origen / vegetal', info: 'Información' } as const
 
-export function DishDetailsEditor({ value, onChange, maxSections = 20 }: {
+export function DishDetailsEditor({
+  value, onChange, maxSections = 20, title = 'Detalle del plato',
+  description = 'Añade las secciones que necesita este plato. Aparecerán en el menú en este orden.',
+  emptyMessage = 'Este plato aún no tiene secciones. Añade características, ingredientes u opciones para personalizarlo.',
+  showPriceNote = true, showTopBorder = true,
+}: {
   value: DishDetailSection[]
   onChange: (sections: DishDetailSection[]) => void
   maxSections?: number
+  title?: string
+  description?: string
+  emptyMessage?: string
+  showPriceNote?: boolean
+  showTopBorder?: boolean
 }) {
   const [newKind, setNewKind] = useState<DishDetailKind>('characteristics')
 
@@ -34,12 +44,12 @@ export function DishDetailsEditor({ value, onChange, maxSections = 20 }: {
     onChange(next)
   }
 
-  return <section className="space-y-4 border-t border-border pt-6" aria-labelledby="detail-editor-title">
+  return <section className={`space-y-4 ${showTopBorder ? 'border-t border-border pt-6' : ''}`} aria-labelledby="detail-editor-title">
     <div>
-      <h2 id="detail-editor-title" className="text-title-md text-foreground">Detalle del plato</h2>
-      <p className="mt-1 text-body-md text-muted-foreground">Añade las secciones que necesita este plato. Aparecerán en el menú en este orden.</p>
+      <h2 id="detail-editor-title" className="text-title-md text-foreground">{title}</h2>
+      <p className="mt-1 text-body-md text-muted-foreground">{description}</p>
     </div>
-    {!value.length && <p className="rounded-xl bg-muted p-4 text-body-md text-muted-foreground">Este plato aún no tiene secciones. Añade características, ingredientes u opciones para personalizarlo.</p>}
+    {!value.length && <p className="rounded-xl bg-muted p-4 text-body-md text-muted-foreground">{emptyMessage}</p>}
     {value.map((section, index) => {
       const selectable = section.kind === 'single' || section.kind === 'multiple'
       const canRequire = selectable || section.kind === 'notes'
@@ -104,6 +114,6 @@ export function DishDetailsEditor({ value, onChange, maxSections = 20 }: {
       <label className="min-w-0 flex-1"><span className="sr-only">Tipo de nueva sección</span><select className={selectClass} value={newKind} onChange={e => setNewKind(e.target.value as DishDetailKind)}>{Object.entries(detailKinds).map(([kind, name]) => <option key={kind} value={kind} disabled={kind === 'notes' && value.some(s => s.kind === 'notes')}>{name}</option>)}</select></label>
       <Button type="button" variant="secondary" disabled={value.length >= maxSections || (newKind === 'notes' && value.some(s => s.kind === 'notes'))} onClick={() => onChange([...value, createDetailSection(newKind)])}><Plus className="size-4" /> Añadir sección</Button>
     </div>
-    <p className="text-label-md text-muted-foreground">Los precios adicionales se cobran por cada unidad del plato. Quitar una sección no cambia pedidos ya guardados.</p>
+    {showPriceNote && <p className="text-label-md text-muted-foreground">Los precios adicionales se cobran por cada unidad del plato. Quitar una sección no cambia pedidos ya guardados.</p>}
   </section>
 }
