@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Pedido Confirmado - Sabor &amp; Brasa</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Playfair Display for rustic/elegant gastronomy titles & Plus Jakarta Sans for crisp UI -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brasa-wine': '#bc4749',
+            'brasa-wine-dark': '#9e2a2b',
+            'brasa-wine-light': '#fdf2f2',
+            'brasa-cream': '#fbf9f5',
+            'brasa-cream-card': '#ffffff',
+            'brasa-border': '#ede8e1',
+            'brasa-dark': '#2b2320',
+            'brasa-muted': '#786e68',
+            'brasa-tag-bg': '#f3ede4',
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+<!-- BEGIN: Custom Layout & Pulse Styles -->
+<style data-purpose="custom-animations">
+    @keyframes pulse-subtle {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.88; }
+    }
+    .animate-flame {
+      animation: pulse-subtle 2.4s infinite ease-in-out;
+    }
+    /* Hide scrollbars on native mobile feel */
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    body {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+<!-- END: Custom Layout & Pulse Styles -->
+</head>
+<body class="bg-brasa-cream font-sans text-brasa-dark antialiased min-h-screen pb-28 flex flex-col justify-between">
+<!-- BEGIN: TopHeader -->
+<header class="sticky top-0 z-30 bg-brasa-cream/95 backdrop-blur-md px-4 pt-3 pb-3 border-b border-brasa-border/80">
+<div class="max-w-md mx-auto flex items-center justify-between">
+<!-- Back button -->
+<button aria-label="Volver al menú" class="w-10 h-10 rounded-full bg-white border border-brasa-border flex items-center justify-center text-brasa-dark hover:bg-neutral-50 active:scale-95 transition-all shadow-sm" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+<!-- Location Badge Centered -->
+<div class="flex flex-col items-center">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-brasa-border rounded-full shadow-xs">
+<!-- Table icon -->
+<svg class="w-3.5 h-3.5 text-brasa-wine" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 10h18M3 14h18m-9-4v8m-7 0v2m16-2v2M5 10V6a1 1 0 011-1h12a1 1 0 011 1v4" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-xs font-semibold text-brasa-dark">Mesa 04</span>
+<span class="text-[10px] text-brasa-muted">•</span>
+<span class="text-xs text-brasa-muted font-normal">Salón Principal</span>
+</div>
+</div>
+<!-- Order Info / Help Icon -->
+<button aria-label="Información de comanda" class="w-10 h-10 rounded-full bg-white border border-brasa-border flex items-center justify-center text-brasa-dark hover:bg-neutral-50 active:scale-95 transition-all shadow-sm" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</button>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: MainContent -->
+<main class="max-w-md mx-auto px-4 w-full pt-4 space-y-4">
+<!-- BEGIN: HeroSuccessSection -->
+<section class="text-center pt-2 pb-1" data-purpose="success-hero">
+<!-- Animated Emblem Icon with flame & check -->
+<div class="relative inline-flex items-center justify-center mb-3">
+<div class="w-20 h-20 rounded-full bg-brasa-wine-light border border-red-100 flex items-center justify-center relative shadow-inner">
+<div class="w-14 h-14 rounded-full bg-brasa-wine flex items-center justify-center text-white shadow-md animate-flame">
+<!-- Combined Flame/Bell Icon -->
+<svg class="w-7 h-7" fill="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M12.963 2.286a.75.75 0 00-1.071-.136 9.742 9.742 0 00-3.539 6.177A7.547 7.547 0 016.6 11.4c-.688.81-1.1 1.848-1.1 2.975 0 2.76 2.24 5 5 5 .434 0 .85-.057 1.25-.16a.75.75 0 00.54-.77c-.125-1.464.385-2.88 1.43-3.882 1.488-1.427 1.78-3.66.743-5.385a.75.75 0 00-.773-.393c-1.08.196-2.12-.224-2.805-1.107-.723-.933-.77-2.193-.162-3.344.204-.386.13-.864-.26-1.148zM14.25 15a4.48 4.48 0 01-1.344 3.197.75.75 0 00.99 1.13A5.98 5.98 0 0016.5 15c0-1.258-.456-2.418-1.218-3.318a.75.75 0 00-1.18.914c.48.572.768 1.303.768 2.054a.75.75 0 00.38-.65z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<!-- Verification check mini badge -->
+<span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-600 text-white border-2 border-white flex items-center justify-center shadow">
+<svg class="w-3.5 h-3.5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" fill-rule="evenodd"></path>
+</svg>
+</span>
+</div>
+</div>
+<!-- Success Typography -->
+<span class="inline-block px-3 py-0.5 mb-1.5 rounded-full text-[11px] font-semibold tracking-wide uppercase bg-emerald-50 text-emerald-800 border border-emerald-200/70">
+        Comanda confirmada con éxito
+      </span>
+<h1 class="text-2xl sm:text-3xl font-bold font-serif text-brasa-dark tracking-tight">
+        ¡Pedido enviado a cocina!
+      </h1>
+<p class="text-xs sm:text-sm text-brasa-muted mt-1.5 max-w-xs mx-auto leading-relaxed">
+        El equipo de fogones y brasas ya está preparando tu comanda con la máxima dedicación.
+      </p>
+</section>
+<!-- END: HeroSuccessSection -->
+<!-- BEGIN: RealTimeTrackingCard -->
+<section class="bg-white rounded-2xl p-4 border border-brasa-border shadow-sm" data-purpose="tracking-status">
+<!-- 3 Metrics Highlights -->
+<div class="grid grid-cols-3 gap-2 pb-4 mb-4 border-b border-brasa-border/80 text-center">
+<div class="bg-brasa-cream/60 rounded-xl p-2.5 border border-brasa-border/60">
+<p class="text-[10px] uppercase font-semibold text-brasa-muted tracking-wider">Comanda</p>
+<p class="text-base font-bold text-brasa-dark mt-0.5">#024</p>
+</div>
+<div class="bg-brasa-cream/60 rounded-xl p-2.5 border border-brasa-border/60">
+<p class="text-[10px] uppercase font-semibold text-brasa-muted tracking-wider">Ubicación</p>
+<p class="text-base font-bold text-brasa-wine mt-0.5">Mesa 04</p>
+</div>
+<div class="bg-emerald-50/70 rounded-xl p-2.5 border border-emerald-100">
+<p class="text-[10px] uppercase font-semibold text-emerald-800 tracking-wider">Tiempo aprox.</p>
+<p class="text-base font-bold text-emerald-700 mt-0.5">20–25 min</p>
+</div>
+</div>
+<!-- Stepper Status Flow -->
+<div class="px-1" data-purpose="stepper-progress">
+<div class="flex items-center justify-between relative">
+<!-- Step 1: Recibido (Completed) -->
+<div class="flex flex-col items-center text-center relative z-10 w-1/4">
+<div class="w-8 h-8 rounded-full bg-brasa-wine text-white flex items-center justify-center text-xs font-bold ring-4 ring-red-50 shadow-sm">
+<svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<span class="text-[11px] font-bold text-brasa-dark mt-2 leading-tight">Recibido</span>
+<span class="text-[9px] text-emerald-600 font-medium">14:32 h</span>
+</div>
+<!-- Connecting line 1 (Active) -->
+<div class="flex-1 h-0.5 bg-brasa-wine -mt-6"></div>
+<!-- Step 2: En parrilla (Current In-Progress) -->
+<div class="flex flex-col items-center text-center relative z-10 w-1/4">
+<div class="w-8 h-8 rounded-full bg-brasa-wine text-white flex items-center justify-center text-xs font-bold ring-4 ring-red-100 animate-pulse">
+<!-- Grill flame icon -->
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+</div>
+<span class="text-[11px] font-bold text-brasa-wine mt-2 leading-tight">En brasas</span>
+<span class="text-[9px] text-brasa-wine font-semibold">Cocinando</span>
+</div>
+<!-- Connecting line 2 (Pending) -->
+<div class="flex-1 h-0.5 bg-neutral-200 -mt-6"></div>
+<!-- Step 3: Emplatado y pase (Pending) -->
+<div class="flex flex-col items-center text-center relative z-10 w-1/4">
+<div class="w-8 h-8 rounded-full bg-neutral-100 border border-neutral-300 text-neutral-400 flex items-center justify-center text-xs font-medium">
+              3
+            </div>
+<span class="text-[11px] font-medium text-neutral-500 mt-2 leading-tight">Emplatado</span>
+<span class="text-[9px] text-neutral-400">Pase</span>
+</div>
+<!-- Connecting line 3 (Pending) -->
+<div class="flex-1 h-0.5 bg-neutral-200 -mt-6"></div>
+<!-- Step 4: En mesa (Pending) -->
+<div class="flex flex-col items-center text-center relative z-10 w-1/4">
+<div class="w-8 h-8 rounded-full bg-neutral-100 border border-neutral-300 text-neutral-400 flex items-center justify-center text-xs font-medium">
+              4
+            </div>
+<span class="text-[11px] font-medium text-neutral-500 mt-2 leading-tight">Servido</span>
+<span class="text-[9px] text-neutral-400">En tu mesa</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: RealTimeTrackingCard -->
+<!-- BEGIN: OrderSummaryCard -->
+<section class="bg-white rounded-2xl p-4 border border-brasa-border shadow-sm" data-purpose="order-items-breakdown">
+<div class="flex items-center justify-between pb-3 border-b border-brasa-border/80">
+<h2 class="text-sm font-bold text-brasa-dark uppercase tracking-wide flex items-center gap-1.5">
+<svg class="w-4 h-4 text-brasa-wine" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+          Resumen comanda
+        </h2>
+<span class="text-xs bg-brasa-tag-bg text-neutral-700 px-2 py-0.5 rounded-full font-medium">3 productos</span>
+</div>
+<!-- Item List -->
+<div class="divide-y divide-brasa-border/60">
+<!-- Item 1 -->
+<div class="py-3 flex justify-between items-start gap-2">
+<div class="flex items-start gap-2.5">
+<span class="w-6 h-6 rounded-md bg-brasa-wine-light text-brasa-wine text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1×</span>
+<div>
+<p class="text-xs font-bold text-brasa-dark">Ojo de Bife a la Leña</p>
+<p class="text-[11px] text-brasa-muted mt-0.5">Término: <span class="font-medium text-neutral-700">Punto jugoso</span> • Papas rústicas</p>
+</div>
+</div>
+<span class="text-xs font-bold text-brasa-dark shrink-0">$28.50</span>
+</div>
+<!-- Item 2 -->
+<div class="py-3 flex justify-between items-start gap-2">
+<div class="flex items-start gap-2.5">
+<span class="w-6 h-6 rounded-md bg-brasa-wine-light text-brasa-wine text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1×</span>
+<div>
+<p class="text-xs font-bold text-brasa-dark">Tacos de Asado al Carbón</p>
+<p class="text-[11px] text-brasa-muted mt-0.5">3 piezas • Salsa tatemada de la casa</p>
+</div>
+</div>
+<span class="text-xs font-bold text-brasa-dark shrink-0">$14.00</span>
+</div>
+<!-- Item 3 -->
+<div class="py-3 flex justify-between items-start gap-2">
+<div class="flex items-start gap-2.5">
+<span class="w-6 h-6 rounded-md bg-brasa-wine-light text-brasa-wine text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1×</span>
+<div>
+<p class="text-xs font-bold text-brasa-dark">Salmón a la Brasa con Miel</p>
+<p class="text-[11px] text-brasa-muted mt-0.5">Con romero y espárragos tiernos</p>
+</div>
+</div>
+<span class="text-xs font-bold text-brasa-dark shrink-0">$22.00</span>
+</div>
+</div>
+<!-- Totals calculation -->
+<div class="pt-3 border-t border-dashed border-brasa-border mt-1 space-y-1.5">
+<div class="flex justify-between text-xs text-brasa-muted">
+<span>Subtotal</span>
+<span>$64.50</span>
+</div>
+<div class="flex justify-between text-xs text-brasa-muted">
+<span>Servicio de mesa</span>
+<span class="text-emerald-700 font-medium">Incluido ($0.00)</span>
+</div>
+<div class="flex justify-between items-center text-sm pt-2 border-t border-brasa-border">
+<span class="font-bold text-brasa-dark">Total comanda</span>
+<span class="font-serif text-xl font-bold text-brasa-dark tracking-tight">$64.50</span>
+</div>
+</div>
+</section>
+<!-- END: OrderSummaryCard -->
+<!-- BEGIN: QuickActionsAndSupport -->
+<section class="space-y-2.5 pt-1" data-purpose="user-actions">
+<!-- Primary Action: View live tracker -->
+<button class="w-full py-3.5 px-4 bg-brasa-wine hover:bg-brasa-wine-dark active:scale-[0.99] text-white font-semibold rounded-2xl shadow-sm flex items-center justify-center gap-2 transition-all" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Ver estado de mi orden en vivo</span>
+</button>
+<!-- Secondary Action: Continue exploring -->
+<button class="w-full py-3 px-4 bg-white hover:bg-neutral-50 active:scale-[0.99] text-brasa-dark border border-brasa-border font-medium rounded-2xl shadow-xs flex items-center justify-center gap-2 transition-all text-xs sm:text-sm" type="button">
+<svg class="w-4 h-4 text-neutral-500" fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span>Seguir explorando el menú &amp; bebidas</span>
+</button>
+<!-- Friendly Assistance Callout -->
+<div class="p-3 bg-[#fdfaf3] rounded-xl border border-[#efe2cb] flex items-start gap-2.5">
+<span class="text-amber-700 text-sm mt-0.5">💡</span>
+<p class="text-[11px] leading-relaxed text-amber-950">
+          ¿Deseas agregar pan recién horneado o solicitar algo especial? Puedes llamar a tu camarero en cualquier momento desde la pestaña <strong class="font-semibold text-brasa-wine">Camarero</strong>.
+        </p>
+</div>
+</section>
+<!-- END: QuickActionsAndSupport -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: BottomNavigationBar -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-brasa-border">
+<div class="max-w-md mx-auto px-4 py-2 flex justify-around items-center">
+<!-- Item 1: Menú -->
+<button class="flex flex-col items-center gap-1 text-neutral-400 hover:text-brasa-dark transition-colors py-1 px-3" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium tracking-tight">Menú</span>
+</button>
+<!-- Item 2: Favoritos -->
+<button class="flex flex-col items-center gap-1 text-neutral-400 hover:text-brasa-dark transition-colors py-1 px-3" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium tracking-tight">Favoritos</span>
+</button>
+<!-- Item 3: Mi Orden (Activo con badge) -->
+<button class="flex flex-col items-center gap-1 text-brasa-wine transition-colors py-1 px-3 relative" type="button">
+<div class="relative">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M9 14.25l6-6m4.5-3.493V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<!-- Active Badge (3 products) -->
+<span class="absolute -top-1.5 -right-2.5 bg-brasa-wine text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center ring-2 ring-white">3</span>
+</div>
+<span class="text-[10px] font-bold tracking-tight">Mi Orden</span>
+</button>
+<!-- Item 4: Camarero -->
+<button class="flex flex-col items-center gap-1 text-neutral-400 hover:text-brasa-wine transition-colors py-1 px-3" type="button">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+<span class="text-[10px] font-medium tracking-tight">Camarero</span>
+</button>
+</div>
+</nav>
+<!-- END: BottomNavigationBar -->
+</body></html>

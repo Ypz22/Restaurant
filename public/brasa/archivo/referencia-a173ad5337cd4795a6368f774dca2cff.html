@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-container-lowest":"#ffffff","surface-container":"#efeeea","inverse-on-surface":"#f2f0ed","on-surface-variant":"#574141","background":"#fbf9f5","on-primary":"#ffffff","outline-variant":"#debfbe","error":"#ba1a1a","on-tertiary-container":"#fff0e7","on-primary-fixed-variant":"#861f25","on-secondary-container":"#793f27","inverse-primary":"#ffb3b0","on-background":"#1b1c1a","primary":"#9c2f33","on-secondary-fixed":"#380d00","on-secondary":"#ffffff","secondary-fixed-dim":"#ffb59a","on-surface":"#1b1c1a","secondary-fixed":"#ffdbce","tertiary-fixed":"#ffdcc4","inverse-surface":"#30312e","on-tertiary-fixed-variant":"#6f3800","surface":"#fbf9f5","on-primary-fixed":"#410007","primary-container":"#bc4749","secondary":"#8c4e35","on-secondary-fixed-variant":"#6f3720","on-tertiary-fixed":"#2f1400","primary-fixed":"#ffdad8","secondary-container":"#ffad8f","primary-fixed-dim":"#ffb3b0","surface-container-low":"#f5f3ef","surface-container-high":"#eae8e4","on-tertiary":"#ffffff","surface-dim":"#dbdad6","surface-container-highest":"#e4e2de","tertiary-fixed-dim":"#ffb780","on-error":"#ffffff","outline":"#8a7170","surface-tint":"#a7373b","on-primary-container":"#ffefee","on-error-container":"#93000a","tertiary":"#84460b","surface-bright":"#fbf9f5","error-container":"#ffdad6","tertiary-container":"#a15e23","surface-variant":"#e4e2de"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"gutter":"1rem","space-xs":"0.25rem","space-md":"1rem","space-sm":"0.5rem","margin":"1rem","space-lg":"1.5rem","space-xl":"2rem"},"fontFamily":{"body-md":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"title-lg":["Plus Jakarta Sans"],"title-md":["Plus Jakarta Sans"],"display-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"],"headline-md":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"]},"fontSize":{"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.01em","fontWeight":"700"}],"title-lg":["20px",{"lineHeight":"26px","fontWeight":"600"}],"title-md":["16px",{"lineHeight":"22px","letterSpacing":"0.01em","fontWeight":"600"}],"display-lg":["40px",{"lineHeight":"48px","letterSpacing":"-0.02em","fontWeight":"700"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"label-lg":["14px",{"lineHeight":"18px","letterSpacing":"0.02em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.05em","fontWeight":"700"}],"headline-md":["24px",{"lineHeight":"30px","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"700"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.04em","fontWeight":"600"}]}}}}</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(44,37,35,0.06)]"><div class="h-16 w-full px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Sabor &amp; Brasa Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vp1Awod_127n5CCJxfVSpocGQg3U8F__a2K-ppqiuI-HMCcNaXdDkxn8le3L2tWlpTZAUIdYWIhskUdTj0uxKRhFi9O7gfAta8fEqBA3_hz35R9ecGhV14501SMH-7obXBh64KYV60C7UXxzSdRl8ivCsrc83l0MtCDzNpcMs2HWPQC9lUnbIy4ZJjUpUiqRMFc1yXVq48diOWxXBfKd7SthTRXA6Xo4FXpwuElR-irtLcisOT2q8buPg"/><div class="flex flex-col"><span class="font-title-md text-title-md text-on-surface tracking-tight leading-none">Sabor &amp; Brasa</span><span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Gestión &amp; Cocina</span></div></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 bg-surface-container rounded-lg"><span class="material-symbols-outlined text-primary text-[18px]">storefront</span><span class="font-label-md text-label-md text-on-surface">Sucursal Principal - Salón Central</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">expand_more</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 bg-surface-container-low rounded-xl" data-active-classes="bg-primary-container text-on-primary font-title-md rounded-xl"><a aria-current="page" class="px-space-md py-space-sm transition-colors bg-primary-container text-on-primary font-title-md rounded-xl" data-path="kds-cocina" href="#">KDS Cocina</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg rounded-lg" data-path="ventas-metricas" href="#">Ventas &amp; Métricas</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg rounded-lg" data-path="menu-del-dia" href="#">Menú del Día</a><a class="px-space-md py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-lg text-label-lg rounded-lg" data-path="catalogo-de-platos" href="#">Catálogo de Platos</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-low rounded-lg text-on-surface-variant"><span class="material-symbols-outlined text-[18px] text-tertiary">schedule</span><span class="font-label-md text-label-md text-on-surface">14:28:05</span><span class="font-label-sm text-label-sm text-secondary px-1.5 py-0.5 bg-secondary-fixed rounded-full">SERVICIO ACTIVO</span></div><div class="flex items-center gap-space-xs"><button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><button class="p-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">tune</span></button></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-low z-40 hidden xl:flex flex-col justify-between py-space-lg px-space-md"><div class="flex flex-col gap-space-lg"><div><span class="px-space-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Operaciones</span><nav class="flex flex-col gap-space-xs mt-space-sm" data-active-classes="bg-primary text-on-primary font-title-md rounded-xl"><a aria-current="page" class="flex items-center gap-space-sm px-space-md py-space-sm transition-colors bg-primary text-on-primary font-title-md rounded-xl" data-path="kds-cocina" href="#"><span class="material-symbols-outlined text-[20px]">skillet</span><span class="font-label-lg text-label-lg">KDS Pantalla Cocina</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="menu-del-dia" href="#"><span class="material-symbols-outlined text-[20px]">restaurant_menu</span><span class="font-label-lg text-label-lg">Menú del Día</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="catalogo-de-platos" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-label-lg text-label-lg">Catálogo de Platos</span></a></nav></div><div><span class="px-space-sm font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Administración</span><nav class="flex flex-col gap-space-xs mt-space-sm" data-active-classes="bg-primary text-on-primary font-title-md rounded-xl"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="ventas-metricas" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-label-lg text-label-lg">Ventas &amp; Métricas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="turnos-personal" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span class="font-label-lg text-label-lg">Turnos &amp; Personal</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="configuracion-general" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Configuración</span></a></nav></div></div><div class="p-space-md bg-surface-container rounded-xl flex items-center justify-between"><div class="flex flex-col"><span class="font-label-sm text-label-sm text-on-surface-variant">Servidor Local KDS</span><span class="font-label-md text-label-md text-on-surface font-semibold">En Línea (4 ms)</span></div><span class="w-2.5 h-2.5 rounded-full bg-[#4F772D]"></span></div></aside><div class="xl:pl-64"><main class="w-full pt-16 bg-surface min-h-screen px-space-lg py-space-lg"><div class="flex flex-col w-full gap-space-md">
+<!-- Top Operational Control Center -->
+<section class="flex flex-col gap-space-md bg-surface-container-lowest p-space-md rounded-2xl shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-md">
+<!-- Status Badges / Quick Counts -->
+<div class="flex items-center gap-space-xs overflow-x-auto pb-1 max-w-full">
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-primary-container text-on-primary font-label-lg transition-transform active:scale-95 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+<span>Todas</span>
+<span class="px-2 py-0.5 rounded-full bg-primary text-on-primary font-label-sm">8</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-lg active:scale-95" type="button">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container animate-pulse"></span>
+<span>Pendientes</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container-highest text-tertiary font-label-sm font-bold">3</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-lg active:scale-95" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary">local_fire_department</span>
+<span>En Brasa</span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-container font-label-sm font-bold">4</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-lg active:scale-95" type="button">
+<span class="material-symbols-outlined text-[18px] text-[#4F772D]">check_circle</span>
+<span>Listas para Pase</span>
+<span class="px-2 py-0.5 rounded-full bg-[#EDF4E5] text-[#4F772D] font-label-sm font-bold">1</span>
+</button>
+</div>
+<!-- Real-Time Kitchen Performance KPIs -->
+<div class="flex items-center gap-space-md bg-surface-container-low px-space-md py-1.5 rounded-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">T. Promedio</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">11:40 <span class="font-label-sm font-normal text-on-surface-variant">min</span></span>
+</div>
+</div>
+<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">skillet</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">En Fuego</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">16 <span class="font-label-sm font-normal text-on-surface-variant">platos</span></span>
+</div>
+</div>
+<div class="h-6 w-px bg-surface-container-highest"></div>
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">done_all</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Despachados</span>
+<span class="font-title-md text-title-md text-on-surface font-bold">84 <span class="font-label-sm font-normal text-on-surface-variant">hoy</span></span>
+</div>
+</div>
+</div>
+<!-- Quick Audio & Global Kitchen Actions -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-sm py-2 rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md" id="audio-toggle-btn" onclick="toggleAudio(this)" title="Alarma audible de comandas" type="button">
+<span class="material-symbols-outlined text-[18px] text-primary" style="font-variation-settings: 'FILL' 1;">volume_up</span>
+<span class="hidden sm:inline">Timbre Activo</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-sm py-2 rounded-xl bg-error-container text-on-error-container font-label-md hover:opacity-90 transition-opacity" title="Detener flujo entrante temporalmente" type="button">
+<span class="material-symbols-outlined text-[18px]">pause_circle</span>
+<span class="hidden md:inline">Pausar Pedidos</span>
+</button>
+<button class="p-2 rounded-xl bg-surface-container text-on-surface-variant hover:text-on-surface transition-colors" title="Historial y tickets pasados" type="button">
+<span class="material-symbols-outlined text-[20px]">history</span>
+</button>
+</div>
+</div>
+<!-- Stations Filter Bar -->
+<div class="flex items-center gap-space-xs overflow-x-auto pt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant mr-space-xs shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">room_service</span> Estación:
+      </span>
+<button class="px-3.5 py-1.5 rounded-full bg-inverse-surface text-inverse-on-surface font-label-md tracking-wide shrink-0 shadow-sm" type="button">
+        Todas las Estaciones
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors shrink-0 flex items-center gap-1" type="button">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Parrilla / Asador
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors shrink-0" type="button">
+        Plancha &amp; Fuego
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors shrink-0" type="button">
+        Cocina Caliente
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors shrink-0 flex items-center gap-1" type="button">
+<span class="w-2 h-2 rounded-full bg-[#4F772D]"></span> Sartenes / Veg
+      </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors shrink-0" type="button">
+        Postres &amp; Fríos
+      </button>
+</div>
+</section>
+<!-- Panoramic KDS Grid: 4 Dynamic Cooking Columns -->
+<div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-space-md items-start">
+<!-- TICKET 1: Ticket #104 (Comanda Grupal, En Brasa) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-md overflow-hidden transition-all hover:shadow-lg">
+<!-- Header with Status Flag -->
+<div class="bg-secondary-fixed/50 px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest text-primary font-headline-md font-bold leading-none">#104</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-tight font-bold">Mesa 04</span>
+<span class="font-label-sm text-label-sm text-secondary">Salón Principal • 3 comensales</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-on-secondary-container font-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">timelapse</span>
+<span id="timer-104">08:35</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-secondary-container text-on-secondary-container font-semibold">EN BRASA</span>
+</div>
+</div>
+<!-- Ticket Metadata -->
+<div class="px-space-md py-space-xs bg-surface-container-low flex items-center justify-between text-on-surface-variant font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">badge</span> Garzón: David</span>
+<span class="flex items-center gap-1 text-secondary font-semibold"><span class="material-symbols-outlined text-[14px]">groups</span> Comanda Grupal</span>
+</div>
+<!-- Progress Meter -->
+<div class="px-space-md pt-space-sm pb-space-xs bg-surface-container-lowest flex flex-col gap-1">
+<div class="flex justify-between items-center text-on-surface-variant font-label-sm">
+<span>Progreso de Comanda</span>
+<span class="font-semibold text-primary" id="prog-text-104">1 de 4 listos (25%)</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container transition-all duration-300" id="prog-bar-104" style="width: 25%"></div>
+</div>
+</div>
+<!-- Items List with Individual Checks -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<!-- Item 1: Completed -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/60 flex items-start gap-space-sm transition-opacity opacity-75 hover:opacity-100">
+<input checked="" class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" onchange="updateTicketProgress('104')" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface line-through font-semibold truncate">1x Costillar al Quebracho</span>
+<span class="px-1.5 py-0.5 rounded bg-[#EDF4E5] text-[#4F772D] font-label-sm font-bold shrink-0">LISTO</span>
+</div>
+<div class="flex flex-wrap items-center gap-1 mt-0.5 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Parrilla 01</span>
+<span>• Término Medio</span>
+<span class="text-secondary font-semibold">| Carlos</span>
+</div>
+<p class="font-label-sm text-secondary italic mt-1 bg-surface-container-lowest px-2 py-0.5 rounded-lg inline-block">Nota: Salsa de la casa aparte</p>
+</div>
+</div>
+<!-- Item 2: Active / High Alert -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" onchange="updateTicketProgress('104')" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface font-bold truncate">1x Salmón a la Miel &amp; Romero</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-container font-label-sm font-bold animate-pulse shrink-0">EN FUEGO</span>
+</div>
+<div class="flex flex-wrap items-center gap-1 mt-0.5 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Plancha 02</span>
+<span class="text-secondary font-semibold">| Sofía</span>
+</div>
+<!-- Red Critical Allergy Warning Banner -->
+<div class="mt-1.5 px-2 py-1 bg-error-container rounded-lg flex items-center gap-1.5 text-on-error-container font-label-sm font-bold">
+<span class="material-symbols-outlined text-[16px] text-error">warning</span>
+<span>ALERTA: Sin sal añadida bajo ninguna condición</span>
+</div>
+</div>
+</div>
+<!-- Item 3: Pending -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" onchange="updateTicketProgress('104')" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface font-medium truncate">1x Tacos de Asado Carbón (3u)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm font-bold shrink-0">EN COLA</span>
+</div>
+<div class="flex flex-wrap items-center gap-1 mt-0.5 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface">Cocina Caliente</span>
+<span class="text-secondary font-semibold">| Sofía</span>
+</div>
+</div>
+</div>
+<!-- Item 4: Vegetarian Section -->
+<div class="p-space-sm rounded-xl bg-surface-container-lowest shadow-sm flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" onchange="updateTicketProgress('104')" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface font-medium truncate">1x Risotto de Hongos Silvestres</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm font-bold shrink-0">EN COLA</span>
+</div>
+<div class="flex flex-wrap items-center gap-1 mt-0.5 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-[#EDF4E5] text-[#4F772D] font-semibold">Sartenes / Veg</span>
+<span class="text-secondary font-semibold">| Mateo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Ticket Command Actions -->
+<div class="p-space-md pt-0 flex flex-col gap-space-xs mt-auto">
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-2.5 px-space-sm rounded-xl bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md flex items-center justify-center gap-1 active:scale-95" type="button">
+<span class="material-symbols-outlined text-[16px]">double_arrow</span>
+<span>Avanzar estación</span>
+</button>
+<button class="py-2.5 px-space-sm rounded-xl bg-secondary-container text-on-secondary-container hover:opacity-90 transition-opacity font-label-md flex items-center justify-center gap-1 active:scale-95" onclick="alertGarzon('04', 'David')" type="button">
+<span class="material-symbols-outlined text-[16px]">campaign</span>
+<span>Llamar Garzón</span>
+</button>
+</div>
+<button class="w-full py-3.5 px-space-md rounded-xl bg-primary-container hover:bg-primary text-on-primary font-title-md font-bold flex items-center justify-center gap-2 shadow-sm transition-all active:scale-98" onclick="completeTicket(this)" type="button">
+<span class="material-symbols-outlined text-[20px]">room_service</span>
+<span>Mesa Completa al Pase</span>
+</button>
+</div>
+</article>
+<!-- TICKET 2: Ticket #102 (Mesa 02 Terraza, Preparación Rápida) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-md overflow-hidden transition-all hover:shadow-lg">
+<div class="bg-surface-container px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest text-on-surface font-headline-md font-bold leading-none">#102</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-tight font-bold">Mesa 02</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Terraza Exterior • 2 comensales</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-tertiary font-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">timelapse</span>
+<span id="timer-102">03:12</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-secondary-fixed text-on-secondary-container font-semibold">EN BRASA</span>
+</div>
+</div>
+<!-- Ticket Sub-info -->
+<div class="px-space-md py-space-xs bg-surface-container-low flex items-center justify-between text-on-surface-variant font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">badge</span> Garzón: Lucía</span>
+<span class="font-semibold text-primary">2 platos en cocción</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<!-- Item 1 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/70 flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface font-bold">2x Ojo de Bife a la Leña</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-container font-label-sm font-bold shrink-0">FUEGO VIVO</span>
+</div>
+<div class="flex flex-wrap items-center gap-1.5 mt-1 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Parrilla 02</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-bold">Término Jugoso 3/4</span>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/70 flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-title-md text-title-md text-on-surface font-semibold">1x Papas Trufadas al Romero</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm font-bold shrink-0">FREIDORA</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface">Guarnición Rápida</span>
+<span>Acompañamiento simultáneo</span>
+</div>
+</div>
+</div>
+<!-- Culinary Note Card -->
+<div class="mt-2 p-space-sm rounded-xl bg-surface-container flex items-center gap-space-sm text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[18px] text-tertiary">dinner_dining</span>
+<span>Despachar carnes junto con las papas recién escurridas.</span>
+</div>
+</div>
+<!-- Action -->
+<div class="p-space-md pt-0 mt-auto">
+<button class="w-full py-3.5 px-space-md rounded-xl bg-surface-container hover:bg-secondary-fixed text-on-surface hover:text-on-secondary-container font-title-md font-bold flex items-center justify-center gap-2 transition-all active:scale-98" onclick="completeTicket(this)" type="button">
+<span class="material-symbols-outlined text-[20px]">soup_kitchen</span>
+<span>Pasar a Emplatado</span>
+</button>
+</div>
+</article>
+<!-- TICKET 3: Ticket #101 (DEMORA CRÍTICA - Destacado en Rojo / Alerta) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-xl overflow-hidden ring-2 ring-error/30 animate-pulse-subtle transition-all">
+<!-- High Alert Header -->
+<div class="bg-error text-on-error px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-lg bg-on-error text-error font-headline-md font-extrabold leading-none">#101</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-error leading-tight font-bold">Mesa 07</span>
+<span class="font-label-sm text-label-sm text-error-container uppercase tracking-wider font-semibold">Salón VIP • 3 pers.</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 font-headline-md font-extrabold text-on-error leading-none">
+<span class="material-symbols-outlined text-[20px] animate-bounce">priority_high</span>
+<span id="timer-101">19:45</span>
+</div>
+<span class="font-label-sm font-bold uppercase tracking-wider text-error-container mt-0.5">Demora Crítica</span>
+</div>
+</div>
+<!-- Urgent Alert Strip -->
+<div class="px-space-md py-2 bg-error-container text-on-error-container flex items-center justify-between font-label-md font-bold">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-error">alarm_on</span>
+<span>Platos enfriándose en pase</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-error text-on-error text-label-sm">+7 min retraso</span>
+</div>
+<!-- Food List -->
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<div class="p-space-sm rounded-xl bg-surface-container-high flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-[20px] text-[#4F772D] mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-bold">3x Vacío a la Parrilla</span>
+<span class="px-2 py-0.5 rounded bg-[#EDF4E5] text-[#4F772D] font-label-sm font-bold">LISTO EN PASE</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Con Ensalada Criolla &amp; Chimichurri ahumado</p>
+<div class="flex items-center gap-2 mt-2 text-on-surface-variant font-label-sm">
+<span class="px-2 py-0.5 rounded bg-surface-container font-semibold">Terminado a las 14:18</span>
+<span class="text-error font-bold">• Espera a Garzón: Martín</span>
+</div>
+</div>
+</div>
+<!-- Heat Lamp Warning -->
+<div class="p-space-sm rounded-xl bg-tertiary-fixed/40 flex items-center gap-space-sm text-on-tertiary-container font-label-md">
+<span class="material-symbols-outlined text-[20px] text-tertiary">wb_sunny</span>
+<span>Bajo campana de calor desde hace 06:15 min.</span>
+</div>
+</div>
+<!-- Urgent Action -->
+<div class="p-space-md pt-0 mt-auto flex flex-col gap-space-xs">
+<button class="w-full py-3 px-space-md rounded-xl bg-error hover:bg-[#861f25] text-on-error font-title-md font-bold flex items-center justify-center gap-2 shadow-md transition-all active:scale-95 animate-pulse" onclick="ringVIPBuzzer()" type="button">
+<span class="material-symbols-outlined text-[22px]">notifications_active</span>
+<span>Reiterar Llamado a Mozo</span>
+</button>
+<button class="w-full py-2 px-space-md rounded-xl bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md font-semibold text-center transition-colors" onclick="completeTicket(this)" type="button">
+          Despachado manualmente por cocina
+        </button>
+</div>
+</article>
+<!-- TICKET 4: Ticket #105 (Nuevo / Pendiente) -->
+<article class="flex flex-col bg-surface-container-lowest rounded-2xl shadow-md overflow-hidden transition-all hover:shadow-lg">
+<div class="bg-surface-container-high px-space-md py-space-sm flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container-lowest text-on-surface font-headline-md font-bold leading-none">#105</span>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface leading-tight font-bold">Mesa 12</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Interior • 4 comensales</span>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-1 text-on-surface font-title-md font-bold">
+<span class="material-symbols-outlined text-[18px]">update</span>
+<span id="timer-105">01:20</span>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-surface-container text-on-surface font-bold uppercase">NUEVO</span>
+</div>
+</div>
+<!-- Ticket Metadata -->
+<div class="px-space-md py-space-xs bg-surface-container-low flex items-center justify-between text-on-surface-variant font-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">badge</span> Garzón: Sofía R.</span>
+<span class="font-medium text-tertiary">Entrada + Principal</span>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm flex-1">
+<!-- Item 1: Entrada -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/60 flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-semibold">1x Provoleta al Oreganato</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm font-bold">ENTRADA</span>
+</div>
+<p class="font-label-sm text-on-surface-variant mt-0.5">Con Tomates Secos &amp; Aceite de Oliva</p>
+</div>
+</div>
+<!-- Item 2: Entrada -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/60 flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-semibold">1x Empanadas de Asado (4u)</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm font-bold">ENTRADA</span>
+</div>
+<p class="font-label-sm text-on-surface-variant mt-0.5">Carne cortada a cuchillo en horno de barro</p>
+</div>
+</div>
+<!-- Item 3: Principal -->
+<div class="p-space-sm rounded-xl bg-surface-container-low/60 flex items-start gap-space-sm">
+<input class="mt-1 w-5 h-5 rounded text-primary focus:ring-primary-container cursor-pointer accent-primary" type="checkbox"/>
+<div class="flex-1 min-w-0">
+<div class="flex items-center justify-between">
+<span class="font-title-md text-title-md text-on-surface font-bold">1x Bife de Chorizo Clásico</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-sm font-bold">PRINCIPAL</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1 font-label-sm text-on-surface-variant">
+<span class="px-1.5 py-0.5 rounded bg-surface-container text-on-surface font-semibold">Parrilla 01</span>
+<span>• Punto Clásico</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action -->
+<div class="p-space-md pt-0 mt-auto">
+<button class="w-full py-3.5 px-space-md rounded-xl bg-inverse-surface hover:bg-black text-inverse-on-surface font-title-md font-bold flex items-center justify-center gap-2 transition-all active:scale-98" onclick="startTicket(this)" type="button">
+<span class="material-symbols-outlined text-[20px]">check</span>
+<span>Tomar Comanda en Estación</span>
+</button>
+</div>
+</article>
+</div>
+<!-- Bottom Kitchen Utility & Keyboard Shortcuts Bar -->
+<footer class="mt-space-sm bg-surface-container-lowest p-space-md rounded-2xl shadow-sm flex flex-wrap items-center justify-between gap-space-md text-on-surface-variant font-label-md">
+<!-- Fast Keyboard Access Guides -->
+<div class="flex flex-wrap items-center gap-space-md">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">keyboard</span>
+        Atajos Físicos:
+      </span>
+<div class="flex items-center gap-1.5">
+<kbd class="px-2 py-1 bg-surface-container text-on-surface rounded font-mono font-bold text-[12px] shadow-sm">ESPACIO</kbd>
+<span class="text-body-md text-[13px]">Siguiente ticket</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-2 py-1 bg-surface-container text-on-surface rounded font-mono font-bold text-[12px] shadow-sm">F1</kbd>
+<span class="text-body-md text-[13px]">Llamar Pase</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-2 py-1 bg-surface-container text-on-surface rounded font-mono font-bold text-[12px] shadow-sm">F5</kbd>
+<span class="text-body-md text-[13px]">Recargar tablero</span>
+</div>
+<div class="flex items-center gap-1.5">
+<kbd class="px-2 py-1 bg-surface-container text-on-surface rounded font-mono font-bold text-[12px] shadow-sm">ESC</kbd>
+<span class="text-body-md text-[13px]">Desmarcar Selección</span>
+</div>
+</div>
+<!-- Kitchen Out-of-stock Trigger (86 Item) & Fast Settings -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-xl bg-surface-container-high hover:bg-error-container hover:text-on-error-container text-on-surface transition-colors font-label-md font-semibold" onclick="open86Modal()" type="button">
+<span class="material-symbols-outlined text-[18px]">block</span>
+<span>Marcar Ítem Agotado (86)</span>
+</button>
+<div class="h-5 w-px bg-surface-container"></div>
+<div class="flex items-center gap-1.5 px-space-sm py-1 rounded-lg bg-surface-container text-on-surface font-label-sm">
+<span class="w-2 h-2 rounded-full bg-[#4F772D]"></span>
+<span>Modo Panorámico KDS Activo</span>
+</div>
+</div>
+</footer>
+</div>
+<!-- Modal / Dialog for 86 Items (Quick Kitchen Stockout) -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4" id="modal-86">
+<div class="bg-surface-container-lowest rounded-2xl max-w-lg w-full p-space-lg shadow-2xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs text-primary">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+<h3 class="font-title-lg text-title-lg text-on-surface font-bold">Gestión de Stockout de Cocina (86)</h3>
+</div>
+<button class="p-1 text-on-surface-variant hover:text-on-surface rounded-lg" onclick="close86Modal()" type="button">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<p class="font-body-md text-on-surface-variant">
+      Selecciona un plato para desactivarlo inmediatamente del menú digital y notificar al software de salón de los mozos.
+    </p>
+<div class="flex flex-col gap-space-xs max-h-60 overflow-y-auto pr-1">
+<label class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer">
+<span class="font-title-md text-on-surface">Costillar al Quebracho</span>
+<input class="w-5 h-5 accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer">
+<span class="font-title-md text-on-surface">Vacío a la Parrilla</span>
+<input class="w-5 h-5 accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer">
+<span class="font-title-md text-on-surface">Salmón a la Miel &amp; Romero</span>
+<input class="w-5 h-5 accent-primary cursor-pointer" type="checkbox"/>
+</label>
+<label class="flex items-center justify-between p-space-sm rounded-xl bg-surface-container hover:bg-surface-container-high cursor-pointer">
+<span class="font-title-md text-on-surface">Provoleta al Oreganato</span>
+<input class="w-5 h-5 accent-primary cursor-pointer" type="checkbox"/>
+</label>
+</div>
+<div class="flex justify-end gap-space-xs mt-space-xs">
+<button class="px-space-md py-2.5 rounded-xl bg-surface-container text-on-surface font-label-md" onclick="close86Modal()" type="button">Cancelar</button>
+<button class="px-space-md py-2.5 rounded-xl bg-primary text-on-primary font-label-md font-bold" onclick="applyStockout()" type="button">Aplicar a Salón &amp; KDS</button>
+</div>
+</div>
+</div>
+<!-- Inline Interactive Scripting for KDS Operational Flow -->
+<script>
+  // Toggle Audio Buzzer
+  function toggleAudio(btn) {
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const text = btn.querySelector('span:not(.material-symbols-outlined)');
+    if (icon.innerText === 'volume_up') {
+      icon.innerText = 'volume_off';
+      icon.classList.remove('text-primary');
+      icon.classList.add('text-on-surface-variant');
+      text.innerText = 'Timbre Silenciado';
+    } else {
+      icon.innerText = 'volume_up';
+      icon.classList.add('text-primary');
+      icon.classList.remove('text-on-surface-variant');
+      text.innerText = 'Timbre Activo';
+    }
+  }
+
+  // Dynamic progress tracker for Ticket 104
+  function updateTicketProgress(ticketId) {
+    const ticketCard = document.getElementById('prog-bar-' + ticketId).closest('article');
+    const checkboxes = ticketCard.querySelectorAll('input[type="checkbox"]');
+    let checkedCount = 0;
+    checkboxes.forEach(cb => {
+      if (cb.checked) checkedCount++;
+    });
+
+    const percent = Math.round((checkedCount / checkboxes.length) * 100);
+    const bar = document.getElementById('prog-bar-' + ticketId);
+    const label = document.getElementById('prog-text-' + ticketId);
+
+    bar.style.width = percent + '%';
+    label.innerText = checkedCount + ' de ' + checkboxes.length + ' listos (' + percent + '%)';
+
+    if (percent === 100) {
+      bar.classList.remove('bg-primary-container');
+      bar.classList.add('bg-[#4F772D]');
+    } else {
+      bar.classList.add('bg-primary-container');
+      bar.classList.remove('bg-[#4F772D]');
+    }
+  }
+
+  // Dispatch / Complete full ticket
+  function completeTicket(button) {
+    const card = button.closest('article');
+    card.classList.add('scale-95', 'opacity-50', 'transition-all');
+    setTimeout(() => {
+      card.innerHTML = `
+        <div class="p-8 flex flex-col items-center justify-center text-center h-72">
+          <span class="material-symbols-outlined text-[48px] text-[#4F772D]">check_circle</span>
+          <span class="font-title-md text-on-surface font-bold mt-2">¡Ticket Despachado al Pase!</span>
+          <span class="font-label-sm text-on-surface-variant mt-1">Notificación enviada a garzones y KDS central.</span>
+          <button type="button" onclick="location.reload()" class="mt-4 px-3 py-1.5 rounded-lg bg-surface-container font-label-sm text-on-surface hover:bg-surface-container-high">Deshacer</button>
+        </div>
+      `;
+      card.classList.remove('opacity-50', 'scale-95');
+    }, 280);
+  }
+
+  function startTicket(button) {
+    const card = button.closest('article');
+    button.className = "w-full py-3.5 px-space-md rounded-xl bg-primary-container hover:bg-primary text-on-primary font-title-md font-bold flex items-center justify-center gap-2 transition-all";
+    button.innerHTML = '<span class="material-symbols-outlined text-[20px]">room_service</span><span>Mesa Completa al Pase</span>';
+    button.setAttribute('onclick', 'completeTicket(this)');
+    const statusPill = card.querySelector('span.uppercase');
+    if (statusPill) {
+      statusPill.innerText = "EN BRASA";
+      statusPill.className = "font-label-sm text-label-sm px-2 py-0.2 rounded-full bg-secondary-fixed text-on-secondary-container font-semibold";
+    }
+  }
+
+  function alertGarzon(mesa, nombre) {
+    alert("Notificación prioritaria enviada al Smartwatch / Terminal del garzón " + nombre + " para Mesa " + mesa);
+  }
+
+  function ringVIPBuzzer() {
+    alert("¡Alerta crítica de pase emitida a salón central! Sonando aviso en estación de mozos.");
+  }
+
+  function open86Modal() {
+    document.getElementById('modal-86').classList.remove('hidden');
+  }
+
+  function close86Modal() {
+    document.getElementById('modal-86').classList.add('hidden');
+  }
+
+  function applyStockout() {
+    close86Modal();
+    alert("Ítems marcados como 86 / Agotados. Sincronizado en sistema y KDS.");
+  }
+
+  // Keyboard Navigation Support
+  window.addEventListener('keydown', (e) => {
+    if (e.code === 'Space') {
+      e.preventDefault();
+      const firstActiveBtn = document.querySelector('article button');
+      if (firstActiveBtn) firstActiveBtn.focus();
+    } else if (e.key === 'F1') {
+      e.preventDefault();
+      ringVIPBuzzer();
+    } else if (e.key === 'Escape') {
+      close86Modal();
+    }
+  });
+</script></main></div></body></html>

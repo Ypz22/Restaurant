@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"background":"#f8f9ff","tertiary-fixed-dim":"#fcba60","surface-container-high":"#dce9ff","tertiary-container":"#4f3100","surface-variant":"#d3e4fe","tertiary":"#321e00","on-background":"#0b1c30","on-surface-variant":"#42474c","surface-container-low":"#eff4ff","secondary-container":"#c2e0fe","primary-container":"#1e3a4c","primary-fixed":"#cae6fd","primary-fixed-dim":"#aecae1","outline-variant":"#c2c7cc","error-container":"#ffdad6","inverse-surface":"#213145","inverse-primary":"#aecae1","error":"#ba1a1a","on-tertiary-fixed":"#2a1800","on-tertiary-container":"#d1953e","on-error":"#ffffff","surface-container-highest":"#d3e4fe","primary":"#042436","on-tertiary":"#ffffff","on-secondary":"#ffffff","on-secondary-fixed":"#001d31","tertiary-fixed":"#ffddb5","surface-tint":"#466275","outline":"#73787d","on-primary-container":"#88a4b9","secondary-fixed":"#cce5ff","secondary-fixed-dim":"#accae7","on-surface":"#0b1c30","on-tertiary-fixed-variant":"#643f00","on-error-container":"#93000a","on-primary":"#ffffff","surface-bright":"#f8f9ff","on-secondary-container":"#47647d","on-primary-fixed-variant":"#2e4a5c","surface-container":"#e5eeff","inverse-on-surface":"#eaf1ff","surface":"#f8f9ff","secondary":"#44617b","on-secondary-fixed-variant":"#2c4962","surface-container-lowest":"#ffffff","surface-dim":"#cbdbf5","on-primary-fixed":"#001e2e"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.25rem","gutter":"1rem","space-sm":"0.5rem","space-xs":"0.25rem","margin":"1rem","space-xl":"2rem","gutter-desktop":"1.5rem","margin-desktop":"2rem","space-md":"0.875rem"},"fontFamily":{"headline-md":["Plus Jakarta Sans"],"label-lg":["Plus Jakarta Sans"],"body-lg":["Plus Jakarta Sans"],"headline-lg-mobile":["Plus Jakarta Sans"],"headline-xl-mobile":["Plus Jakarta Sans"],"headline-xl":["Plus Jakarta Sans"],"headline-lg":["Plus Jakarta Sans"],"body-sm":["Plus Jakarta Sans"],"numeric-timer":["Plus Jakarta Sans"],"body-md":["Plus Jakarta Sans"],"headline-sm":["Plus Jakarta Sans"],"label-md":["Plus Jakarta Sans"],"label-sm":["Plus Jakarta Sans"]},"fontSize":{"headline-md":["20px",{"lineHeight":"28px","fontWeight":"600"}],"label-lg":["14px",{"lineHeight":"20px","letterSpacing":"0.01em","fontWeight":"600"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}],"headline-lg-mobile":["22px",{"lineHeight":"30px","fontWeight":"600"}],"headline-xl-mobile":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"700"}],"headline-xl":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"numeric-timer":["18px",{"lineHeight":"22px","letterSpacing":"0.04em","fontWeight":"700"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.03em","fontWeight":"500"}]}}}}</script></head><body class="bg-[#f8f9fc] font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-sm"><div class="h-16 w-full px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><img alt="Sabor &amp; Brasa Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1Vp1Awod_127n5CCJxfVSpocGQg3U8F__a2K-ppqiuI-HMCcNaXdDkxn8le3L2tWlpTZAUIdYWIhskUdTj0uxKRhFi9O7gfAta8fEqBA3_hz35R9ecGhV14501SMH-7obXBh64KYV60C7UXxzSdRl8ivCsrc83l0MtCDzNpcMs2HWPQC9lUnbIy4ZJjUpUiqRMFc1yXVq48diOWxXBfKd7SthTRXA6Xo4FXpwuElR-irtLcisOT2q8buPg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-slate-800 tracking-tight leading-none">Sabor &amp; Brasa</span><span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider">Gestión &amp; Cocina</span></div></div><div class="hidden md:flex items-center gap-space-xs px-space-sm py-1 bg-slate-100/80 rounded-lg text-slate-700"><span class="material-symbols-outlined text-slate-600 text-[18px]">storefront</span><span class="font-label-md text-label-md text-slate-700">Sucursal Principal - Salón Central</span><span class="material-symbols-outlined text-slate-400 text-[16px]">expand_more</span></div></div><nav class="hidden lg:flex items-center gap-space-xs p-1 bg-slate-100 rounded-xl"><a class="px-space-md py-space-sm text-slate-600 hover:bg-white hover:text-slate-900 transition-colors font-label-lg text-label-lg rounded-lg" data-path="kds-cocina" href="#">KDS Cocina</a><a class="px-space-md py-space-sm text-slate-600 hover:bg-white hover:text-slate-900 transition-colors font-label-lg text-label-lg rounded-lg" data-path="ventas-metricas" href="#">Ventas &amp; Métricas</a><a class="px-space-md py-space-sm bg-white text-slate-900 shadow-sm font-label-lg text-label-lg rounded-lg font-semibold" data-path="menu-del-dia" href="#">Menú del Día</a><a class="px-space-md py-space-sm text-slate-600 hover:bg-white hover:text-slate-900 transition-colors font-label-lg text-label-lg rounded-lg" data-path="catalogo-de-platos" href="#">Catálogo de Platos</a></nav><div class="flex items-center gap-space-md"><div class="hidden sm:flex items-center gap-space-xs px-space-sm py-1 bg-slate-100 rounded-lg text-slate-600"><span class="material-symbols-outlined text-[18px] text-slate-500">schedule</span><span class="font-label-md text-label-md text-slate-700">14:28:05</span><span class="font-label-sm text-label-sm text-emerald-700 font-semibold px-2 py-0.5 bg-emerald-50 border border-emerald-200/60 rounded-full">SERVICIO ACTIVO</span></div><div class="flex items-center gap-space-xs"><button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span></button><button class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">tune</span></button></div><div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center"><span class="material-symbols-outlined text-white text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-slate-200/80 z-40 hidden xl:flex flex-col justify-between py-space-lg px-space-md"><div class="flex flex-col gap-space-lg"><div><span class="px-space-sm font-label-sm text-label-sm text-slate-400 uppercase tracking-wider font-semibold">Operaciones</span><nav class="flex flex-col gap-space-xs mt-space-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" data-path="kds-cocina" href="#"><span class="material-symbols-outlined text-[20px]">skillet</span><span class="font-label-lg text-label-lg">KDS Pantalla Cocina</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl bg-slate-800 text-white font-label-lg shadow-sm" data-path="menu-del-dia" href="#"><span class="material-symbols-outlined text-[20px]">restaurant_menu</span><span class="font-label-lg text-label-lg font-semibold">Menú del Día</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" data-path="catalogo-de-platos" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span class="font-label-lg text-label-lg">Catálogo de Platos</span></a></nav></div><div><span class="px-space-sm font-label-sm text-label-sm text-slate-400 uppercase tracking-wider font-semibold">Administración</span><nav class="flex flex-col gap-space-xs mt-space-sm"><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" data-path="ventas-metricas" href="#"><span class="material-symbols-outlined text-[20px]">query_stats</span><span class="font-label-lg text-label-lg">Ventas &amp; Métricas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" data-path="turnos-personal" href="#"><span class="material-symbols-outlined text-[20px]">badge</span><span class="font-label-lg text-label-lg">Turnos &amp; Personal</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-xl text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" data-path="configuracion-general" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-label-lg text-label-lg">Configuración</span></a></nav></div></div><div class="p-space-md bg-slate-50 border border-slate-100 rounded-xl flex items-center justify-between"><div class="flex flex-col"><span class="font-label-sm text-label-sm text-slate-500">Servidor Local KDS</span><span class="font-label-md text-label-md text-slate-800 font-semibold">En Línea (4 ms)</span></div><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span></div></aside><div class="xl:pl-64"><main class="w-full pt-16 bg-[#f8f9fc] min-h-screen px-space-lg py-space-lg"><div class="flex flex-col w-full gap-space-lg pb-12">
+<!-- Toast Notification Bar (Interactive Feedback) -->
+<div class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-space-md py-space-sm rounded-xl shadow-xl flex items-center gap-space-sm transition-all duration-300" id="statusToast">
+<span class="material-symbols-outlined text-emerald-400 text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md" id="toastMessage">Menú sincronizado exitosamente con 18 mesas</span>
+</div>
+<!-- Header & Primary Controls Panel -->
+<section class="bg-white border border-slate-200/80 rounded-2xl p-space-lg shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-slate-700 font-semibold px-2.5 py-0.5 bg-slate-100 rounded-full">Gestión de Carta Dinámica</span>
+<div class="flex items-center gap-1.5 px-2.5 py-0.5 bg-emerald-50 border border-emerald-200/60 rounded-full">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-emerald-800 font-semibold tracking-tight">Activo en QR de Mesas</span>
+</div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-slate-900">Menú del Día &amp; Platos Recomendados</h1>
+<div class="flex items-center gap-space-sm text-slate-500 font-body-md text-body-md">
+<span class="material-symbols-outlined text-[18px] text-slate-400">calendar_today</span>
+<span class="font-semibold text-slate-800">Hoy, Jueves 24 de Octubre</span>
+<span class="text-slate-300">•</span>
+<span class="text-slate-600">Turno Mediodía</span>
+</div>
+</div>
+<!-- Right Controls: Toggle Window & Global CTAs -->
+<div class="flex flex-col sm:flex-row sm:items-center gap-space-md">
+<!-- Service Schedule Toggle -->
+<div class="flex items-center justify-between sm:justify-start gap-space-md bg-slate-50 border border-slate-200/70 px-space-md py-space-sm rounded-xl">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-slate-800 font-semibold">Menú Ejecutivo Activo</span>
+<span class="font-label-sm text-label-sm text-slate-500">Franja 12:00 - 16:00 hs</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="globalServiceToggle" type="checkbox"/>
+<div class="w-11 h-6 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+<!-- Action Buttons -->
+<div class="flex items-center gap-space-sm">
+<button class="flex items-center gap-space-xs px-space-md py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-label-lg text-label-lg transition-colors border border-slate-200" onclick="showNotification('Cargando configuración del 23 de Octubre...')" type="button">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span>Replicar Menú de Ayer</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-lg py-3 rounded-xl bg-slate-800 text-white hover:bg-slate-900 font-label-lg text-label-lg shadow-sm hover:shadow transition-all active:scale-[0.98]" onclick="showNotification('¡Menú publicado y sincronizado con QR en 14 terminales!')" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">cloud_sync</span>
+<span>Guardar &amp; Publicar en QR</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Summary Stats & Sync Strip -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="bg-white p-space-md rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-semibold">Platos del Día</span>
+<span class="font-headline-lg text-headline-lg text-slate-900 mt-1" id="activePlatosCount">4</span>
+<span class="font-label-sm text-label-sm text-emerald-700 flex items-center gap-1 font-medium">
+<span class="material-symbols-outlined text-[14px]">check</span> Disponibles ahora
+        </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">restaurant</span>
+</div>
+</div>
+<div class="bg-white p-space-md rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-semibold">Sugerencias Chef</span>
+<span class="font-headline-lg text-headline-lg text-amber-700 mt-1">2</span>
+<span class="font-label-sm text-label-sm text-amber-700 font-medium">Destacadas con insignia</span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-[24px]">star</span>
+</div>
+</div>
+<div class="bg-white p-space-md rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase tracking-wider font-semibold">Agotados / Pausados</span>
+<span class="font-headline-lg text-headline-lg text-slate-700 mt-1" id="pausedCount">1</span>
+<span class="font-label-sm text-label-sm text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">block</span> Oculto en terminales
+        </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500">
+<span class="material-symbols-outlined text-[24px]">pause_circle</span>
+</div>
+</div>
+<div class="bg-slate-50 border border-slate-200/80 p-space-md rounded-2xl shadow-sm flex flex-col justify-center">
+<div class="flex items-center gap-space-xs text-slate-700 mb-1">
+<span class="material-symbols-outlined text-[18px] text-slate-600">wifi_tethering</span>
+<span class="font-label-md text-label-md font-bold uppercase tracking-wider">Sincronización KDS/Móvil</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600 line-clamp-2">
+        Los cambios en stock o precio se actualizan en tiempo real sin reiniciar los dispositivos de mesa.
+      </p>
+</div>
+</section>
+<!-- Main Split Layout: Menu Structure (Left 8 Cols) + Best Sellers Drawer (Right 4 Cols) -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg items-start">
+<!-- Left Configuration Modules (8 Cols) -->
+<div class="xl:col-span-8 flex flex-col gap-space-lg">
+<!-- HERO SUGGESTION CARD -->
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm relative overflow-hidden">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm mb-space-md">
+<div class="flex items-center gap-space-sm">
+<span class="p-2 bg-amber-500 text-white rounded-lg flex items-center justify-center shadow-xs">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</span>
+<div>
+<span class="font-label-sm text-label-sm text-amber-800 uppercase tracking-wider font-bold">Hero en Carta Digital</span>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 leading-tight">Plato Insignia del Día</h2>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-label-md text-label-md transition-colors flex items-center gap-1 border border-slate-200" onclick="showNotification('Selector de plato insignia abierto')" type="button">
+<span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+              Cambiar Plato Destacado
+            </button>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Featured Dish Banner Card -->
+<div class="bg-slate-50/80 border border-slate-200/70 rounded-xl p-space-md flex flex-col md:flex-row gap-space-md items-center">
+<img class="w-full md:w-36 h-36 rounded-xl object-cover shadow-sm" data-alt="Costillar de ternera asado lentamente al fuego de quebracho con humo aromático, corte jugoso con costra dorada sobre tabla de madera rústica acompañado de papas doradas con romero fresco en iluminación cálida de restaurante gourmet" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSfjevnQxXUVSLck5UDGaJerLtvN_J2v8bmNU2oM9ENu3lHRw_fkt-0vokXeVhmj2sWLtoQ4JspDZK5Rlran_pGX_f-_2v5zNueplDFJ1auE-lAZUL09h6SBHlJPizy4IVvpQx9MCz_cKMNB3FWidyQjNjQN3ZDuw42LFNioQvU5sOK-puly9h_tMxraG2rdyHDHmuBoGQW9EmEcSX8zqI5EtOp3K0GIcMi6L2QnLi40Tyv_CoMnXW"/>
+<div class="flex-1 w-full flex flex-col justify-between h-full">
+<div>
+<div class="flex flex-wrap items-center gap-2 mb-1.5">
+<span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/80 font-label-sm text-label-sm uppercase font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                  Recomendación del Chef
+                </span>
+<span class="px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-label-sm text-label-sm uppercase font-semibold">Sin Gluten</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Costillar al Quebracho Marinado con Papas Rústicas</h3>
+<p class="font-body-md text-body-md text-slate-600 line-clamp-2 mt-1">
+                Cocción lenta a leña por 6 horas con reducción de malbec especiado, sal marina ahumada y papas crujientes a la provenzal.
+              </p>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-md mt-space-md pt-space-sm bg-white border border-slate-100 px-space-sm rounded-lg">
+<div class="flex items-baseline gap-space-sm">
+<span class="font-label-sm text-label-sm text-slate-400 line-through">Reg: $22.00</span>
+<span class="font-headline-sm text-headline-sm text-slate-900 font-bold">Especial Hoy: $18.50</span>
+</div>
+<div class="flex items-center gap-space-xs text-slate-600 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[18px] text-slate-400">inventory_2</span>
+<span>Stock Restante: <strong class="text-slate-800 font-bold">14 porciones</strong></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 1: ENTRADAS & PRIMEROS PASOS -->
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700 font-label-lg">01</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Entradas &amp; Primeros Pasos</h2>
+<span class="font-label-sm text-label-sm text-slate-500">Incluidas en la fórmula de Menú Ejecutivo o como ración de inicio</span>
+</div>
+</div>
+<button class="text-slate-700 hover:text-slate-900 font-label-md text-label-md flex items-center gap-1 font-semibold" onclick="showNotification('Añadir nueva opción a Entradas')" type="button">
+<span class="material-symbols-outlined text-[16px]">add_circle</span>
+            Añadir Entrada
+          </button>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Item 1: Empanadas Criollas -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Tres empanadas criollas argentinas doradas y crujientes con repulgue tradicional recién salidas del horno de leña servidas con rodajas de lima fresca y chimichurri casero en cazuela de barro cocido" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZrcIgZigEdQsE7e2tQ9iwUYQjCRu0tNFJ2OyfKiINs3ul1ryxy1B-jZvlFh3-nJ_Fwm5YA20l0sVqifRYTPFYoUnhy_TDNFz68glfx4kUaDvraTikZgruC26ArzlP8ksdjZLg2SNpN1KxiOJHmVRHlQyfTlxpH33pygLMQJE972U8cgT2jDxYIj9l7g7_tk-mSpS0A9V491c9XGY5nLf9_YZrPyRy6RIGY324AsCCAhb-TxapE7sc"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold">Empanadas Criollas al Disco (x2)</h4>
+<span class="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200/60 font-label-sm text-label-sm font-semibold">Favorito</span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 line-clamp-1">Carne cortada a cuchillo, cebolla de verdeo y especias autóctonas.</span>
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold sm:hidden mt-1">$6.50</span>
+</div>
+</div>
+<div class="flex items-center justify-between w-full sm:w-auto gap-space-lg">
+<div class="hidden sm:flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$6.50</span>
+<span class="font-label-sm text-label-sm text-emerald-700 font-medium">En Carta de Hoy</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Empanadas Criollas')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Item 2: Provoleta Ahumada -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Queso provoleta fundido a la brasa con costra dorada burbujeante en sarten de hierro fundido decorado con orégano silvestre aceite de oliva virgen extra y pimentón ahumado" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClqz45kvfUcfIywHc3UCbQkHQUWmWahaOLhgQDH2QwX0-7m3Ts_W6DGEOzcvznto6pArA66jKIUA7iMBv5qQ4PQveq1BSKkwKpeJoTKkIh_wlALGvIr_iPSGeRUhwX3Mjw2X4s-UMTrU_zbWZibJIYqrXI4rfC9Q1LNO7uXT7AuapWsrMYyVQdnKqVVrTR-gIQu59DqlLFPPdvQiP8u2zSU10d14-T_4r4S1epPEdHkgTUzLZWsVjl"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold">Provoleta Ahumada con Finas Hierbas</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-label-sm text-label-sm font-semibold">Sin TACC</span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 line-clamp-1">Queso provolone fundido en cazuela de hierro con orégano fresco y oliva.</span>
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold sm:hidden mt-1">$7.50</span>
+</div>
+</div>
+<div class="flex items-center justify-between w-full sm:w-auto gap-space-lg">
+<div class="hidden sm:flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$7.50</span>
+<span class="font-label-sm text-label-sm text-emerald-700 font-medium">En Carta de Hoy</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Provoleta Ahumada')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Item 3: Carpaccio de Lomo (Desactivado) -->
+<div class="p-space-md bg-slate-100/50 border border-slate-200/50 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-md opacity-60">
+<div class="flex items-center gap-space-md">
+<span class="material-symbols-outlined text-slate-300 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover grayscale flex-shrink-0" data-alt="Finas láminas de carpaccio de lomo vacuno crudo alineadas en plato cerámico blanco con alcaparras crocantes lascas de queso parmesano rúcula silvestre y emulsión cítrica" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsh078Pgk6UUpDNlbLPHPT1Rdoxd6ALnJELaIL9-_5XqLvDSSlZvJ06qxjVThaR0NE9gy29VymXElI1hVOzEKdvmCKYPCKdCvMb0c4yypmgngnx0C8b0GaqYdc96-LNKyyp8nscdkJuci4GmJZE_qZyGVERkYh-6gTSV0g_cGILnf8Cgx9r2O0RsH4q5TA4mmq1EZA_0FiNXv7TGSnllGllqUeosfGbSpZwJLTmmAFgG105-l7iriU"/>
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-500 line-through font-semibold">Carpaccio de Lomo con Alcaparras</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-200/70 text-slate-600 font-label-sm text-label-sm font-medium">Desactivado</span>
+</div>
+<span class="font-body-md text-body-md text-slate-400 line-clamp-1">Finas láminas marinadas con emulsión de dijon, limón y lascas de parmesano.</span>
+<span class="font-headline-sm text-headline-sm text-slate-400 font-bold sm:hidden mt-1">$9.00</span>
+</div>
+</div>
+<div class="flex items-center justify-between w-full sm:w-auto gap-space-lg">
+<div class="hidden sm:flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-400 font-bold">$9.00</span>
+<span class="font-label-sm text-label-sm text-slate-500">Sin Stock Cocina</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" onchange="toggleDishStatus(this, 'Carpaccio de Lomo')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 2: PLATOS PRINCIPALES -->
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700 font-label-lg">02</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Platos Principales del Día</h2>
+<span class="font-label-sm text-label-sm text-slate-500">Selección central del menú con control de stock y porciones</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-emerald-800 bg-emerald-50 border border-emerald-200/60 px-2.5 py-1 rounded-full font-semibold">4 Activos</span>
+</div>
+<div class="flex flex-col gap-space-sm">
+<!-- Principal 1: Ojo de Bife -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md flex-1 min-w-0">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Jugoso bife de chorizo a las brasas término medio con marcas de parrilla ahumada servido con cremoso puré de papas con aceite de trufas negras y reducción de vino tinto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsZPsjmIPXAIiFzdF1gvW8LtFSuXjq4ZyqcRQSUte_OOdEj72t643YkpuxfC03vUF-BqvlZaJNApJfsz79Qc1Kzu6FmMOFEgi73R5wke9KzDHzv1xC5FGcdheUQQr8rOR3bXWq1Plq1OscKbx0FnZYBkBe3QAmpJFSnz19vjnowr6oMem_FfVTKMpGNY1jceopsPdr6BvdT4AIZ8z6RzcyOwNdPIT6r855bld5cyBABN_MUE_-EIgy"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold truncate">Ojo de Bife con Puré Trufado</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-200/80 text-slate-700 font-label-sm text-label-sm font-semibold">Top Ventas</span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 truncate">Corte de 350g a la leña con papas al tartufo y reducción de Malbec.</span>
+</div>
+</div>
+<!-- Operational Details: Limit Portions + Switch -->
+<div class="flex items-center justify-between lg:justify-end w-full lg:w-auto gap-space-md pt-2 lg:pt-0">
+<div class="flex items-center gap-space-xs bg-slate-200/60 px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">inventory</span>
+<span class="font-label-sm text-label-sm text-slate-600">Límite:</span>
+<input class="w-12 bg-white text-center rounded text-slate-800 font-semibold font-label-md py-0.5 border border-slate-200 focus:ring-1 focus:ring-slate-700" type="number" value="25"/>
+<span class="font-label-sm text-label-sm text-slate-500">porc.</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$19.50</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Ojo de Bife')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Principal 2: Salmón a la Miel & Romero -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md flex-1 min-w-0">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Filete de salmón rosado sellado a la plancha con glaseado brillante de miel y romero fresco acompañado de zanahorias baby espárragos verdes glaseados en plato artesanal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfu0Da0v-8opaODAWq1BDnjoPMzc4bK0942LhXZ3n2ztSXc7bJ-jsOnNMnpb7psMTG8TfYBIy-HxqUMOvGLxIWYRlCvUxn3xJtNzVUOqtGl2fEk5BEL0U6N0FjZU3nyjHzEw7q8BC5shzxQT6f-_6GBHAsVlmy7GV5BJbxurvVTzNcDyaiYq8cBvG7t6Dvga1VIV47QSDVbHqAA1zNdeol-gHnbGX2BLkDxxFgVTlTNNBWMYLi_C9B"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold truncate">Salmón a la Miel &amp; Romero</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-label-sm text-label-sm font-semibold">Sin Gluten</span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 truncate">Salmón fresco del pacífico con vegetales de estación salteados al wok.</span>
+</div>
+</div>
+<div class="flex items-center justify-between lg:justify-end w-full lg:w-auto gap-space-md pt-2 lg:pt-0">
+<div class="flex items-center gap-space-xs bg-slate-200/60 px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">inventory</span>
+<span class="font-label-sm text-label-sm text-slate-600">Límite:</span>
+<input class="w-12 bg-white text-center rounded text-slate-800 font-semibold font-label-md py-0.5 border border-slate-200 focus:ring-1 focus:ring-slate-700" type="number" value="18"/>
+<span class="font-label-sm text-label-sm text-slate-500">porc.</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$21.00</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Salmón a la Miel')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Principal 3: Risotto de Hongos Silvestres (Veggie) -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md flex-1 min-w-0">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Risotto cremoso de arroz arborio con variedad de hongos silvestres salteados portobellos y gírgolas terminado con aceite de oliva trufado y tomillo fresco en plato hondo de cerámica oscura" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6TP891phLWMYXxsrFau-VGrkMHhREzW_dMzHxUPmSJDQFN2rPZ8UNw0T4cZ4uwCHp2JqqbnOGOtBSUc50FLOPyggAjClDiBeBBkF7oFXtWqtUZEfoamdIEt62-ncaC7TWSBEg7PJumuC426RXyNDIDeu7zEJ0cPcZjA598S5bHBkC8osn4WbOM31My1MdOj3ilZ2WYRZAU0n9ol4A-cAQ0C3-nusYV05JsqO1mld0my2PCa7MIBBt"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold truncate">Risotto de Hongos Silvestres</h4>
+<span class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/60 font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">eco</span>
+                    Vegano
+                  </span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 truncate">Arroz carnaroli con boletus, champiñones de pino y crocante de nuez.</span>
+</div>
+</div>
+<div class="flex items-center justify-between lg:justify-end w-full lg:w-auto gap-space-md pt-2 lg:pt-0">
+<div class="flex items-center gap-space-xs bg-slate-200/60 px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">all_inclusive</span>
+<span class="font-label-sm text-label-sm text-slate-600">Libre</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$16.00</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Risotto de Hongos')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+<!-- Principal 4: Tacos de Asado al Carbón -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 hover:bg-slate-50 rounded-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md transition-colors">
+<div class="flex items-center gap-space-md flex-1 min-w-0">
+<span class="material-symbols-outlined text-slate-400 cursor-grab text-[20px] hidden sm:inline-block">drag_indicator</span>
+<img class="w-16 h-16 rounded-xl object-cover flex-shrink-0" data-alt="Tres tacos de tortilla de maíz azul rellenos de asado deshilachado a la leña con cebolla encurtida morada cilantro fresco y gajos de lima sobre soporte rústico mexicano" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2CGjPINpsbF_OPWW2R1nV8sYrKuiPKjfKefoh4uIbJRc3F4JZTVpEWPIi0AcK0PW_BQe6XAlfV-ekCH7tGhJ8ZLuFjZ4MaeUuGnQJ38dBNtUztjcQyPMWywzgPsR7djkp_2w7vLvt-KfWZoFiocUo1oepmUPXWhFzSh2ThgEpYlewt7z4-7-_-BvahmjuTc44qpPjbu1ZqrKqKMbpGR2pqO3rT3KS5eerPYk222y78I-JWGGTqGMf"/>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold truncate">Tacos de Asado al Carbón en Maíz Azul</h4>
+<span class="px-2 py-0.5 rounded-full bg-slate-200/70 text-slate-700 font-label-sm text-label-sm font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-amber-600">whatshot</span>
+                    Picante Leve
+                  </span>
+</div>
+<span class="font-body-md text-body-md text-slate-500 truncate">Tres piezas con cebollas asadas, emulsión de palta y salsa tatemada.</span>
+</div>
+</div>
+<div class="flex items-center justify-between lg:justify-end w-full lg:w-auto gap-space-md pt-2 lg:pt-0">
+<div class="flex items-center gap-space-xs bg-slate-200/60 px-space-sm py-1 rounded-lg">
+<span class="material-symbols-outlined text-slate-500 text-[18px]">inventory</span>
+<span class="font-label-sm text-label-sm text-slate-600">Límite:</span>
+<input class="w-12 bg-white text-center rounded text-slate-800 font-semibold font-label-md py-0.5 border border-slate-200 focus:ring-1 focus:ring-slate-700" type="number" value="30"/>
+<span class="font-label-sm text-label-sm text-slate-500">porc.</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-headline-sm text-headline-sm text-slate-800 font-bold">$15.50</span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Tacos de Asado')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: POSTRES & CAFETERÍA -->
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-slate-700 font-label-lg">03</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Postre o Café de Cierre</h2>
+<span class="font-label-sm text-label-sm text-slate-500">Opciones dulces o infusiones de especialidad para finalizar</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-slate-500">Incluido en menú ejecutivo</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<!-- Postre 1 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-[24px]">bakery_dining</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold">Flan Casero con DDL</h4>
+<span class="font-label-sm text-label-sm text-slate-500">Con crema y dulce repostero</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Flan Casero')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+<!-- Postre 2 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center text-slate-700">
+<span class="material-symbols-outlined text-[24px]">local_cafe</span>
+</div>
+<div class="flex flex-col">
+<h4 class="font-headline-sm text-headline-sm text-slate-800 font-semibold">Espresso Doble o Flat White</h4>
+<span class="font-label-sm text-label-sm text-slate-500">Grano Etiopía Tueste Medio</span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" onchange="toggleDishStatus(this, 'Café de Especialidad')" type="checkbox"/>
+<div class="w-10 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-700"></div>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Quick Incorporations Drawer (4 Cols) -->
+<div class="xl:col-span-4 flex flex-col gap-space-lg sticky top-20">
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-slate-600 text-[22px]">trending_up</span>
+<h3 class="font-headline-sm text-headline-sm text-slate-900 font-bold">Más Pedidos Esta Semana</h3>
+</div>
+<span class="font-label-sm text-label-sm text-amber-800 bg-amber-50 border border-amber-200/60 px-2 py-0.5 rounded-full font-semibold">Tendencias</span>
+</div>
+<p class="font-body-md text-body-md text-slate-600">
+          Platos con alto margen y alta rotación. Pulsa el botón para sumarlos de inmediato a la oferta de hoy.
+        </p>
+<!-- Suggested Dish 1 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between gap-space-sm group hover:bg-slate-100 transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-800 font-label-md">
+              #1
+            </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-slate-800 font-bold">Matambre a la Pizza al Horno</span>
+<span class="font-label-sm text-label-sm text-slate-500">142 órdenes • Margen 68%</span>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-800 hover:text-white text-slate-700 transition-all flex items-center justify-center" onclick="addSuggestedDish('Matambre a la Pizza', 17.50)" title="Incorporar a Principales" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<!-- Suggested Dish 2 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between gap-space-sm group hover:bg-slate-100 transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-800 font-label-md">
+              #2
+            </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-slate-800 font-bold">Milanesa de Bife Napolitana XL</span>
+<span class="font-label-sm text-label-sm text-slate-500">118 órdenes • Margen 64%</span>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-800 hover:text-white text-slate-700 transition-all flex items-center justify-center" onclick="addSuggestedDish('Milanesa Napolitana XL', 16.00)" title="Incorporar a Principales" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<!-- Suggested Dish 3 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between gap-space-sm group hover:bg-slate-100 transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-800 font-label-md">
+              #3
+            </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-slate-800 font-bold">Ensalada Tibia de Salmón &amp; Quinoa</span>
+<span class="font-label-sm text-label-sm text-slate-500">89 órdenes • Margen 72%</span>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-800 hover:text-white text-slate-700 transition-all flex items-center justify-center" onclick="addSuggestedDish('Ensalada Tibia de Salmón', 14.50)" title="Incorporar a Entradas" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+<!-- Suggested Dish 4 -->
+<div class="p-space-md bg-slate-50/70 border border-slate-100 rounded-xl flex items-center justify-between gap-space-sm group hover:bg-slate-100 transition-colors">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-lg bg-white border border-slate-200 flex items-center justify-center font-bold text-slate-800 font-label-md">
+              #4
+            </div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-slate-800 font-bold">Crumble de Manzanas Asadas</span>
+<span class="font-label-sm text-label-sm text-slate-500">76 órdenes • Margen 75%</span>
+</div>
+</div>
+<button class="p-2 rounded-lg bg-white border border-slate-200 hover:bg-slate-800 hover:text-white text-slate-700 transition-all flex items-center justify-center" onclick="addSuggestedDish('Crumble de Manzanas', 6.50)" title="Incorporar a Postres" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+</button>
+</div>
+</div>
+<!-- Combo Config Widget -->
+<div class="bg-white border border-slate-200/80 p-space-lg rounded-2xl shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-slate-500 uppercase font-bold tracking-wider">Precio Paquete</span>
+<span class="material-symbols-outlined text-slate-600 text-[20px]">receipt_long</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-slate-900 font-semibold">Fórmula Menú Completo</h4>
+<p class="font-body-md text-body-md text-slate-600">
+          Entrada + Principal + Postre + Bebida sin alcohol.
+        </p>
+<div class="flex items-baseline justify-between mt-2 pt-2 border-t border-slate-100">
+<span class="font-label-md text-label-md text-slate-700 font-semibold">Precio Fijo Sugerido:</span>
+<div class="flex items-center gap-1">
+<span class="font-label-lg text-label-lg text-slate-800 font-bold">$</span>
+<input class="w-20 bg-slate-50 border border-slate-200 text-right font-bold text-headline-sm text-slate-900 rounded-lg py-1 px-2 focus:ring-1 focus:ring-slate-700" type="text" value="23.90"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro-interactions Script -->
+<script>
+    function showNotification(message) {
+      const toast = document.getElementById('statusToast');
+      const toastMsg = document.getElementById('toastMessage');
+      if (toast && toastMsg) {
+        toastMsg.textContent = message;
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 3200);
+      }
+    }
+
+    function toggleDishStatus(checkbox, dishName) {
+      const activePlatos = document.getElementById('activePlatosCount');
+      const pausedCount = document.getElementById('pausedCount');
+      let currentActive = parseInt(activePlatos.innerText) || 4;
+      let currentPaused = parseInt(pausedCount.innerText) || 1;
+
+      if (checkbox.checked) {
+        activePlatos.innerText = currentActive + 1;
+        pausedCount.innerText = Math.max(0, currentPaused - 1);
+        showNotification(dishName + ' activado en la carta digital.');
+      } else {
+        activePlatos.innerText = Math.max(0, currentActive - 1);
+        pausedCount.innerText = currentPaused + 1;
+        showNotification(dishName + ' pausado (oculto en mesas).');
+      }
+    }
+
+    function addSuggestedDish(dishName, price) {
+      showNotification('"' + dishName + '" incorporado al menú con precio de $' + price.toFixed(2));
+      const activePlatos = document.getElementById('activePlatosCount');
+      if (activePlatos) {
+        activePlatos.innerText = (parseInt(activePlatos.innerText) || 4) + 1;
+      }
+    }
+  </script>
+</div></main></div></body></html>

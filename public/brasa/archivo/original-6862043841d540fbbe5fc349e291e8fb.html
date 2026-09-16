@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parrilla &amp; Cortes a la Leña - Sabor &amp; Brasa</title>
+<!-- Google Fonts: Playfair Display (Serif para títulos) & Plus Jakarta Sans (Texto legible) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Tailwind CSS v3 CDN with forms and container queries -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            wine: {
+              DEFAULT: '#bc4749',
+              dark: '#9a383a',
+              light: '#fdf2f2',
+              surface: '#fbeeee'
+            },
+            surface: {
+              cream: '#fbf9f5',
+              card: '#ffffff',
+              muted: '#f4efe8'
+            },
+            charcoal: {
+              900: '#1e1c1a',
+              700: '#3d3835',
+              500: '#6d6661',
+              400: '#9b928c'
+            }
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif']
+          },
+          boxShadow: {
+            'soft-card': '0 2px 14px -3px rgba(60, 40, 20, 0.06), 0 1px 4px -1px rgba(60, 40, 20, 0.03)',
+            'nav': '0 -2px 12px -2px rgba(60, 40, 20, 0.05)'
+          }
+        }
+      }
+    }
+  </script>
+<!-- Global Custom Styles -->
+<style data-purpose="custom-typography-and-icons">
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .material-symbols-outlined.filled {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+    /* Hide scrollbars for clean chip scrolling */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#f2efe9] font-sans antialiased text-charcoal-900 min-h-screen flex justify-center selection:bg-wine-light selection:text-wine">
+<!-- Mobile Container (Max Width 420px for high-fidelity mobile viewport) -->
+<div class="w-full max-w-[420px] bg-surface-cream min-h-screen relative flex flex-col pb-24 shadow-2xl overflow-x-hidden">
+<!-- BEGIN: TopHeader -->
+<header class="sticky top-0 z-30 bg-surface-cream/95 backdrop-blur-md px-4 pt-3 pb-2 border-b border-[#eee7dc]/80"><div class="flex items-center justify-between mb-3">
+<button aria-label="Volver atrás" class="w-10 h-10 rounded-full bg-white border border-[#e8dfd2] shadow-sm flex items-center justify-center text-charcoal-700 active:scale-95 transition-transform hover:bg-[#faf7f2]" type="button">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</button>
+<div class="px-3.5 py-1.5 rounded-full bg-white border border-[#e8dfd2] shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[17px] text-wine">table_restaurant</span>
+<span class="text-xs font-semibold text-charcoal-900">Mesa 04</span>
+<span class="text-[11px] text-charcoal-400">•</span>
+<span class="text-xs text-charcoal-500 font-medium">Salón Principal</span>
+</div>
+<button aria-label="Buscar en la categoría" class="w-10 h-10 rounded-full bg-white border border-[#e8dfd2] shadow-sm flex items-center justify-center text-charcoal-700 active:scale-95 transition-transform hover:bg-[#faf7f2]" type="button">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</button>
+</div>
+<div class="pb-1">
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold uppercase tracking-wider text-wine bg-wine-surface px-2 py-0.5 rounded-md">Categoría Principal</span>
+</div>
+<h1 class="font-serif text-[23px] font-bold text-charcoal-900 tracking-tight mt-1 leading-snug">
+    Parrilla &amp; Cortes
+  </h1>
+<p class="text-xs text-charcoal-500 mt-0.5">
+    8 especialidades a la brasa y leña de quebracho
+  </p>
+</div></header>
+<!-- END: TopHeader -->
+<!-- BEGIN: QuickFiltersAndChips -->
+<section aria-label="Filtros de categoría" class="pt-3.5 pb-2 px-4 space-y-3"><div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4 pt-1">
+<button class="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-wine text-white text-xs font-semibold shadow-sm flex items-center gap-1.5 shrink-0" type="button">
+    Todos (8)
+  </button>
+<button class="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-white border border-[#e8dfd2] text-charcoal-700 text-xs font-medium shadow-sm hover:bg-surface-muted shrink-0 flex items-center gap-1.5" type="button">
+<span>⭐</span> Más pedidos
+  </button>
+<button class="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-white border border-[#e8dfd2] text-charcoal-700 text-xs font-medium shadow-sm hover:bg-surface-muted shrink-0 flex items-center gap-1.5" type="button">
+<span>🥩</span> Cortes Premium
+  </button>
+<button class="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-white border border-[#e8dfd2] text-charcoal-700 text-xs font-medium shadow-sm hover:bg-surface-muted shrink-0 flex items-center gap-1.5" type="button">
+<span>🔥</span> Al punto / Jugoso
+  </button>
+<button class="whitespace-nowrap px-3.5 py-1.5 rounded-xl bg-white border border-[#e8dfd2] text-charcoal-700 text-xs font-medium shadow-sm hover:bg-surface-muted shrink-0 flex items-center gap-1.5" type="button">
+<span>🌾</span> Sin gluten
+  </button>
+</div>
+<div class="flex items-center justify-between pt-1 px-0.5 border-t border-[#ede5d8]">
+<span class="text-xs text-charcoal-500 font-medium">Mostrando <strong class="text-charcoal-900">8 platos</strong></span>
+<button class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white border border-[#e8dfd2] text-xs font-semibold text-charcoal-700 shadow-sm" type="button">
+<span>Recomendados</span>
+<span class="material-symbols-outlined text-[14px] text-charcoal-500">expand_more</span>
+</button>
+</div></section>
+<!-- END: QuickFiltersAndChips -->
+<!-- BEGIN: SearchResultsSection -->
+<main aria-label="Platos de Parrilla y Cortes" class="px-4 pt-3 flex-1 space-y-3"><!-- Plato 1: Ojo de Bife -->
+<article class="bg-white rounded-2xl p-3 border border-[#ede5d8] shadow-soft-card flex gap-3 hover:border-wine/40 transition-colors cursor-pointer">
+<div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#f0eae0]">
+<img alt="Ojo de Bife a la Leña" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1UGb5_b7xH1-IZlVzXJolKCeM6E_FQFGBx5FxIOAuJkvXSp5Fd5JlVy7JvFsMkYJVIr2kpsldZZONAEoUzL_CODo1WEDAO0nGY7xfVn3pxjMtRlEZe-jbqJDevizFlni3lWA0nH-NTu_eARxQib0D2fRHS3OB4I6mluaYOsTII9R4qt-FYL3VRX3bjpfaJVWR5Bz2QtKUwPTooDPAStH4tu7cGqq9aP0QnjlsYbW4DKuDaq7JrVZFn-"/>
+<span class="absolute top-1 left-1 bg-charcoal-900/80 backdrop-blur-xs text-[9px] font-bold text-white px-1.5 py-0.5 rounded-md">
+      400g
+    </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="inline-block text-[10px] font-bold tracking-wide text-wine uppercase bg-wine-surface px-2 py-0.5 rounded-md">
+            🔥 Especialidad
+          </span>
+<span class="text-[10px] text-charcoal-500 font-medium flex items-center gap-0.5">
+            ⏱ 20-25 min
+          </span>
+</div>
+<button aria-label="Guardar en favoritos" class="text-charcoal-400 hover:text-wine active:scale-90 transition-all p-0.5" type="button">
+<span class="material-symbols-outlined text-[19px]">favorite</span>
+</button>
+</div>
+<h3 class="font-bold text-sm text-charcoal-900 mt-1 leading-snug truncate">
+        Ojo de Bife a la Leña
+      </h3>
+<p class="text-xs text-charcoal-500 line-clamp-2 mt-0.5 leading-relaxed">
+        Corte jugoso de bife ancho cocido a la leña de quebracho con chimichurri casero y papas rústicas al romero.
+      </p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-1 border-t border-[#f7f2ea]">
+<span class="font-serif font-bold text-base text-charcoal-900">$28.50</span>
+<button aria-label="Agregar Ojo de Bife a la comanda" class="inline-flex items-center gap-1 bg-wine hover:bg-wine-dark active:scale-95 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Plato 2: Tacos de Asado al Carbón -->
+<article class="bg-white rounded-2xl p-3 border border-[#ede5d8] shadow-soft-card flex gap-3 hover:border-wine/40 transition-colors cursor-pointer">
+<div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#f0eae0]">
+<img alt="Tacos de Asado al Carbón" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1VDdZTa3Sx7b6naV4vK9_vRsLuSCqvRoxqi59Pu42XSKK59Ugo68lKxptLNC2kwzN3Qx_ve4zIA2N99lvkUdjRu0fkF2XASC4KS4smLdrGYCu-uu5bXSQL4okjsU38RT_V0aJzxbrMqbDLOOzkosDvIaS1TlJClkRue8NRz1wElvuBVCDOsVughdHCMtNH6KrO2fNq6_UYeVdLGwVosmE7ObWnTFJei_3qyB0mj1FLG7fpYBe0Jt9vW"/>
+<span class="absolute top-1 left-1 bg-charcoal-900/80 backdrop-blur-xs text-[9px] font-bold text-white px-1.5 py-0.5 rounded-md">
+      3 pzas
+    </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="inline-block text-[10px] font-bold tracking-wide text-charcoal-700 uppercase bg-[#f4efe8] px-2 py-0.5 rounded-md">
+            🌮 Más pedido
+          </span>
+<span class="text-[10px] text-charcoal-500 font-medium flex items-center gap-0.5">
+            ⏱ 15 min
+          </span>
+</div>
+<button aria-label="Guardar en favoritos" class="text-charcoal-400 hover:text-wine active:scale-90 transition-all p-0.5" type="button">
+<span class="material-symbols-outlined text-[19px]">favorite</span>
+</button>
+</div>
+<h3 class="font-bold text-sm text-charcoal-900 mt-1 leading-snug truncate">
+        Tacos de Asado al Carbón
+      </h3>
+<p class="text-xs text-charcoal-500 line-clamp-2 mt-0.5 leading-relaxed">
+        Carne asada a la brasa sobre costra de queso gouda, cebolla asada, cilantro y salsa tatemada.
+      </p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-1 border-t border-[#f7f2ea]">
+<span class="font-serif font-bold text-base text-charcoal-900">$14.00</span>
+<button aria-label="Agregar Tacos de Asado a la comanda" class="inline-flex items-center gap-1 bg-wine hover:bg-wine-dark active:scale-95 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Plato 3: Salmón a la Brasa con Miel -->
+<article class="bg-white rounded-2xl p-3 border border-[#ede5d8] shadow-soft-card flex gap-3 hover:border-wine/40 transition-colors cursor-pointer">
+<div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#f0eae0]">
+<img alt="Salmón a la Brasa con Miel" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1WBiCzY1MCBb30gRLfcQDp4f6yRIopaPw3WvkdVMWAJO5SxX2nazcxz_fQLc0OV0YYSM5U058JGJIqigGtDVq-dXih0tVWXgTX9lfZUwQIgfkYSoYJj7dA2RfU9aV9cvFQpnjbvNXkx5uHwjPsaU-LmWXVB8u_QCyjGa-RehZxuSCQYrAV6jc3ftvKlfX-iOVfCZfHe2ldarxDX2JN61PW25rZLisAkjsDpoNqSNjFnxH7sprZg_HMSWQ"/>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="inline-block text-[10px] font-bold tracking-wide text-charcoal-700 uppercase bg-[#f4efe8] px-2 py-0.5 rounded-md">
+            🐟 Saludable
+          </span>
+<span class="text-[10px] text-charcoal-500 font-medium flex items-center gap-0.5">
+            ⏱ 18 min
+          </span>
+</div>
+<button aria-label="Guardar en favoritos" class="text-charcoal-400 hover:text-wine active:scale-90 transition-all p-0.5" type="button">
+<span class="material-symbols-outlined text-[19px]">favorite</span>
+</button>
+</div>
+<h3 class="font-bold text-sm text-charcoal-900 mt-1 leading-snug truncate">
+        Salmón a la Brasa con Miel
+      </h3>
+<p class="text-xs text-charcoal-500 line-clamp-2 mt-0.5 leading-relaxed">
+        Salmón fresco glaseado al romero sobre espárragos tiernos grillados y emulsión cítrica.
+      </p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-1 border-t border-[#f7f2ea]">
+<span class="font-serif font-bold text-base text-charcoal-900">$22.00</span>
+<button aria-label="Agregar Salmón a la comanda" class="inline-flex items-center gap-1 bg-wine hover:bg-wine-dark active:scale-95 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Plato 4: Entraña Fina al Quebracho -->
+<article class="bg-white rounded-2xl p-3 border border-[#ede5d8] shadow-soft-card flex gap-3 hover:border-wine/40 transition-colors cursor-pointer">
+<div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#f0eae0]">
+<img alt="Entraña Fina al Quebracho" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1UGb5_b7xH1-IZlVzXJolKCeM6E_FQFGBx5FxIOAuJkvXSp5Fd5JlVy7JvFsMkYJVIr2kpsldZZONAEoUzL_CODo1WEDAO0nGY7xfVn3pxjMtRlEZe-jbqJDevizFlni3lWA0nH-NTu_eARxQib0D2fRHS3OB4I6mluaYOsTII9R4qt-FYL3VRX3bjpfaJVWR5Bz2QtKUwPTooDPAStH4tu7cGqq9aP0QnjlsYbW4DKuDaq7JrVZFn-"/>
+<span class="absolute top-1 left-1 bg-charcoal-900/80 backdrop-blur-xs text-[9px] font-bold text-white px-1.5 py-0.5 rounded-md">
+      350g
+    </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="inline-block text-[10px] font-bold tracking-wide text-wine uppercase bg-wine-surface px-2 py-0.5 rounded-md">
+            ⭐ Recomendación del Chef
+          </span>
+<span class="text-[10px] text-charcoal-500 font-medium flex items-center gap-0.5">
+            ⏱ 20 min
+          </span>
+</div>
+<button aria-label="Guardar en favoritos" class="text-charcoal-400 hover:text-wine active:scale-90 transition-all p-0.5" type="button">
+<span class="material-symbols-outlined text-[19px]">favorite</span>
+</button>
+</div>
+<h3 class="font-bold text-sm text-charcoal-900 mt-1 leading-snug truncate">
+        Entraña Fina al Quebracho
+      </h3>
+<p class="text-xs text-charcoal-500 line-clamp-2 mt-0.5 leading-relaxed">
+        Corte tierno y crocante a fuego vivo, servido con pimientos asados y sal marina.
+      </p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-1 border-t border-[#f7f2ea]">
+<span class="font-serif font-bold text-base text-charcoal-900">$26.00</span>
+<button aria-label="Agregar Entraña Fina a la comanda" class="inline-flex items-center gap-1 bg-wine hover:bg-wine-dark active:scale-95 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Plato 5: Bife de Chorizo Clásico -->
+<article class="bg-white rounded-2xl p-3 border border-[#ede5d8] shadow-soft-card flex gap-3 hover:border-wine/40 transition-colors cursor-pointer">
+<div class="relative w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-[#f0eae0]">
+<img alt="Bife de Chorizo Clásico" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida/AEtjO1UGb5_b7xH1-IZlVzXJolKCeM6E_FQFGBx5FxIOAuJkvXSp5Fd5JlVy7JvFsMkYJVIr2kpsldZZONAEoUzL_CODo1WEDAO0nGY7xfVn3pxjMtRlEZe-jbqJDevizFlni3lWA0nH-NTu_eARxQib0D2fRHS3OB4I6mluaYOsTII9R4qt-FYL3VRX3bjpfaJVWR5Bz2QtKUwPTooDPAStH4tu7cGqq9aP0QnjlsYbW4DKuDaq7JrVZFn-"/>
+<span class="absolute top-1 left-1 bg-charcoal-900/80 backdrop-blur-xs text-[9px] font-bold text-white px-1.5 py-0.5 rounded-md">
+      450g
+    </span>
+</div>
+<div class="flex-1 min-w-0 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between gap-1">
+<div class="flex items-center gap-1.5 flex-wrap">
+<span class="inline-block text-[10px] font-bold tracking-wide text-charcoal-700 uppercase bg-[#f4efe8] px-2 py-0.5 rounded-md">
+            🔥 Corte Angus
+          </span>
+<span class="text-[10px] text-charcoal-500 font-medium flex items-center gap-0.5">
+            ⏱ 22 min
+          </span>
+</div>
+<button aria-label="Guardar en favoritos" class="text-charcoal-400 hover:text-wine active:scale-90 transition-all p-0.5" type="button">
+<span class="material-symbols-outlined text-[19px]">favorite</span>
+</button>
+</div>
+<h3 class="font-bold text-sm text-charcoal-900 mt-1 leading-snug truncate">
+        Bife de Chorizo Clásico
+      </h3>
+<p class="text-xs text-charcoal-500 line-clamp-2 mt-0.5 leading-relaxed">
+        El clásico corte argentino con sellado perfecto a la parrilla, acompañado de ensalada fresca de rúcula y parmesano.
+      </p>
+</div>
+<div class="flex items-center justify-between mt-2 pt-1 border-t border-[#f7f2ea]">
+<span class="font-serif font-bold text-base text-charcoal-900">$29.00</span>
+<button aria-label="Agregar Bife de Chorizo a la comanda" class="inline-flex items-center gap-1 bg-wine hover:bg-wine-dark active:scale-95 text-white text-xs font-semibold px-3 py-1.5 rounded-xl shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar</span>
+</button>
+</div>
+</div>
+</article>
+<!-- Ayuda camarero banner -->
+<div class="mt-4 rounded-2xl p-4 bg-[#fbf6ee] border border-[#f0e2cd] flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-[#f4e6d2] text-wine flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[19px]">room_service</span>
+</div>
+<div class="space-y-1 text-xs">
+<h4 class="font-bold text-charcoal-900">¿Prefieres un punto de cocción especial?</h4>
+<p class="text-charcoal-600 leading-relaxed">
+      Indica tu término preferido (vuelta y vuelta, jugoso, a punto o bien cocido) al camarero de tu mesa o en las notas de tu orden.
+    </p>
+<button class="inline-flex items-center gap-1 text-wine font-semibold pt-1 hover:underline text-[11px]" type="button">
+<span>Llamar al camarero de mesa</span>
+<span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+</button>
+</div>
+</div></main>
+<!-- END: SearchResultsSection -->
+<!-- BEGIN: BottomNavigationBar -->
+<!-- Fixed Navigation Bar matching Sabor & Brasa's mobile bar -->
+<nav aria-label="Navegación principal" class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-white/95 backdrop-blur-md border-t border-[#ede5d8] py-2 px-4 flex justify-between items-center z-40 shadow-nav">
+<!-- Tab 1: Menú (Activo) -->
+<a class="flex flex-col items-center gap-1 flex-1 text-wine" href="#">
+<span class="material-symbols-outlined text-[23px] filled">restaurant_menu</span>
+<span class="text-[10px] font-bold">Menú</span>
+</a>
+<!-- Tab 2: Favoritos -->
+<a class="flex flex-col items-center gap-1 flex-1 text-charcoal-400 hover:text-charcoal-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-[23px]">favorite</span>
+<span class="text-[10px] font-medium">Favoritos</span>
+</a>
+<!-- Tab 3: Mi Orden (Con Badge "3") -->
+<a class="flex flex-col items-center gap-1 flex-1 text-charcoal-400 hover:text-charcoal-700 transition-colors relative" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[23px]">receipt_long</span>
+<!-- Order Badge -->
+<span class="absolute -top-1.5 -right-2 bg-wine text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center border-2 border-white">
+            3
+          </span>
+</div>
+<span class="text-[10px] font-medium">Mi Orden</span>
+</a>
+<!-- Tab 4: Camarero -->
+<a class="flex flex-col items-center gap-1 flex-1 text-charcoal-400 hover:text-charcoal-700 transition-colors" href="#">
+<span class="material-symbols-outlined text-[23px]">notifications</span>
+<span class="text-[10px] font-medium">Camarero</span>
+</a>
+</nav>
+<!-- END: BottomNavigationBar -->
+</div>
+</body></html>

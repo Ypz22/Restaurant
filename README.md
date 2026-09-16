@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sabor & Brasa
 
-## Getting Started
+Aplicación de pedidos para mesa construida con Next.js y Supabase. La entrada `/brasa` abre la mesa de demostración `Mesa 04`; un QR real puede apuntar a `/r/sabor-brasa/mesa/<qr_token>`.
 
-First, run the development server:
+## Inicio local
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Inicia Supabase local con `npx supabase start`.
+2. Copia `.env.local.example` a `.env.local` y asigna `NEXT_PUBLIC_SUPABASE_URL` y `NEXT_PUBLIC_SUPABASE_ANON_KEY` con los valores de `npx supabase status`. Asigna `SUPABASE_SERVICE_ROLE_KEY` solo si ejecutarás las pruebas de integración; nunca la uses como variable pública.
+3. Aplica las migraciones con `npx supabase migration up --local`. Si acabas de crear una base local desechable y quieres los datos de demostración, ejecuta `npx supabase db reset --local` para cargar `supabase/seed.sql`.
+4. Ejecuta `npm install` y `npm run dev`; abre `http://localhost:3000/brasa`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+El menú, la disponibilidad, el carrito compartido, las solicitudes al camarero y los pedidos confirmados se leen o escriben en Supabase. Las fotografías locales están en `public/brasa`. Las migraciones agregan notas para cocina y motivos detallados para las solicitudes. Para conectar una instancia alojada, configura sus URL y clave pública en las variables de entorno y aplica allí las migraciones y los datos del menú.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verificación
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+`npm test`, `npm run test:integration` y `npm run test:e2e` cubren la lógica, los RPC y el flujo en navegador. Las pruebas de integración y navegador necesitan Supabase local activo.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Las referencias originales de Stitch están catalogadas en [PANTALLAS_BRASA.md](PANTALLAS_BRASA.md).

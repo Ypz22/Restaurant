@@ -5,12 +5,15 @@ export type OrderRound = {
   tableSessionId: string
   submittedAt: string
   status: 'pending' | 'preparing' | 'ready' | 'delivered'
+  notes: string
 }
 
-export async function submitOrderRound(deviceToken: string): Promise<OrderRound> {
+export async function submitOrderRound(deviceToken: string, kitchenNotes = ''): Promise<OrderRound> {
   const supabase = createClient()
   const { data, error } = await supabase
-    .rpc('rpc_submit_order_round', { p_device_token: deviceToken })
+    .rpc('rpc_submit_order_round', kitchenNotes
+      ? { p_device_token: deviceToken, p_kitchen_notes: kitchenNotes }
+      : { p_device_token: deviceToken })
     .single()
 
   if (error || !data) throw new Error(error?.message ?? 'submit_order_round_failed')
@@ -20,6 +23,7 @@ export async function submitOrderRound(deviceToken: string): Promise<OrderRound>
     table_session_id: string
     submitted_at: string
     status: 'pending' | 'preparing' | 'ready' | 'delivered'
+    notes: string
   }
 
   return {
@@ -27,5 +31,6 @@ export async function submitOrderRound(deviceToken: string): Promise<OrderRound>
     tableSessionId: row.table_session_id,
     submittedAt: row.submitted_at,
     status: row.status,
+    notes: row.notes,
   }
 }

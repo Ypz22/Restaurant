@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mi Orden - Sabor &amp; Brasa</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              wine: '#bc4749',
+              wineDark: '#9e3436',
+              wineLight: '#fbeeee',
+              cream: '#fbf9f5',
+              surfaceLow: '#f5f3ef',
+              surfaceCard: '#ffffff',
+              borderLight: '#ede9e2',
+              charcoal: '#22201e',
+              muted: '#78716c',
+              gold: '#d97706'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(43, 24, 16, 0.06), 0 2px 6px -1px rgba(43, 24, 16, 0.04)',
+            'sticky': '0 -6px 25px -4px rgba(43, 24, 16, 0.08)'
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill {
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Hide scrollbar for neat mobile look */
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-brand-cream text-brand-charcoal font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-brand-wine selection:text-white pb-36">
+<!-- ==================== HEADER ==================== -->
+<header class="sticky top-0 z-40 bg-brand-cream/95 backdrop-blur-md border-b border-brand-borderLight/80 px-4 py-3 flex items-center justify-between transition-all max-w-sm mx-auto">
+<div class="flex items-center gap-3">
+<button aria-label="Regresar al menú" class="w-10 h-10 rounded-full bg-white border border-brand-borderLight shadow-sm flex items-center justify-center text-brand-charcoal active:scale-95 transition-transform" onclick="history.back()">
+<span class="material-symbols-outlined text-[22px]">arrow_back</span>
+</button>
+<div>
+<div class="flex items-center gap-1.5">
+<h1 class="text-lg font-bold font-serif text-brand-charcoal leading-tight">Mi Orden</h1>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-semibold bg-brand-wineLight text-brand-wine">En mesa</span>
+</div>
+<p class="text-xs font-semibold text-brand-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-brand-wine">table_restaurant</span>
+          Mesa 04 <span class="text-stone-300">•</span> Salón Principal
+        </p>
+</div>
+</div>
+<!-- Botón discreto Agregar más -->
+<a class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white border border-brand-borderLight text-xs font-bold text-brand-wine shadow-sm hover:bg-brand-wineLight active:scale-95 transition" href="#">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span>Agregar más</span>
+</a>
+</header>
+<!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+<main class="flex-1 px-4 pt-4 space-y-5 mx-auto w-full max-w-sm">
+<!-- SECCIÓN PRINCIPAL: Encabezado -->
+<div class="flex items-baseline justify-between pt-1">
+<div>
+<h2 class="text-xl font-bold tracking-tight text-brand-charcoal font-serif">Tu pedido</h2>
+<p class="text-xs text-brand-muted font-medium">Revisa y personaliza antes de enviar a cocina</p>
+</div>
+<span class="px-2.5 py-1 rounded-full text-xs font-bold bg-brand-surfaceLow text-brand-charcoal border border-brand-borderLight" id="product-count-badge">
+        3 productos
+      </span>
+</div>
+<!-- LISTA DE PRODUCTOS (Tarjetas individuales compactas) -->
+<div class="space-y-3" id="products-list">
+<!-- PRODUCTO 1: Ojo de Bife -->
+<article class="bg-white rounded-2xl p-3.5 border border-brand-borderLight shadow-soft flex flex-col gap-3 relative transition-all" id="item-1">
+<div class="flex gap-3">
+<!-- Miniatura -->
+<div class="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-stone-100 border border-brand-borderLight">
+<img alt="Ojo de Bife a la Leña" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UGb5_b7xH1-IZlVzXJolKCeM6E_FQFGBx5FxIOAuJkvXSp5Fd5JlVy7JvFsMkYJVIr2kpsldZZONAEoUzL_CODo1WEDAO0nGY7xfVn3pxjMtRlEZe-jbqJDevizFlni3lWA0nH-NTu_eARxQib0D2fRHS3OB4I6mluaYOsTII9R4qt-FYL3VRX3bjpfaJVWR5Bz2QtKUwPTooDPAStH4tu7cGqq9aP0QnjlsYbW4DKuDaq7JrVZFn-"/>
+<span class="absolute top-1 left-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-brand-wine text-white tracking-wider">CHEF</span>
+</div>
+<!-- Información y detalles -->
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-bold text-sm text-brand-charcoal truncate font-serif">Ojo de Bife a la Leña</h3>
+<button aria-label="Eliminar Ojo de Bife" class="text-stone-400 hover:text-red-600 p-1 -mr-1 -mt-1 rounded-full hover:bg-stone-100 transition" onclick="removeItem('item-1', 23.50)">
+<span class="material-symbols-outlined text-[18px]">delete_outline</span>
+</button>
+</div>
+<!-- Personalización badges / descripción -->
+<div class="flex flex-wrap items-center gap-1.5 mt-1">
+<span class="inline-flex items-center text-[11px] font-medium bg-brand-surfaceLow text-stone-700 px-2 py-0.5 rounded-md">
+                Término medio
+              </span>
+<span class="inline-flex items-center text-[11px] font-medium bg-brand-surfaceLow text-stone-700 px-2 py-0.5 rounded-md">
+                + Papas rústicas
+              </span>
+</div>
+<div class="flex items-center justify-between mt-2.5">
+<span class="font-bold text-base text-brand-wine font-serif" id="price-item-1">$23.50</span>
+<button class="text-xs font-semibold text-brand-muted hover:text-brand-wine underline decoration-stone-300 underline-offset-2 transition" onclick="openEditModal('Ojo de Bife a la Leña', 'Término medio', 'Papas rústicas')">
+                Editar
+              </button>
+</div>
+</div>
+</div>
+<!-- Fila de control de cantidad -->
+<div class="pt-2 border-t border-brand-borderLight/70 flex items-center justify-between">
+<span class="text-xs text-brand-muted font-medium">Cantidad</span>
+<div class="flex items-center gap-2 bg-brand-surfaceLow px-2 py-1 rounded-full border border-brand-borderLight">
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-1', -1, 'item-1', 23.50)">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="text-xs font-bold text-brand-charcoal w-5 text-center" id="qty-1">1</span>
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-1', 1, 'item-1', 23.50)">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- PRODUCTO 2: Salmón a la Miel & Romero -->
+<article class="bg-white rounded-2xl p-3.5 border border-brand-borderLight shadow-soft flex flex-col gap-3 relative transition-all" id="item-2">
+<div class="flex gap-3">
+<!-- Miniatura -->
+<div class="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-stone-100 border border-brand-borderLight">
+<img alt="Salmón a la Miel &amp; Romero" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0VQ3tYnRnvD_MkukBFzmaRsToOwDh-jllAf_17EsEP0gWqLQNonLFQgPTN_JQGtDUA4ZXTCL9yp-5wD6_SeTk23Yl-CZ9dIZmFVKreG2zZDGcNYPqr3hWmhVEyLidsdBYXN4IfN543ZkvmC05bm-RM0PlAliuSpdw1slGdtQXpxN_fhLS9b6SIBikz6pVd_jPfMAt31QaK8uZgbY3YyCj6WnfFPEyZ5B3yNyzR8-m_s_qRktiNXY"/>
+</div>
+<!-- Información y detalles -->
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-bold text-sm text-brand-charcoal truncate font-serif">Salmón a la Miel &amp; Romero</h3>
+<button aria-label="Eliminar Salmón" class="text-stone-400 hover:text-red-600 p-1 -mr-1 -mt-1 rounded-full hover:bg-stone-100 transition" onclick="removeItem('item-2', 19.50)">
+<span class="material-symbols-outlined text-[18px]">delete_outline</span>
+</button>
+</div>
+<!-- Personalización badges / descripción -->
+<div class="flex flex-wrap items-center gap-1.5 mt-1">
+<span class="inline-flex items-center text-[11px] font-medium bg-brand-surfaceLow text-stone-700 px-2 py-0.5 rounded-md">
+                Preparación original
+              </span>
+</div>
+<div class="flex items-center justify-between mt-2.5">
+<span class="font-bold text-base text-brand-wine font-serif" id="price-item-2">$19.50</span>
+<button class="text-xs font-semibold text-brand-muted hover:text-brand-wine underline decoration-stone-300 underline-offset-2 transition" onclick="openEditModal('Salmón a la Miel &amp; Romero', 'Preparación original', 'Sin adicionales')">
+                Editar
+              </button>
+</div>
+</div>
+</div>
+<!-- Fila de control de cantidad -->
+<div class="pt-2 border-t border-brand-borderLight/70 flex items-center justify-between">
+<span class="text-xs text-brand-muted font-medium">Cantidad</span>
+<div class="flex items-center gap-2 bg-brand-surfaceLow px-2 py-1 rounded-full border border-brand-borderLight">
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-2', -1, 'item-2', 19.50)">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="text-xs font-bold text-brand-charcoal w-5 text-center" id="qty-2">1</span>
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-2', 1, 'item-2', 19.50)">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</article>
+<!-- PRODUCTO 3: Tacos de Asado al Carbón -->
+<article class="bg-white rounded-2xl p-3.5 border border-brand-borderLight shadow-soft flex flex-col gap-3 relative transition-all" id="item-3">
+<div class="flex gap-3">
+<!-- Miniatura -->
+<div class="relative w-20 h-20 rounded-xl overflow-hidden shrink-0 bg-stone-100 border border-brand-borderLight">
+<img alt="Tacos de Asado al Carbón" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAdWtDGTVUPsPmAdmgZSeA9WISYKoCZYkBVR1PGTC7nD8IOIj4raJVFXzFEkv9Lvyy2s0KG3icuoiWX3iS8VhO7LXZdve4kWpsxGAUK8Iyjn_6XJ-UAahtjDGXm4-7MUCVafMHWOOSAoClFHU7ev_i-adB_6n6vFMzEB2RzcHHQYzjSF8afVhTafF9ikg0c7BPNS1ljY-2BIPMEcPnNrIL373_MEG1agu2B6mAeowJ2zIU26bznL0"/>
+</div>
+<!-- Información y detalles -->
+<div class="flex-1 min-w-0">
+<div class="flex items-start justify-between gap-1">
+<h3 class="font-bold text-sm text-brand-charcoal truncate font-serif">Tacos de Asado al Carbón</h3>
+<button aria-label="Eliminar Tacos" class="text-stone-400 hover:text-red-600 p-1 -mr-1 -mt-1 rounded-full hover:bg-stone-100 transition" onclick="removeItem('item-3', 14.50)">
+<span class="material-symbols-outlined text-[18px]">delete_outline</span>
+</button>
+</div>
+<!-- Personalización badges / descripción -->
+<div class="flex flex-wrap items-center gap-1.5 mt-1">
+<span class="inline-flex items-center text-[11px] font-medium bg-brand-surfaceLow text-stone-700 px-2 py-0.5 rounded-md">
+                Picante suave
+              </span>
+</div>
+<div class="flex items-center justify-between mt-2.5">
+<span class="font-bold text-base text-brand-wine font-serif" id="price-item-3">$14.50</span>
+<button class="text-xs font-semibold text-brand-muted hover:text-brand-wine underline decoration-stone-300 underline-offset-2 transition" onclick="openEditModal('Tacos de Asado al Carbón', 'Picante suave', 'Cilantro fresco')">
+                Editar
+              </button>
+</div>
+</div>
+</div>
+<!-- Fila de control de cantidad -->
+<div class="pt-2 border-t border-brand-borderLight/70 flex items-center justify-between">
+<span class="text-xs text-brand-muted font-medium">Cantidad</span>
+<div class="flex items-center gap-2 bg-brand-surfaceLow px-2 py-1 rounded-full border border-brand-borderLight">
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-3', -1, 'item-3', 14.50)">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<span class="text-xs font-bold text-brand-charcoal w-5 text-center" id="qty-3">1</span>
+<button class="w-6 h-6 rounded-full bg-white shadow-xs flex items-center justify-center text-brand-charcoal active:scale-90 font-bold hover:bg-stone-50 transition text-sm" onclick="adjustQty('qty-3', 1, 'item-3', 14.50)">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</article>
+</div>
+<!-- SECCIÓN: Indicaciones para cocina -->
+<section class="bg-white rounded-2xl p-4 border border-brand-borderLight shadow-soft space-y-2">
+<div class="flex items-center justify-between">
+<label class="text-xs font-bold uppercase tracking-wider text-brand-charcoal flex items-center gap-1.5" for="kitchen-notes">
+<span class="material-symbols-outlined text-[18px] text-brand-wine">restaurant</span>
+          Indicaciones para cocina
+        </label>
+<span class="text-[11px] text-stone-400 font-medium" id="char-counter">0 / 140</span>
+</div>
+<textarea class="w-full text-xs text-brand-charcoal bg-brand-surfaceLow border border-brand-borderLight rounded-xl p-3 focus:outline-none focus:ring-1 focus:ring-brand-wine focus:bg-white transition resize-none placeholder:text-stone-400" id="kitchen-notes" maxlength="140" oninput="updateCharCount(this)" placeholder="Ej. Sin cebolla en los tacos, traer las bebidas primero..." rows="2"></textarea>
+</section>
+<!-- TARJETA INFORMATIVA: Alergias (Crema claro) -->
+<div class="bg-[#f7f2ea] border border-[#ebdcc7] rounded-2xl p-3.5 flex items-start gap-3">
+<div class="w-7 h-7 rounded-full bg-[#faecd6] text-amber-800 flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">info</span>
+</div>
+<div class="text-xs">
+<p class="font-bold text-amber-950 leading-snug">¿Tienes alguna alergia?</p>
+<p class="text-amber-900/80 font-medium mt-0.5 leading-relaxed">
+          Informa a tu camarero antes de confirmar tu pedido.
+        </p>
+</div>
+</div>
+<!-- SECCIÓN: Resumen económico -->
+<section class="bg-white rounded-2xl p-4 border border-brand-borderLight shadow-soft space-y-2.5">
+<h3 class="text-xs font-bold uppercase tracking-wider text-brand-muted">Resumen</h3>
+<div class="space-y-1.5 text-xs">
+<div class="flex justify-between items-center text-stone-600">
+<span>Subtotal</span>
+<span class="font-medium text-stone-800" id="subtotal-val">$57.50</span>
+</div>
+<div class="flex justify-between items-center text-stone-600">
+<span>Adicionales</span>
+<span class="font-medium text-stone-800" id="extras-val">$2.50</span>
+</div>
+<div class="pt-2 border-t border-brand-borderLight"></div>
+<div class="flex justify-between items-center text-base pt-0.5">
+<span class="font-bold text-brand-charcoal">Total</span>
+<span class="font-extrabold text-brand-charcoal font-serif text-lg tracking-tight" id="total-val">$60.00</span>
+</div>
+</div>
+</section>
+</main>
+<!-- ==================== ESTADO DE CONFIRMACIÓN MODAL (Toast / Dialog) ==================== -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden flex items-center justify-center p-4" id="confirmation-modal">
+<div class="bg-white rounded-3xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4 border border-brand-borderLight transform transition-all scale-95 opacity-0 duration-200" id="modal-box">
+<!-- Check verde discreto -->
+<div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 mx-auto flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px] fill font-bold">check_circle</span>
+</div>
+<div>
+<h4 class="text-lg font-bold text-brand-charcoal font-serif">¡Pedido enviado!</h4>
+<p class="text-xs text-brand-muted mt-1 leading-relaxed">La cocina ya está preparando tu orden para la <strong>Mesa 04</strong>.</p>
+</div>
+<div class="pt-2">
+<button class="w-full py-2.5 bg-brand-wine text-white text-xs font-bold rounded-xl shadow-md active:scale-95 transition" onclick="closeConfirmationModal()">
+          Ver estado del pedido
+        </button>
+</div>
+</div>
+</div>
+<!-- ==================== MODAL DE EDICIÓN RÁPIDA ==================== -->
+<div class="fixed inset-0 z-50 bg-black/40 backdrop-blur-xs hidden flex items-end sm:items-center justify-center p-0 sm:p-4" id="edit-modal">
+<div class="bg-white rounded-t-3xl sm:rounded-3xl p-5 w-full max-w-sm shadow-2xl space-y-4 border border-brand-borderLight">
+<div class="flex items-center justify-between border-b border-brand-borderLight pb-3">
+<h4 class="text-sm font-bold text-brand-charcoal font-serif" id="edit-modal-title">Personalizar plato</h4>
+<button class="text-stone-400 hover:text-stone-700" onclick="closeEditModal()">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="space-y-3 text-xs">
+<div>
+<label class="font-bold text-stone-700 block mb-1">Punto / Cocción</label>
+<div class="flex gap-2">
+<span class="px-2.5 py-1 rounded-lg bg-brand-wineLight text-brand-wine font-bold text-[11px]">Término medio</span>
+<span class="px-2.5 py-1 rounded-lg bg-stone-100 text-stone-600 text-[11px]">Tres cuartos</span>
+</div>
+</div>
+<div>
+<label class="font-bold text-stone-700 block mb-1">Acompañamiento</label>
+<p class="text-stone-600 bg-brand-surfaceLow p-2 rounded-lg" id="edit-modal-side">Papas rústicas al romero</p>
+</div>
+</div>
+<div class="pt-2 flex gap-2">
+<button class="flex-1 py-2.5 bg-brand-surfaceLow text-stone-700 text-xs font-bold rounded-xl active:scale-95 transition" onclick="closeEditModal()">
+          Cancelar
+        </button>
+<button class="flex-1 py-2.5 bg-brand-wine text-white text-xs font-bold rounded-xl shadow-md active:scale-95 transition" onclick="closeEditModal()">
+          Guardar cambios
+        </button>
+</div>
+</div>
+</div>
+<!-- ==================== STICKY BARRA DE CONFIRMACIÓN ==================== -->
+<div class="fixed bottom-[65px] left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-brand-borderLight shadow-sticky px-4 py-3 transition-all">
+<div class="mx-auto flex items-center justify-between gap-3 max-w-sm">
+<!-- Total -->
+<div class="leading-tight">
+<span class="text-[11px] font-semibold text-brand-muted uppercase tracking-wider block">Total</span>
+<span class="text-xl font-extrabold text-brand-charcoal font-serif tracking-tight" id="sticky-total">$60.00</span>
+</div>
+<!-- Botón principal rojo grande -->
+<div class="flex-1 max-w-[240px]">
+<button class="w-full py-3 px-4 bg-brand-wine hover:bg-brand-wineDark text-white font-bold text-xs uppercase tracking-wider rounded-xl shadow-md active:scale-95 transition flex flex-col items-center justify-center leading-tight" onclick="confirmOrder()">
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">soup_kitchen</span>
+            Confirmar pedido
+          </span>
+<span class="text-[9px] font-normal normal-case tracking-normal text-brand-wineLight/90 mt-0.5">
+            Se enviará directamente a cocina
+          </span>
+</button>
+</div>
+</div>
+</div>
+<!-- ==================== BARRA DE NAVEGACIÓN INFERIOR (M3) ==================== -->
+<nav class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-brand-borderLight px-6 py-2">
+<div class="mx-auto flex items-center justify-around max-w-sm">
+<!-- 1. Menú -->
+<a class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-brand-charcoal transition py-1" href="#">
+<span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
+<span class="text-[10px] font-medium tracking-tight">Menú</span>
+</a>
+<!-- 2. Favoritos -->
+<a class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-brand-charcoal transition py-1" href="#">
+<span class="material-symbols-outlined text-[22px]">favorite</span>
+<span class="text-[10px] font-medium tracking-tight">Favoritos</span>
+</a>
+<!-- 3. Mi Orden (Activo con Badge) -->
+<a class="flex flex-col items-center gap-0.5 text-brand-wine transition py-1 relative" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px] fill">receipt_long</span>
+<span class="absolute -top-1.5 -right-2 w-4 h-4 rounded-full bg-brand-wine text-white text-[9px] font-extrabold flex items-center justify-center border-2 border-white" id="nav-cart-badge">
+            3
+          </span>
+</div>
+<span class="text-[10px] font-bold tracking-tight">Mi Orden</span>
+</a>
+<!-- 4. Camarero -->
+<a class="flex flex-col items-center gap-0.5 text-stone-400 hover:text-brand-charcoal transition py-1" href="#">
+<span class="material-symbols-outlined text-[22px]">notifications</span>
+<span class="text-[10px] font-medium tracking-tight">Camarero</span>
+</a>
+</div>
+</nav>
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    let quantities = {
+      'qty-1': 1,
+      'qty-2': 1,
+      'qty-3': 1
+    };
+
+    let itemPrices = {
+      'item-1': 23.50,
+      'item-2': 19.50,
+      'item-3': 14.50
+    };
+
+    function updateCharCount(textarea) {
+      const counter = document.getElementById('char-counter');
+      counter.innerText = `${textarea.value.length} / 140`;
+    }
+
+    function adjustQty(qtyId, delta, itemId, unitPrice) {
+      if (quantities[qtyId] !== undefined) {
+        let newQty = quantities[qtyId] + delta;
+        if (newQty < 1) return;
+        quantities[qtyId] = newQty;
+        document.getElementById(qtyId).innerText = newQty;
+
+        // update item price
+        const itemPriceEl = document.getElementById('price-' + itemId);
+        if (itemPriceEl) {
+          const itemTotal = unitPrice * newQty;
+          itemPriceEl.innerText = '$' + itemTotal.toFixed(2);
+        }
+
+        recalcTotal();
+      }
+    }
+
+    function removeItem(itemId, price) {
+      const el = document.getElementById(itemId);
+      if (el) {
+        el.style.opacity = '0';
+        el.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          el.remove();
+          delete itemPrices[itemId];
+          recalcTotal();
+          updateProductCount();
+        }, 180);
+      }
+    }
+
+    function updateProductCount() {
+      const remainingItems = document.querySelectorAll('#products-list > article').length;
+      const badge = document.getElementById('product-count-badge');
+      const navBadge = document.getElementById('nav-cart-badge');
+      
+      if (badge) badge.innerText = `${remainingItems} ${remainingItems === 1 ? 'producto' : 'productos'}`;
+      if (navBadge) navBadge.innerText = remainingItems;
+    }
+
+    function recalcTotal() {
+      let subtotal = 0;
+      let extras = 2.50; // por las papas rústicas del plato 1
+
+      if (document.getElementById('item-1')) {
+        subtotal += 21.00 * quantities['qty-1'];
+        extras = 2.50 * quantities['qty-1'];
+      } else {
+        extras = 0;
+      }
+      if (document.getElementById('item-2')) {
+        subtotal += 19.50 * quantities['qty-2'];
+      }
+      if (document.getElementById('item-3')) {
+        subtotal += 14.50 * quantities['qty-3'];
+      }
+
+      let total = subtotal + extras;
+
+      document.getElementById('subtotal-val').innerText = '$' + subtotal.toFixed(2);
+      document.getElementById('extras-val').innerText = '$' + extras.toFixed(2);
+      document.getElementById('total-val').innerText = '$' + total.toFixed(2);
+      document.getElementById('sticky-total').innerText = '$' + total.toFixed(2);
+    }
+
+    function confirmOrder() {
+      const modal = document.getElementById('confirmation-modal');
+      const box = document.getElementById('modal-box');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        box.classList.remove('scale-95', 'opacity-0');
+        box.classList.add('scale-100', 'opacity-100');
+      }, 10);
+    }
+
+    function closeConfirmationModal() {
+      const modal = document.getElementById('confirmation-modal');
+      const box = document.getElementById('modal-box');
+      box.classList.remove('scale-100', 'opacity-100');
+      box.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 200);
+    }
+
+    function openEditModal(title, term, side) {
+      document.getElementById('edit-modal-title').innerText = 'Editar ' + title;
+      document.getElementById('edit-modal-side').innerText = side;
+      document.getElementById('edit-modal').classList.remove('hidden');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+{
+  "projectId": "277974681818288728",
+  "screens": [
+    {
+      "title": "Menú Interactivo - Sabor & Brasa",
+      "deviceType": "MOBILE",
+      "screenId": "bc3a6340ccd34742bc39a04b497a0a0e",
+      "image": "/brasa/archivo/original-bc3a6340ccd34742bc39a04b497a0a0e.png",
+      "html": "/brasa/archivo/original-bc3a6340ccd34742bc39a04b497a0a0e.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Categoría: Parrilla & Cortes - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "6862043841d540fbbe5fc349e291e8fb",
+      "image": "/brasa/archivo/original-6862043841d540fbbe5fc349e291e8fb.png",
+      "html": "/brasa/archivo/original-6862043841d540fbbe5fc349e291e8fb.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Buscador del Menú - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "a55a9a6895c848a4b77a2a4b9a4f5a7a",
+      "image": "/brasa/archivo/original-a55a9a6895c848a4b77a2a4b9a4f5a7a.png",
+      "html": "/brasa/archivo/original-a55a9a6895c848a4b77a2a4b9a4f5a7a.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Detalle de Plato - Ojo de Bife a la Leña",
+      "deviceType": "MOBILE",
+      "screenId": "fc86f654fa21481b81660c118b1c3b7a",
+      "image": "/brasa/archivo/original-fc86f654fa21481b81660c118b1c3b7a.png",
+      "html": "/brasa/archivo/original-fc86f654fa21481b81660c118b1c3b7a.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Mi Orden - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "a1119aba83a34dc7aec530909ec6996b",
+      "image": "/brasa/archivo/original-a1119aba83a34dc7aec530909ec6996b.png",
+      "html": "/brasa/archivo/original-a1119aba83a34dc7aec530909ec6996b.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Mi Orden Vacía - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "840be9c4983146da85b5f341e87a3ed7",
+      "image": "/brasa/archivo/original-840be9c4983146da85b5f341e87a3ed7.png",
+      "html": "/brasa/archivo/original-840be9c4983146da85b5f341e87a3ed7.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Llamar Camarero - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "e819d0e02290417fb8b9b9e7fee6b1f0",
+      "image": "/brasa/archivo/original-e819d0e02290417fb8b9b9e7fee6b1f0.png",
+      "html": "/brasa/archivo/original-e819d0e02290417fb8b9b9e7fee6b1f0.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Pedido Confirmado - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "fedc35d00d764c83be8091baea7fc475",
+      "image": "/brasa/archivo/original-fedc35d00d764c83be8091baea7fc475.png",
+      "html": "/brasa/archivo/original-fedc35d00d764c83be8091baea7fc475.html",
+      "source": "Pantalla original del Remix"
+    },
+    {
+      "title": "Bienvenida QR & Identificación - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "5b8df46c73a24d4089157a962dd2c113",
+      "sourceScreenId": "1e0b7a44c663402e8b610e53bc5e71af",
+      "image": "/brasa/archivo/nuevo-5b8df46c73a24d4089157a962dd2c113.png",
+      "html": "/brasa/archivo/referencia-1e0b7a44c663402e8b610e53bc5e71af.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "KDS Cocina & Comandas - Sabor & Brasa (Móvil Portrait)",
+      "deviceType": "MOBILE",
+      "screenId": "d292aa83ee6346ca87f7647fc159d1ca",
+      "sourceScreenId": "b8a08df972424cf2b2227deffeb4326f",
+      "image": "/brasa/archivo/nuevo-d292aa83ee6346ca87f7647fc159d1ca.png",
+      "html": "/brasa/archivo/referencia-b8a08df972424cf2b2227deffeb4326f.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Confirmación de Orden Mesa 04 - Sabor & Brasa (Móvil)",
+      "deviceType": "MOBILE",
+      "screenId": "32f8d5b19d3f4e9897296c4854647ac3",
+      "sourceScreenId": "b82c8e4238c64d5d84966050fe06afa1",
+      "image": "/brasa/archivo/nuevo-32f8d5b19d3f4e9897296c4854647ac3.png",
+      "html": "/brasa/archivo/referencia-b82c8e4238c64d5d84966050fe06afa1.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Crear y Editar Productos - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "ffd6bafe11e3490f9f980eea82d7da6b",
+      "sourceScreenId": "f0b94d7706ba4b7383eb88a8858d8f14",
+      "image": "/brasa/archivo/nuevo-ffd6bafe11e3490f9f980eea82d7da6b.png",
+      "html": "/brasa/archivo/referencia-f0b94d7706ba4b7383eb88a8858d8f14.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Dashboard de Ventas y Métricas - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "d66b4f7ed7584901a7dfd24a58d9ef34",
+      "sourceScreenId": "2bdc3234a00144da9e7a4223eb0d1711",
+      "image": "/brasa/archivo/nuevo-d66b4f7ed7584901a7dfd24a58d9ef34.png",
+      "html": "/brasa/archivo/referencia-2bdc3234a00144da9e7a4223eb0d1711.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Dashboard de Ventas y Métricas (Calma Operativa) - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "1713aca43ca14175a1293d9bdba6f799",
+      "sourceScreenId": "1bfc9b403d814fdf8259657f916de766",
+      "image": "/brasa/archivo/nuevo-1713aca43ca14175a1293d9bdba6f799.png",
+      "html": "/brasa/archivo/referencia-1bfc9b403d814fdf8259657f916de766.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "KDS Cocina & Comandas (Pantalla Grande) - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "a4ff617c771b414da7b98aa8bb01f76c",
+      "sourceScreenId": "a173ad5337cd4795a6368f774dca2cff",
+      "image": "/brasa/archivo/nuevo-a4ff617c771b414da7b98aa8bb01f76c.png",
+      "html": "/brasa/archivo/referencia-a173ad5337cd4795a6368f774dca2cff.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "KDS Cocina & Comandas (Calma Operativa) - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "47022adc0b0c4069b8d52bad2c1d0165",
+      "sourceScreenId": "5df53a06b9a64b749bcc8ac83e44df8b",
+      "image": "/brasa/archivo/nuevo-47022adc0b0c4069b8d52bad2c1d0165.png",
+      "html": "/brasa/archivo/referencia-5df53a06b9a64b749bcc8ac83e44df8b.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Gestión de Menú del Día - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "e0125ea4eb944e8cb0e2ddb78a653208",
+      "sourceScreenId": "e926dddbd1b34e22b9ddeaac409c8db3",
+      "image": "/brasa/archivo/nuevo-e0125ea4eb944e8cb0e2ddb78a653208.png",
+      "html": "/brasa/archivo/referencia-e926dddbd1b34e22b9ddeaac409c8db3.html",
+      "source": "Generada con Stitch MCP"
+    },
+    {
+      "title": "Gestión de Menú del Día (Calma Operativa) - Sabor & Brasa",
+      "deviceType": "DESKTOP",
+      "screenId": "ed671d532cff473cb8fcfa6712c45b0b",
+      "sourceScreenId": "e7eb880f57d542fcaea0647117a88c7b",
+      "image": "/brasa/archivo/nuevo-ed671d532cff473cb8fcfa6712c45b0b.png",
+      "html": "/brasa/archivo/referencia-e7eb880f57d542fcaea0647117a88c7b.html",
+      "source": "Generada con Stitch MCP"
+    }
+  ]
+}

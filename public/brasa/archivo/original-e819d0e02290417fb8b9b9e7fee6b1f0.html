@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Camarero - Sabor &amp; Brasa</title>
+<!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<!-- Tailwind CSS v3 with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              wine: '#bc4749',
+              darkWine: '#9e2a2b',
+              cream: '#fbf9f5',
+              surface: '#ffffff',
+              border: '#ede8df',
+              textPrimary: '#231815',
+              textMuted: '#716b68',
+              badgeBg: '#faecea'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+<!-- Typography & Layout Styles -->
+<style data-purpose="typography">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f5f3ef;
+      color: #231815;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .font-heading {
+      font-family: 'Playfair Display', serif;
+    }
+  </style>
+<!-- Custom Card States & Animations -->
+<style data-purpose="interactive-states">
+    .option-card input:checked + div {
+      border-color: #bc4749;
+      background-color: #fef7f6;
+      box-shadow: 0 4px 14px rgba(188, 71, 73, 0.08);
+    }
+    .option-card input:checked + div .check-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .option-card input:checked + div .card-icon-container {
+      background-color: #bc4749;
+      color: #ffffff;
+    }
+    .check-icon {
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.fill-icon {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Modal show/hide transitions */
+    #successModal.hidden-modal {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #successModal {
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex justify-center items-start sm:py-6">
+<!-- BEGIN: Mobile Container (iOS Form Factor ~390px) -->
+<main class="w-full max-w-[420px] min-h-screen sm:min-h-[852px] bg-brand-cream relative pb-28 shadow-xl flex flex-col justify-between overflow-x-hidden border-x border-stone-200">
+<!-- Top Wrapper for Content -->
+<div>
+<!-- BEGIN: Header -->
+<header class="sticky top-0 z-30 bg-brand-cream/95 backdrop-blur-md px-4 pt-3 pb-3 border-b border-brand-border/80" data-purpose="app-header">
+<div class="flex items-center justify-between">
+<!-- Back navigation button -->
+<a aria-label="Volver" class="w-10 h-10 rounded-full bg-white border border-brand-border flex items-center justify-center text-stone-800 active:scale-95 transition-transform shadow-xs" href="#">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+</a>
+<!-- Table badge & Quick ETA -->
+<div class="flex flex-col items-center">
+<div class="flex items-center gap-1.5 bg-white border border-brand-border px-3 py-1 rounded-full shadow-xs">
+<span class="material-symbols-outlined text-[15px] text-brand-wine">table_restaurant</span>
+<span class="text-xs font-semibold text-stone-800">Mesa 04</span>
+<span class="text-stone-300">•</span>
+<span class="text-[11px] text-stone-500 font-medium">Salón Principal</span>
+</div>
+<div class="flex items-center gap-1 mt-1 text-[11px] font-medium text-emerald-700 bg-emerald-50 border border-emerald-200/60 px-2 py-0.5 rounded-full">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Tiempo de atención: ~2 min</span>
+</div>
+</div>
+<!-- Quick Help / Assistance shortcut icon -->
+<button aria-label="Información de atención" class="w-10 h-10 rounded-full bg-white border border-brand-border flex items-center justify-center text-stone-700 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</button>
+</div>
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Title Section -->
+<section class="px-5 pt-4 pb-2" data-purpose="screen-title">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-xs tracking-wider uppercase font-bold text-brand-wine">Asistencia en mesa</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-brand-badgeBg text-brand-wine">
+            Servicio activo
+          </span>
+</div>
+<h1 class="font-heading text-2xl font-bold text-brand-textPrimary leading-tight">
+          ¿En qué podemos ayudarte?
+        </h1>
+<p class="text-xs text-brand-textMuted mt-1">
+          Selecciona un motivo para avisar a nuestro equipo de sala inmediatamente.
+        </p>
+</section>
+<!-- END: Title Section -->
+<!-- BEGIN: Request Options Selection -->
+<section class="px-4 py-2" data-purpose="options-grid">
+<form class="grid grid-cols-2 gap-2.5" id="assistanceForm">
+<!-- Option 1: Pedir la cuenta -->
+<label class="option-card cursor-pointer select-none">
+<input checked="" class="sr-only" name="solicitud" type="radio" value="Pedir la cuenta"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Pedir la cuenta</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Terminal de pago o ticket detallado</p>
+</div>
+</div>
+</label>
+<!-- Option 2: Llamar al camarero -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Llamar al camarero"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">room_service</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Llamar al camarero</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Acudir para consultas o sugerencias</p>
+</div>
+</div>
+</label>
+<!-- Option 3: Solicitar cubiertos / vajilla -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Cubiertos o vajilla"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">flatware</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Cubiertos / vajilla</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Platos base, tenedores o copas extra</p>
+</div>
+</div>
+</label>
+<!-- Option 4: Servilletas o condimentos -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Servilletas o condimentos"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">local_cafe</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Servilletas y aliños</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Sal en escamas, aceite o toallitas</p>
+</div>
+</div>
+</label>
+<!-- Option 5: Consultar por el pedido -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Estado del pedido"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">schedule</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Estado de la comanda</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Seguimiento de tiempos de cocina</p>
+</div>
+</div>
+</label>
+<!-- Option 6: Consulta de Alergias -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Consulta de alergias"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">health_and_safety</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Alergias o celiaquía</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Revisión de protocolos sin gluten</p>
+</div>
+</div>
+</label>
+<!-- Option 7: Limpieza de mesa -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Limpieza de mesa"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">cleaning_services</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Retirar platos</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Despejar mesa para el postre</p>
+</div>
+</div>
+</label>
+<!-- Option 8: Otra solicitud -->
+<label class="option-card cursor-pointer select-none">
+<input class="sr-only" name="solicitud" type="radio" value="Otra solicitud"/>
+<div class="bg-white border border-brand-border rounded-xl p-3 h-full flex flex-col justify-between transition-all duration-200 relative shadow-xs">
+<div class="flex items-start justify-between mb-2">
+<div class="card-icon-container w-9 h-9 rounded-full bg-stone-100 text-stone-700 flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+</div>
+<div class="check-icon w-5 h-5 rounded-full bg-brand-wine text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+</div>
+<div>
+<h2 class="text-xs font-bold text-stone-900 leading-tight">Otra indicación</h2>
+<p class="text-[10.5px] text-brand-textMuted mt-0.5 leading-snug">Escribe un detalle específico abajo</p>
+</div>
+</div>
+</label>
+</form>
+</section>
+<!-- END: Request Options Selection -->
+<!-- BEGIN: Additional Notes Section -->
+<section class="px-4 py-3" data-purpose="additional-message">
+<div class="bg-white border border-brand-border rounded-xl p-3.5 shadow-xs">
+<div class="flex items-center justify-between mb-1.5">
+<label class="text-xs font-semibold text-stone-900 flex items-center gap-1.5" for="extraNotes">
+<span class="material-symbols-outlined text-[16px] text-brand-wine">chat_bubble_outline</span>
+              Detalle adicional (opcional)
+            </label>
+<span class="text-[11px] text-stone-400 font-medium" id="charCount">0 / 140</span>
+</div>
+<textarea class="w-full text-xs text-stone-800 placeholder:text-stone-400 bg-stone-50/70 border border-stone-200 rounded-lg p-2.5 focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-wine focus:border-brand-wine resize-none transition-colors" id="extraNotes" maxlength="140" placeholder="Ej. Si es posible traer cubiertos limpios, hielo adicional con limón o la cuenta separada..." rows="2"></textarea>
+</div>
+<!-- Reassurance badge / Service promise -->
+<div class="mt-2.5 mx-0.5 flex items-center gap-2 p-2.5 rounded-lg bg-amber-50/70 border border-amber-200/50 text-[11px] text-stone-600">
+<span class="material-symbols-outlined text-amber-700 text-[18px] shrink-0">notifications_active</span>
+<span>El aviso llega con prioridad a la pantalla del camarero asignado a la <strong>Zona Salón Principal</strong>.</span>
+</div>
+</section>
+<!-- END: Additional Notes Section -->
+</div>
+<!-- BEGIN: Floating Action Trigger Area -->
+<section class="px-4 pt-2 pb-3 bg-brand-cream border-t border-brand-border/60" data-purpose="submit-trigger-area">
+<button class="w-full bg-brand-wine hover:bg-brand-darkWine active:scale-[0.98] text-white py-3 px-4 rounded-xl font-medium text-sm shadow-md shadow-brand-wine/20 flex items-center justify-center gap-2 transition-all" id="btnSendRequest" type="button">
+<span class="material-symbols-outlined text-[19px]">notifications_none</span>
+<span class="font-semibold tracking-wide">Solicitar a sala</span>
+</button>
+<p class="text-center text-[10.5px] text-stone-500 mt-1.5">
+        Mesa 04 vinculada • Respuesta garantizada
+      </p>
+</section>
+<!-- END: Floating Action Trigger Area -->
+<!-- BEGIN: Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] bg-white border-t border-brand-border py-2 px-3 flex items-center justify-around z-40 shadow-lg" data-purpose="bottom-navigation">
+<!-- Tab 1: Menú -->
+<a class="flex flex-col items-center justify-center text-stone-500 hover:text-stone-800 transition-colors w-16 py-0.5" href="#">
+<span class="material-symbols-outlined text-[22px]">restaurant_menu</span>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">Menú</span>
+</a>
+<!-- Tab 2: Favoritos -->
+<a class="flex flex-col items-center justify-center text-stone-500 hover:text-stone-800 transition-colors w-16 py-0.5" href="#">
+<span class="material-symbols-outlined text-[22px]">favorite_border</span>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">Favoritos</span>
+</a>
+<!-- Tab 3: Mi Orden -->
+<a class="flex flex-col items-center justify-center text-stone-500 hover:text-stone-800 transition-colors w-16 py-0.5 relative" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px]">receipt_long</span>
+<span class="absolute -top-1.5 -right-2.5 bg-brand-wine text-white text-[10px] font-bold h-4 w-4 rounded-full flex items-center justify-center border-2 border-white">
+            3
+          </span>
+</div>
+<span class="text-[10px] font-medium tracking-tight mt-0.5">Mi Orden</span>
+</a>
+<!-- Tab 4: Camarero (ACTIVO) -->
+<a aria-current="page" class="flex flex-col items-center justify-center text-brand-wine font-semibold w-16 py-0.5 relative" href="#">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px] fill-icon">room_service</span>
+<span class="w-1 h-1 rounded-full bg-brand-wine absolute -bottom-1 left-1/2 -translate-x-1/2"></span>
+</div>
+<span class="text-[10px] font-bold tracking-tight mt-0.5 text-brand-wine">Camarero</span>
+</a>
+</nav>
+<!-- END: Bottom Navigation Bar -->
+<!-- BEGIN: Confirmation Feedback Modal / Overlay -->
+<div class="hidden-modal fixed inset-0 z-50 flex items-center justify-center px-5 bg-stone-900/60 backdrop-blur-xs" id="successModal">
+<div class="w-full max-w-xs bg-white rounded-2xl p-5 shadow-2xl border border-stone-100 flex flex-col items-center text-center transform transition-all duration-300">
+<!-- Success Animated Icon -->
+<div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px]">check_circle</span>
+</div>
+<span class="text-[11px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200/50 mb-1.5">
+          Notificación enviada
+        </span>
+<h3 class="font-heading text-xl font-bold text-stone-900 leading-tight">
+          ¡Aviso en camino!
+        </h3>
+<p class="text-xs text-stone-600 mt-1.5 leading-relaxed">
+          Tu camarero asignado en el <strong>Salón Principal</strong> ha recibido el llamado para la <strong>Mesa 04</strong>.
+        </p>
+<!-- Current Order / Table status card inside modal -->
+<div class="w-full bg-stone-50 border border-stone-200/80 rounded-xl p-2.5 mt-3 text-left">
+<div class="flex items-center justify-between text-[11px]">
+<span class="text-stone-500">Motivo:</span>
+<span class="font-semibold text-stone-800" id="modalSummaryReason">Pedir la cuenta</span>
+</div>
+<div class="flex items-center justify-between text-[11px] mt-1">
+<span class="text-stone-500">Estado:</span>
+<span class="inline-flex items-center gap-1 font-semibold text-brand-wine">
+<span class="w-1.5 h-1.5 rounded-full bg-brand-wine animate-ping"></span>
+              Atendiendo llamado
+            </span>
+</div>
+</div>
+<!-- Action button inside modal -->
+<button class="w-full mt-4 bg-brand-wine hover:bg-brand-darkWine text-white py-2.5 rounded-xl text-xs font-semibold shadow-xs transition-colors" id="btnCloseModal" type="button">
+          Entendido
+        </button>
+</div>
+</div>
+<!-- END: Confirmation Feedback Modal / Overlay -->
+</main>
+<!-- END: Mobile Container -->
+<!-- JavaScript: Handlers for Character Count, Selection and Feedback Modal -->
+<script data-purpose="interactive-actions">
+    // Textarea character counter logic
+    const textarea = document.getElementById('extraNotes');
+    const charCounter = document.getElementById('charCount');
+
+    if (textarea && charCounter) {
+      textarea.addEventListener('input', (e) => {
+        const currentLength = e.target.value.length;
+        charCounter.textContent = `${currentLength} / 140`;
+      });
+    }
+
+    // Modal Display Trigger Logic
+    const sendButton = document.getElementById('btnSendRequest');
+    const successModal = document.getElementById('successModal');
+    const closeModal = document.getElementById('btnCloseModal');
+    const modalSummaryReason = document.getElementById('modalSummaryReason');
+
+    if (sendButton && successModal && closeModal) {
+      sendButton.addEventListener('click', () => {
+        // Read selected radio value
+        const selectedRadio = document.querySelector('input[name="solicitud"]:checked');
+        if (selectedRadio && modalSummaryReason) {
+          modalSummaryReason.textContent = selectedRadio.value;
+        }
+
+        // Show modal
+        successModal.classList.remove('hidden-modal');
+      });
+
+      closeModal.addEventListener('click', () => {
+        successModal.classList.add('hidden-modal');
+      });
+
+      // Close when clicking outside content box
+      successModal.addEventListener('click', (e) => {
+        if (e.target === successModal) {
+          successModal.classList.add('hidden-modal');
+        }
+      });
+    }
+  </script>
+</body></html>
