@@ -17,6 +17,10 @@ export type PendingRequest = {
   createdAt: string
 }
 
+export function requestLabel(request: Pick<PendingRequest, 'type' | 'reason'>) {
+  return request.reason || (request.type === 'agua' ? 'Pide agua' : 'Llamando mesero')
+}
+
 export async function getTablesWithSessions(restaurantId: string): Promise<AdminTable[]> {
   const supabase = createClient()
   const { data, error } = await supabase.rpc('rpc_admin_get_tables', { p_restaurant_id: restaurantId })

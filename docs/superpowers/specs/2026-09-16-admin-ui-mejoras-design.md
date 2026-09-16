@@ -44,30 +44,17 @@ Si una consulta falla, se mantiene lo último cargado y se muestra el banner `wa
 - Footer en una fila:
   - Botón `variant="outline" size="icon"` con `QrCode` y `aria-label="Ver QR de {mesa}"`, con `title` como tooltip nativo.
   - Botón `variant="outline"` "Cerrar mesa", `flex-1`, deshabilitado sin sesión. El estilo destructivo queda solo en la acción del `AlertDialog` de confirmación.
-- **Solicitud pendiente en la mesa:** la card lleva `ring-2 ring-primary` y, bajo la cabecera, un chip `bg-warning-soft text-warning-soft-foreground rounded-full` con icono y texto "Llamando mesero" / "Pide agua" (si hay varias, la más antigua más "+N").
-- Se elimina la sección "Solicitudes pendientes" de esta página (queda cubierta por B).
+- **Solicitudes pendientes de la mesa:** se listan y atienden dentro de la card (ver B).
 
 ## B. Solicitudes de mesa con prioridad
 
-**Componentes nuevos:**
+*Revisado el 2026-09-16 a pedido del usuario: la barra global se reemplazó por toast + contador en la navegación.*
 
-- `components/admin/requests-context.tsx` — `RequestsProvider` + `useTableRequests()`. Mantiene `requests: PendingRequest[]` con polling (ver "Actualización de datos"), expone `acknowledge(request)` con update optimista y reversión con toast si falla (lógica movida desde la página de Mesas). Montado en `AdminShell`.
-- `components/admin/requests-bar.tsx` — `AdminRequestsBar`, renderizado en `AdminShell` justo bajo el header, `sticky` debajo de él (`top-14 z-30`).
-
-**Barra:**
-
-- Oculta si no hay solicitudes pendientes.
-- Contenedor `bg-warning-soft text-warning-soft-foreground border-b border-border`, ancho completo, contenido alineado a `max-w-[1440px]`.
-- Título con `BellRing` + "N solicitudes" (singular/plural).
-- Una fila por solicitud, ordenadas de la más antigua a la más nueva: icono (`ConciergeBell` o `Droplets`), mesa (`text-label-lg`), motivo (`reason` o texto por tipo), `notes` si existe, "hace X min" (`tabular-nums`, recalculado cada 30 s en cliente), botón `size="sm"` "Atender".
-- Más de 3 solicitudes: se muestran las 3 más antiguas y un botón "Ver N más" que expande la lista.
-
-**Aviso sonoro:**
-
-- Al detectar un `id` que no estaba en la consulta anterior (no en la primera carga), suena un tono corto con Web Audio API (`OscillatorNode`, ~200 ms). Sin archivos de audio ni dependencias.
-- Los navegadores bloquean audio sin interacción previa: el `AudioContext` se crea/reanuda en el primer click en la página; si sigue suspendido, no suena (la barra visible basta).
-
-**Accesibilidad:** la barra es `role="region" aria-label="Solicitudes de mesa"` con un `aria-live="polite"` que anuncia "Nueva solicitud de {mesa}".
+- `components/admin/requests-context.tsx` — `RequestsProvider` + `useTableRequests()`, montado en `AdminShell`. Polling de `rpc_admin_get_pending_requests` (ver "Actualización de datos"); `acknowledge(request)` optimista con reversión y toast si falla.
+- **Toast (Sonner, ya instalado):** por cada solicitud nueva (no en la primera carga) se muestra un toast de 6 s con "{mesa} · {motivo}", las notas como descripción y la acción "Ver mesas" (omitida si ya se está en Mesas). Suena un tono corto con Web Audio (requiere una interacción previa con la página).
+- **Contador en la navegación:** el item "Mesas" (sidebar y barra inferior) muestra un círculo `bg-destructive text-destructive-foreground` con el total pendiente (pedido explícito del usuario; excepción a "rojo solo para lo crítico").
+- **Atender en Mesas:** cada card lista sus solicitudes (`bg-warning-soft`, motivo, "Hace N min", notas) con botón "Atender" por solicitud; la card lleva `ring-2 ring-primary`. Las mesas con solicitudes se ordenan primero, la más antigua arriba.
+- Banner "Sin conexión, reintentando…" en el shell si falla el polling.
 
 ## C. KDS con checklist (`/kitchen/[restaurante]`)
 
@@ -191,7 +178,7 @@ Devuelve un único `jsonb`:
   - `rpc_admin_advance_order_round`: rechaza `preparing → ready` con ítems sin marcar.
   - `rpc_admin_get_sales_report`: un pedido de hoy aparece en `day` y no en el periodo anterior; un pedido de ayer aparece como `prev`; `series` de `day` tiene 24 buckets; `top_dishes` excluye pedidos fuera del rango; periodo inválido falla; no mezcla restaurantes.
 - **Unitario (`vitest`):** `summarizePending` (suma entre mesas, excluye ítems preparados y tickets `ready`, orden).
-- **Manual/E2E:** crear una solicitud desde el cliente y verificar que la barra aparece en Dashboard, Menú y Mesas en ≤5 s, y que la card de la mesa se resalta.
+- **Manual/E2E:** crear una solicitud desde el cliente y verificar en ≤5 s el toast y el contador en otra página del admin, y que se atiende desde la card de la mesa.
 
 ## Checklist visual
 

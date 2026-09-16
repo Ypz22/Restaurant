@@ -5,8 +5,7 @@ import { toast } from 'sonner'
 import { Armchair, QrCode, ConciergeBell, Droplets } from 'lucide-react'
 import { useAdminRestaurant } from '@/components/admin/restaurant-context'
 import { useTableRequests } from '@/components/admin/requests-context'
-import { requestLabel } from '@/components/admin/requests-bar'
-import { getTablesWithSessions, closeTableSession, type AdminTable } from '@/lib/data/admin-tables'
+import { getTablesWithSessions, closeTableSession, requestLabel, type AdminTable } from '@/lib/data/admin-tables'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -25,7 +24,7 @@ function minutesSince(iso: string, now: number) {
 export default function AdminMesasPage() {
   const restaurant = useAdminRestaurant()
   const [tables, setTables] = useState<AdminTable[]>([])
-  const { requests } = useTableRequests()
+  const { requests, acknowledge } = useTableRequests()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [now, setNow] = useState(Date.now())
@@ -63,9 +62,23 @@ export default function AdminMesasPage() {
     }
   }
 
+  const requestsByTable = new Map<string, typeof requests>()
+  for (const request of requests) {
+    requestsByTable.set(request.tableId, [...(requestsByTable.get(request.tableId) ?? []), request])
+  }
+  // Mesas con solicitudes primero, la más antigua arriba; el resto mantiene su orden.
+  const oldestRequest = (tableId: string) => {
+    const createdAt = requestsByTable.get(tableId)?.[0]?.createdAt
+    return createdAt ? new Date(createdAt).getTime() : Infinity
+  }
+  const sortedTables = [...tables].sort((a, b) => {
+    const diff = oldestRequest(a.id) - oldestRequest(b.id)
+    return Number.isNaN(diff) ? 0 : diff
+  })
+
   if (loading) {
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-4">
         {Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-40 w-full" />)}
       </div>
     )
@@ -89,13 +102,11 @@ export default function AdminMesasPage() {
           <p className="text-body-md text-muted-foreground">Todavía no hay mesas registradas.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
-          {tables.map((table) => {
-            const tableRequests = requests.filter((r) => r.tableId === table.id)
-            const firstRequest = tableRequests[0]
-            const RequestIcon = firstRequest?.type === 'agua' ? Droplets : ConciergeBell
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-4">
+          {sortedTables.map((table) => {
+            const tableRequests = requestsByTable.get(table.id) ?? []
             return (
-              <Card key={table.id} className={cn(firstRequest && 'ring-2 ring-primary')}>
+              <Card key={table.id} className={cn(tableRequests.length > 0 && 'ring-2 ring-primary')}>
                 <CardHeader className="flex-row items-center justify-between gap-2">
                   <CardTitle className="flex min-w-0 items-center gap-1.5">
                     <Armchair className="size-4 shrink-0" />
@@ -107,13 +118,29 @@ export default function AdminMesasPage() {
                     <Badge variant="muted">Sin sesión</Badge>
                   )}
                 </CardHeader>
-                <CardContent className="flex flex-col items-start gap-2">
-                  {firstRequest && (
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-warning-soft px-2.5 py-1 text-label-md text-warning-soft-foreground">
-                      <RequestIcon className="size-3.5" />
-                      {requestLabel(firstRequest)}
-                      {tableRequests.length > 1 && <span className="tabular-nums">+{tableRequests.length - 1}</span>}
-                    </span>
+                <CardContent className="flex flex-col gap-3">
+                  {tableRequests.length > 0 && (
+                    <ul className="flex flex-col gap-2" aria-label={`Solicitudes de ${table.label}`}>
+                      {tableRequests.map((request) => {
+                        const RequestIcon = request.type === 'agua' ? Droplets : ConciergeBell
+                        return (
+                          <li
+                            key={request.id}
+                            className="flex items-start gap-2 rounded-xl bg-warning-soft py-2 pr-2 pl-3 text-warning-soft-foreground"
+                          >
+                            <RequestIcon className="mt-0.5 size-4 shrink-0" />
+                            <div className="min-w-0 flex-1">
+                              <p className="text-label-lg break-words">{requestLabel(request)}</p>
+                              <p className="text-label-md tabular-nums opacity-80">
+                                {minutesSince(request.createdAt, now) < 1 ? 'Ahora' : `Hace ${minutesSince(request.createdAt, now)} min`}
+                              </p>
+                              {request.notes && <p className="mt-1 text-body-md break-words">{request.notes}</p>}
+                            </div>
+                            <Button size="sm" className="shrink-0" onClick={() => acknowledge(request)}>Atender</Button>
+                          </li>
+                        )
+                      })}
+                    </ul>
                   )}
                   {table.session ? (
                     <p className="text-body-md text-muted-foreground">

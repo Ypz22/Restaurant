@@ -1,17 +1,19 @@
 'use client'
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { useAdminRestaurant } from '@/components/admin/restaurant-context'
-import { getPendingRequests, acknowledgeRequest, type PendingRequest } from '@/lib/data/admin-tables'
+import { getPendingRequests, acknowledgeRequest, requestLabel, type PendingRequest } from '@/lib/data/admin-tables'
 import { usePolling } from '@/hooks/use-polling'
 
 type RequestsState = {
   requests: PendingRequest[]
   offline: boolean
-  announcement: string
   acknowledge: (request: PendingRequest) => Promise<void>
 }
+
+const REQUEST_TOAST_MS = 6_000
 
 const RequestsContext = createContext<RequestsState | null>(null)
 
@@ -52,7 +54,8 @@ export function RequestsProvider({ children }: { children: ReactNode }) {
   const restaurant = useAdminRestaurant()
   const [requests, setRequests] = useState<PendingRequest[]>([])
   const [offline, setOffline] = useState(false)
-  const [announcement, setAnnouncement] = useState('')
+  const router = useRouter()
+  const pathname = usePathname()
   const knownIds = useRef<Set<string> | null>(null)
   const acknowledging = useRef(new Set<string>())
   const chime = useChime()
@@ -62,9 +65,17 @@ export function RequestsProvider({ children }: { children: ReactNode }) {
       const fresh = (await getPendingRequests(restaurant.id)).filter((r) => !acknowledging.current.has(r.id))
       const newOnes = knownIds.current ? fresh.filter((r) => !knownIds.current!.has(r.id)) : []
       knownIds.current = new Set(fresh.map((r) => r.id))
-      if (newOnes.length > 0) {
-        chime()
-        setAnnouncement(`Nueva solicitud de ${newOnes.map((r) => r.tableLabel).join(', ')}`)
+      if (newOnes.length > 0) chime()
+      const mesasHref = `/admin/${restaurant.slug}/mesas`
+      for (const request of newOnes) {
+        toast(`${request.tableLabel} · ${requestLabel(request)}`, {
+          id: request.id,
+          description: request.notes || undefined,
+          duration: REQUEST_TOAST_MS,
+          action: pathname?.startsWith(mesasHref)
+            ? undefined
+            : { label: 'Ver mesas', onClick: () => router.push(mesasHref) },
+        })
       }
       setRequests(fresh)
       setOffline(false)
@@ -89,7 +100,7 @@ export function RequestsProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <RequestsContext.Provider value={{ requests, offline, announcement, acknowledge }}>
+    <RequestsContext.Provider value={{ requests, offline, acknowledge }}>
       {children}
     </RequestsContext.Provider>
   )
