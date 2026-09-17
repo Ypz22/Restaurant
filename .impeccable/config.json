@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "app/kitchen/[restaurantSlug]/page.tsx"
+        ],
+        "createdAt": "2026-09-16T13:53:14.085Z",
+        "reason": "DESIGN.md §8.2 (fuente de verdad, gana sobre la skill según AGENTS.md): 'Notas de cocina con borde izquierdo border-l-4 border-warning-soft-foreground/40' en el Ticket KDS"
+      }
+    ]
+  }
+}
