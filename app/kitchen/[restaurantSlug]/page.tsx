@@ -5,7 +5,7 @@ import { toast } from 'sonner'
 import { ConciergeBell, CheckCheck, ChefHat, Timer, WifiOff } from 'lucide-react'
 import { useAdminRestaurant } from '@/components/admin/restaurant-context'
 import {
-  getActiveTickets, advanceOrderRound, setItemPrepared, summarizePending,
+  getActiveTickets, getDeliveredTickets, advanceOrderRound, setItemPrepared, summarizePending,
   type KitchenTicket, type OrderRoundStatus, type PendingDish,
 } from '@/lib/data/admin-kitchen'
 import { usePolling } from '@/hooks/use-polling'
@@ -32,6 +32,7 @@ const FILTERS: { value: Filter; label: string }[] = [
   { value: 'pending', label: 'Nuevas' },
   { value: 'preparing', label: 'En preparación' },
   { value: 'ready', label: 'Listas' },
+  { value: 'delivered', label: 'Entregados' },
 ]
 
 function elapsed(iso: string, now: number) {
@@ -47,8 +48,8 @@ function PendingList({ dishes }: { dishes: PendingDish[] }) {
   return (
     <ul className="flex flex-col divide-y divide-border">
       {dishes.map((dish) => (
-        <li key={dish.dishName} className="flex gap-3 py-2.5">
-          <span className="w-8 shrink-0 text-right text-title-md tabular-nums text-foreground">{dish.quantity}</span>
+        <li key={dish.dishName} className="flex items-start gap-3 py-2.5">
+          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-warning-soft text-label-lg tabular-nums text-warning-soft-foreground">{dish.quantity}</span>
           <div className="min-w-0">
             <p className="text-body-md font-medium text-foreground">{dish.dishName}</p>
             <p className="text-label-md tabular-nums text-muted-foreground">
@@ -74,7 +75,7 @@ function Ticket({
   const done = ticket.items.filter((i) => i.preparedAt).length
   const total = ticket.items.length
   const allDone = done === total
-  const locked = ticket.status === 'ready'
+  const locked = ticket.status === 'ready' || ticket.status === 'delivered'
 
   return (
     <article className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
@@ -133,9 +134,13 @@ function Ticket({
             <span className="text-label-md tabular-nums text-muted-foreground">{done} de {total}</span>
           </div>
         )}
-        {locked ? (
+        {ticket.status === 'delivered' ? (
+          <span className="flex h-11 w-full items-center justify-center gap-1.5 rounded-xl bg-success-soft text-label-lg text-success-soft-foreground">
+            <CheckCheck className="size-4" /> Entregada
+          </span>
+        ) : locked ? (
           <Button variant="secondary" className="w-full" onClick={() => onAdvance(ticket)}>
-            <CheckCheck /> Entregada
+            <CheckCheck /> Marcar como entregada
           </Button>
         ) : (
           <Button className="w-full" disabled={!allDone} onClick={() => onAdvance(ticket)}>
@@ -150,6 +155,7 @@ function Ticket({
 export default function KitchenPage() {
   const restaurant = useAdminRestaurant()
   const [tickets, setTickets] = useState<KitchenTicket[]>([])
+  const [delivered, setDelivered] = useState<KitchenTicket[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
   const [offline, setOffline] = useState(false)
@@ -167,11 +173,12 @@ export default function KitchenPage() {
   async function load() {
     const startedAt = Date.now()
     try {
-      const active = await getActiveTickets(restaurant.id)
+      const [active, deliveredTickets] = await Promise.all([getActiveTickets(restaurant.id), getDeliveredTickets(restaurant.id)])
       // No pisar un cambio optimista que la consulta todavía no refleja.
       const m = mutations.current
       if (m.inFlight > 0 || startedAt < m.lastEndedAt) return
       setTickets(active)
+      setDelivered(deliveredTickets)
       loaded.current = true
       setError(false)
       setOffline(false)
@@ -220,6 +227,7 @@ export default function KitchenPage() {
         // Una comanda sin platos marcados sigue en pending: pasa por preparing antes de ready.
         if (ticket.status === 'pending') await advanceOrderRound(restaurant.id, ticket.roundId, 'preparing')
         await advanceOrderRound(restaurant.id, ticket.roundId, next)
+        if (next === 'delivered') setDelivered((current) => [{ ...ticket, status: 'delivered' }, ...current])
       },
       'No se pudo avanzar la comanda. Intenta de nuevo.'
     )
@@ -250,9 +258,9 @@ export default function KitchenPage() {
     pending: tickets.filter((t) => t.status === 'pending').length,
     preparing: tickets.filter((t) => t.status === 'preparing').length,
     ready: tickets.filter((t) => t.status === 'ready').length,
-    delivered: 0,
+    delivered: delivered.length,
   }
-  const visible = filter === 'all' ? tickets : tickets.filter((t) => t.status === filter)
+  const visible = filter === 'delivered' ? delivered : filter === 'all' ? tickets : tickets.filter((t) => t.status === filter)
   const pendingTotal = pending.reduce((sum, d) => sum + d.quantity, 0)
 
   return (
@@ -277,6 +285,7 @@ export default function KitchenPage() {
         <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-label-lg text-foreground">
           <ChefHat className="size-4" /> Por hacer <span className="tabular-nums text-muted-foreground">{pendingTotal}</span>
         </summary>
+        <p className="pb-2 text-label-md text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
         <PendingList dishes={pending} />
       </details>
 
@@ -289,6 +298,7 @@ export default function KitchenPage() {
             <ChefHat className="size-4" /> Por hacer
             <span className="ml-auto tabular-nums text-muted-foreground">{pendingTotal}</span>
           </h2>
+          <p className="pb-1 pt-0.5 text-label-md text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
           <PendingList dishes={pending} />
         </aside>
 

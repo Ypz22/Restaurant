@@ -9,7 +9,7 @@ const Tabs = TabsPrimitive.Root
 function TabsList({ className, ...props }: React.ComponentProps<typeof TabsPrimitive.List>) {
   return (
     <TabsPrimitive.List
-      className={cn('flex w-full items-center gap-2 overflow-x-auto', className)}
+      className={cn('flex w-full items-center gap-2 overflow-x-auto py-0.5', className)}
       {...props}
     />
   )

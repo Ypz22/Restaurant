@@ -30,11 +30,12 @@ export function nextStatus(status: OrderRoundStatus): OrderRoundStatus | null {
   return NEXT_STATUS[status]
 }
 
-export async function getActiveTickets(restaurantId: string): Promise<KitchenTicket[]> {
-  const supabase = createClient()
-  const { data, error } = await supabase.rpc('rpc_admin_get_active_tickets', { p_restaurant_id: restaurantId })
-  if (error) throw new Error(error.message)
+type TicketRow = {
+  round_id: string; table_label: string; submitted_at: string; status: OrderRoundStatus; kitchen_notes: string
+  item_id: string | null; dish_name: string; quantity: number; item_notes: string; prepared_at: string | null
+}
 
+function ticketsFromRows(data: TicketRow[] | null): KitchenTicket[] {
   const ticketsByRound = new Map<string, KitchenTicket>()
   for (const row of data ?? []) {
     let ticket = ticketsByRound.get(row.round_id)
@@ -59,8 +60,21 @@ export async function getActiveTickets(restaurantId: string): Promise<KitchenTic
       })
     }
   }
-
   return Array.from(ticketsByRound.values())
+}
+
+export async function getDeliveredTickets(restaurantId: string): Promise<KitchenTicket[]> {
+  const supabase = createClient()
+  const { data, error } = await supabase.rpc('rpc_admin_get_delivered_tickets', { p_restaurant_id: restaurantId })
+  if (error) throw new Error(error.message)
+  return ticketsFromRows(data)
+}
+
+export async function getActiveTickets(restaurantId: string): Promise<KitchenTicket[]> {
+  const supabase = createClient()
+  const { data, error } = await supabase.rpc('rpc_admin_get_active_tickets', { p_restaurant_id: restaurantId })
+  if (error) throw new Error(error.message)
+  return ticketsFromRows(data)
 }
 
 export async function advanceOrderRound(
