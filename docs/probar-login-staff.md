@@ -27,6 +27,10 @@ Contraseña `Password123!` para las cuatro:
 | `cocina@sabor-brasa.local` | `kitchen` | `/kitchen/sabor-brasa` |
 | `admin@mar-marea.local` | `admin` (otro restaurante) | `/admin/mar-marea` |
 
+> `supabase db reset` borra `auth.users`. Cada vez que lo corras, volvé a
+> correr `node --env-file=.env.local scripts/seed-staff.mjs` o el login te
+> va a decir "Correo o contraseña incorrectos" aunque el código esté bien.
+
 ## 3. Levantar la app
 
 ```bash
