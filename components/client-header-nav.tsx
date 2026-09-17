@@ -2,11 +2,10 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Armchair, BookOpen, ConciergeBell, Heart, ReceiptText } from 'lucide-react'
+import { Armchair, BookOpen, ConciergeBell, ReceiptText } from 'lucide-react'
 
 const NAV_ITEMS = [
   { id: 'menu', title: 'Menú', icon: BookOpen },
-  { id: 'favoritos', title: 'Favoritos', icon: Heart },
   { id: 'orden', title: 'Mi orden', icon: ReceiptText },
   { id: 'camarero', title: 'Camarero', icon: ConciergeBell },
 ] as const
@@ -14,7 +13,6 @@ const NAV_ITEMS = [
 export type ClientNavId = typeof NAV_ITEMS[number]['id']
 
 function navHref(base: string, id: ClientNavId) {
-  if (id === 'favoritos') return `${base}/menu?vista=favoritos`
   if (id === 'orden') return `${base}/orden`
   if (id === 'camarero') return `${base}/menu?vista=camarero`
   return `${base}/menu`

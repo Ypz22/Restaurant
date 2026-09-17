@@ -27,7 +27,6 @@ export default function DishDetailPage() {
   const [adding, setAdding] = useState(false)
   const [tableLabel, setTableLabel] = useState('Tu mesa')
   const [loading, setLoading] = useState(true)
-  const [favorite, setFavorite] = useState(false)
   const [offline, setOffline] = useState(false)
   const [retry, setRetry] = useState(0)
   const dishes = useDishAvailabilityRealtime(restaurantId, initialDishes)
@@ -58,7 +57,6 @@ export default function DishDetailPage() {
         setInitialDishes(menu.dishes)
         setDeviceToken(token)
         setTableSessionId(session.tableSessionId)
-        try { setFavorite(JSON.parse(localStorage.getItem('brasa:favorites') || '[]').includes(params.dishId)) } catch { setFavorite(false) }
       } catch { if (!cancelled) setError('No se pudo cargar el plato. Comprueba tu conexión e inténtalo de nuevo.') }
       finally { if (!cancelled) setLoading(false) }
     }
@@ -74,15 +72,6 @@ export default function DishDetailPage() {
     return () => { window.removeEventListener('online', update); window.removeEventListener('offline', update) }
   }, [])
 
-  function toggleFavorite() {
-    try {
-      const current: string[] = JSON.parse(localStorage.getItem('brasa:favorites') || '[]')
-      const next = favorite ? current.filter(id => id !== params.dishId) : [...current, params.dishId]
-      localStorage.setItem('brasa:favorites', JSON.stringify(next))
-      setFavorite(!favorite)
-    } catch { setError('No se pudo guardar el favorito en este dispositivo.') }
-  }
-
   async function handleAdd(quantity: number, notes: string, selections: DishSelections) {
     if (!deviceToken || !dish) { router.replace(base); return }
     setError(null)
@@ -97,7 +86,7 @@ export default function DishDetailPage() {
     }
   }
 
-  return <DishDetailShell base={base} restaurantName={restaurantName} tableLabel={tableLabel} favorite={favorite} onToggleFavorite={toggleFavorite} count={count}>
+  return <DishDetailShell base={base} restaurantName={restaurantName} tableLabel={tableLabel} count={count}>
     {offline && <p role="status" className="mb-4 rounded-xl bg-warning-soft p-3 text-body-md text-warning-soft-foreground">Sin conexión. Reconéctate antes de agregar el plato.</p>}
     {loading ? <div className="space-y-4 pb-32" aria-label="Cargando plato"><Skeleton className="aspect-[4/3] w-full rounded-2xl" /><Skeleton className="h-6 w-3/4" /><Skeleton className="h-16 w-full" /><Skeleton className="h-24 w-full" /></div> : dish ? <DishDetail key={dish.id} dish={dish} onAdd={handleAdd} adding={adding} offline={offline} error={error} /> : <div className="space-y-4 py-12 text-body-md">{error ? <p role="alert" className="rounded-xl bg-danger-soft p-3 text-danger-soft-foreground">{error}</p> : <p>Este plato no se encuentra en el menú.</p>}<Button variant="secondary" onClick={() => error ? setRetry(n => n + 1) : router.push(`${base}/menu`)}>{error ? 'Reintentar' : 'Volver al menú'}</Button></div>}
   </DishDetailShell>
