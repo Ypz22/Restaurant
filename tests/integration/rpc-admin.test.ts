@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 import {
@@ -5,6 +6,7 @@ import {
 } from '@/lib/data/admin-menu'
 import { closeTableSession, acknowledgeRequest, getTablesWithSessions, getPendingRequests } from '@/lib/data/admin-tables'
 import { advanceOrderRound, getActiveTickets, setItemPrepared } from '@/lib/data/admin-kitchen'
+import { grantAdmin } from './helpers/staff-session'
 
 const admin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -14,6 +16,7 @@ const admin = createClient(
 async function makeRestaurant() {
   const { data } = await admin
     .from('restaurants').insert({ name: 'T', slug: 'admin-' + Date.now() + Math.random() }).select().single()
+  await grantAdmin(data!.id)
   return data!.id as string
 }
 

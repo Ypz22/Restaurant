@@ -5,10 +5,16 @@ import type { DishDetailSection } from '@/lib/dish-details'
 
 const env = loadEnv('test', process.cwd(), '')
 const admin = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY)
+// Los rpc_admin_* ahora exigen una sesión de staff autenticada (ver
+// 2026-09-17-auth-multitenant-design.md); este cliente aparte se loguea
+// como el admin del restaurante de prueba para poder llamarlos.
+const staffClient = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 let restaurantId: string
 let slug: string
 let base: string
 let dishId: string
+let adminEmail: string
+const adminPassword = 'password123!'
 
 test.beforeAll(async () => {
   slug = `detalle-e2e-${crypto.randomUUID()}`
@@ -21,6 +27,15 @@ test.beforeAll(async () => {
   const { data: dish } = await admin.from('dishes').insert({ restaurant_id: restaurantId, category_id: category!.id, name: 'Ojo de Bife a la Leña', description: 'Corte de 420 g madurado durante 28 días, cocinado lentamente a la leña y acompañado de chimichurri casero emulsionado con aceite de oliva virgen extra.', price: 21, photo_url: template!.photo_url, detail_sections: template!.detail_sections }).select().single()
   dishId = dish!.id
   base = `/r/${slug}/mesa/${table!.qr_token}`
+
+  adminEmail = `admin-detalle-e2e-${crypto.randomUUID()}@test.local`
+  const { data: adminUser, error: adminError } = await admin.auth.admin.createUser({
+    email: adminEmail, password: adminPassword, email_confirm: true,
+  })
+  if (adminError || !adminUser.user) throw adminError ?? new Error('no se pudo crear el admin de prueba')
+  await admin.from('restaurant_staff').insert({ restaurant_id: restaurantId, user_id: adminUser.user.id, role: 'admin' })
+  const { error: signInError } = await staffClient.auth.signInWithPassword({ email: adminEmail, password: adminPassword })
+  if (signInError) throw signInError
 })
 
 test.afterAll(async () => {
@@ -75,11 +90,17 @@ test('edita secciones desde admin y envía cocción y extras con el precio corre
   await expect(page.getByText(/Acompañamientos y extras: Papas rústicas/)).toBeVisible()
   await page.getByRole('button', { name: /Enviar pedido/ }).click()
   await page.waitForURL(/\/orden\/confirmado$/)
-  const { data: ticket } = await admin.rpc('rpc_admin_get_active_tickets', { p_restaurant_id: restaurantId })
+  const { data: ticket, error: ticketError } = await staffClient.rpc('rpc_admin_get_active_tickets', { p_restaurant_id: restaurantId })
+  if (ticketError) throw ticketError
   expect(ticket[0].item_notes).toContain('Tres cuartos')
   expect(ticket[0].item_notes).toContain('Papas rústicas')
   expect(ticket[0].item_notes).toContain('Sin sal')
 
+  await page.goto('/login')
+  await page.getByLabel('Correo').fill(adminEmail)
+  await page.getByLabel('Contraseña').fill(adminPassword)
+  await page.getByRole('button', { name: 'Ingresar' }).click()
+  await page.waitForURL(new RegExp(`/admin/${slug}`))
   await page.goto(`/admin/${slug}/menu`)
   await page.getByRole('button', { name: 'Secciones del detalle' }).click()
   const bulkDialog = page.getByRole('dialog')

@@ -1,3 +1,4 @@
+// @vitest-environment jsdom
 import { beforeAll, describe, expect, it } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 import { upsertDish, getAdminMenu } from '@/lib/data/admin-menu'
@@ -5,6 +6,7 @@ import { addCartItem } from '@/lib/data/cart'
 import { getMenu } from '@/lib/data/menu'
 import { startSession } from '@/lib/data/session'
 import type { DishDetailSection, DishSelections } from '@/lib/dish-details'
+import { grantAdmin } from './helpers/staff-session'
 
 const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!)
 const sections: DishDetailSection[] = [
@@ -28,6 +30,7 @@ beforeAll(async () => {
   const { data: restaurant, error } = await admin.from('restaurants').insert({ name: 'Detalles', slug: `details-${crypto.randomUUID()}` }).select().single()
   if (error) throw error
   restaurantId = restaurant.id
+  await grantAdmin(restaurantId)
   const { data: category } = await admin.from('menu_categories').insert({ restaurant_id: restaurantId, name: 'Cortes' }).select().single()
   categoryId = category!.id
   const { data: table } = await admin.from('tables').insert({ restaurant_id: restaurantId, label: 'D1' }).select().single()

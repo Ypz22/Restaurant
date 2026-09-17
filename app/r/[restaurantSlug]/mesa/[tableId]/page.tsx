@@ -29,14 +29,22 @@ export default function BienvenidaPage() {
         // previous visit to a different table (or restaurant) must not
         // silently resume the customer into the wrong session.
           if (resumed && resumed.sessionStatus === 'open' && resumed.qrToken === params.tableId) {
-          router.replace(`/r/${resumed.restaurantSlug}/mesa/${params.tableId}/menu`)
-          return
+            if (resumed.restaurantSlug === params.restaurantSlug) {
+              router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}/menu`)
+              return
+            }
+            // La sesión es válida, pero para otro restaurante que el que
+            // pide esta URL: no se toca el device_token (sigue sirviendo
+            // para su mesa real); esta URL simplemente no existe para ese
+            // comensal.
+            if (active) setTable(null)
+            return
           }
           clearDeviceToken()
         }
 
         const info = await getTableByQrToken(params.tableId)
-        if (active) setTable(info)
+        if (active) setTable(info && info.restaurantSlug === params.restaurantSlug ? info : null)
       } catch { if (active) setError('No se pudo conectar a la mesa. Comprueba tu conexión.') }
       finally { if (active) setChecking(false) }
     }

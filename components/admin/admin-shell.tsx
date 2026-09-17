@@ -3,9 +3,10 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
-import { BookOpen, Armchair, ChartLine, WifiOff } from 'lucide-react'
+import { BookOpen, Armchair, ChartLine, WifiOff, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { RequestsProvider, useTableRequests } from '@/components/admin/requests-context'
+import { SignOutButton } from '@/components/auth/sign-out-button'
 
 export function AdminShell(props: { children: ReactNode; restaurantSlug: string; restaurantName: string }) {
   return (
@@ -39,6 +40,7 @@ function Shell({
     { href: `${base}/dashboard`, label: 'Ventas', icon: ChartLine },
     { href: `${base}/menu`, label: 'Menú', icon: BookOpen },
     { href: `${base}/mesas`, label: 'Mesas', icon: Armchair, badge: requests.length },
+    { href: `${base}/equipo`, label: 'Equipo', icon: Users },
   ]
 
   return (
@@ -47,6 +49,9 @@ function Shell({
         <div className="mx-auto flex h-full max-w-[1440px] items-center gap-2 px-5">
           <span className="text-label-lg text-foreground">{restaurantName}</span>
           <span className="text-label-sm uppercase text-muted-foreground">Administración</span>
+          <div className="ml-auto">
+            <SignOutButton />
+          </div>
         </div>
       </header>
       {offline && (

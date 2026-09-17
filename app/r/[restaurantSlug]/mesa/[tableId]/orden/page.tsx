@@ -31,7 +31,10 @@ export default function MiOrdenPage() {
         return
       }
       const session = await resumeSession(token)
-      if (!session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId) {
+      if (
+        !session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId
+        || session.restaurantSlug !== params.restaurantSlug
+      ) {
         router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}`)
         return
       }
@@ -40,7 +43,7 @@ export default function MiOrdenPage() {
       setTableLabel(session.tableLabel)
       try {
         const table = await getTableByQrToken(params.tableId)
-        if (table) {
+        if (table && table.restaurantSlug === params.restaurantSlug) {
           const menu = await getMenu(table.restaurantId)
           setPhotos(Object.fromEntries(menu.dishes.filter((dish: MenuDish) => dish.photoUrl).map((dish: MenuDish) => [dish.id, dish.photoUrl!])))
         }

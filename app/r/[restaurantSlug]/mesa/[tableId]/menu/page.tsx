@@ -44,12 +44,15 @@ function LiveMenu() {
       try {
         const token = getDeviceToken()
         const session = token ? await resumeSession(token) : null
-        if (!session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId) {
+        if (
+          !session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId
+          || session.restaurantSlug !== params.restaurantSlug
+        ) {
           router.replace(base)
           return
         }
         const table = await getTableByQrToken(params.tableId)
-        if (!table) throw new Error('Mesa no encontrada')
+        if (!table || table.restaurantSlug !== params.restaurantSlug) throw new Error('Mesa no encontrada')
         const menu = await getMenu(table.restaurantId)
         setCategories(menu.categories)
         setRestaurantId(table.restaurantId)

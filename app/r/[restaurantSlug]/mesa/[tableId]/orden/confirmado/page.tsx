@@ -25,7 +25,10 @@ export default function PedidoConfirmadoPage() {
       try {
         const token = getDeviceToken()
         const session = token ? await resumeSession(token) : null
-        if (!session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId) { router.replace(base); return }
+        if (
+          !session || session.sessionStatus !== 'open' || session.qrToken !== params.tableId
+          || session.restaurantSlug !== params.restaurantSlug
+        ) { router.replace(base); return }
         const latest = await getLatestOrder(token!)
         if (active) { setTableLabel(session.tableLabel); setOrder(latest) }
       } catch { if (active) setError('No se pudo consultar el pedido. Inténtalo de nuevo.') }
