@@ -9,7 +9,7 @@ vi.mock('next/navigation', () => ({
 }))
 
 vi.mock('@/lib/session/device-token', () => ({ getDeviceToken: () => 'device-1' }))
-vi.mock('@/lib/data/session', () => ({ resumeSession: async () => ({ sessionStatus: 'open', qrToken: 'qr-1', tableLabel: 'Mesa 04' }) }))
+vi.mock('@/lib/data/session', () => ({ resumeSession: async () => ({ sessionStatus: 'open', qrToken: 'qr-1', restaurantSlug: 'sabor-brasa', tableLabel: 'Mesa 04' }) }))
 vi.mock('@/lib/data/latest-order', () => ({ getLatestOrder: async () => ({
   id: 'round-1', submittedAt: '2026-09-15T20:00:00Z', status: 'pending', kitchenNotes: 'Sin frutos secos',
   items: [{ id: 'item-1', dishName: 'Costillar al Quebracho', quantity: 2, unitPrice: 18.5, notes: '' }], total: 37,
