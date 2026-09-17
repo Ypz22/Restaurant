@@ -51,7 +51,11 @@ export default async function TeamPage({
             </div>
             {member.role === 'kitchen' && (
               <>
-                <ResetKitchenPasswordButton userId={member.user_id} restaurantSlug={restaurantSlug} />
+                <ResetKitchenPasswordButton
+                  userId={member.user_id}
+                  restaurantId={restaurant.id}
+                  restaurantSlug={restaurantSlug}
+                />
                 <form
                   action={async () => {
                     'use server'

@@ -43,12 +43,22 @@ export async function addKitchenStaff(
 export type ResetPasswordState = { error: string | null; temporaryPassword?: string }
 
 export async function resetKitchenStaffPassword(
+  restaurantId: string,
   restaurantSlug: string,
   _prevState: ResetPasswordState,
   formData: FormData
 ): Promise<ResetPasswordState> {
   const userId = String(formData.get('userId') ?? '')
   if (!userId) return { error: staffErrorMessage('staff_not_found') }
+
+  // Nunca se confía en lo que manda el formulario: la RPC vuelve a verificar
+  // contra la sesión (auth.uid()) que quien llama es admin de este
+  // restaurante y que userId es una cuenta de cocina de ESE restaurante.
+  const supabase = await createServerSupabaseClient()
+  const { error: authorizeError } = await supabase.rpc('rpc_admin_confirm_kitchen_staff', {
+    p_restaurant_id: restaurantId, p_user_id: userId,
+  })
+  if (authorizeError) return { error: staffErrorMessage(authorizeError.message) }
 
   const admin = createAdminClient()
   const temporaryPassword = generateTemporaryPassword()

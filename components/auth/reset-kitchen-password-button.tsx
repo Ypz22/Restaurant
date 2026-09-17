@@ -7,8 +7,13 @@ import { Button } from '@/components/ui/button'
 
 const initialState: ResetPasswordState = { error: null }
 
-export function ResetKitchenPasswordButton({ userId, restaurantSlug }: { userId: string; restaurantSlug: string }) {
-  const [state, formAction, pending] = useActionState(resetKitchenStaffPassword.bind(null, restaurantSlug), initialState)
+export function ResetKitchenPasswordButton({
+  userId, restaurantId, restaurantSlug,
+}: { userId: string; restaurantId: string; restaurantSlug: string }) {
+  const [state, formAction, pending] = useActionState(
+    resetKitchenStaffPassword.bind(null, restaurantId, restaurantSlug),
+    initialState
+  )
   const [copied, setCopied] = useState(false)
 
   if (state.temporaryPassword) {

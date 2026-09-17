@@ -1376,6 +1376,29 @@ begin
 end;
 $$;
 
+-- Puerta de autorización para resetear la contraseña de una cuenta de
+-- cocina: la Server Action solo puede tocar auth.admin.updateUserById
+-- después de que esto pase. Nunca confía en lo que manda el formulario
+-- (restaurant_id/user_id), lo valida contra la sesión (auth.uid()) y la
+-- membresía real en restaurant_staff.
+create or replace function rpc_admin_confirm_kitchen_staff(p_restaurant_id uuid, p_user_id uuid)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  perform private.require_staff_role(p_restaurant_id, array['admin']);
+
+  if not exists (
+    select 1 from restaurant_staff
+    where restaurant_id = p_restaurant_id and user_id = p_user_id and role = 'kitchen'
+  ) then
+    raise exception 'staff_not_found';
+  end if;
+end;
+$$;
+
 -- ============================================================================
 -- 6. Grants: el staff siempre está autenticado; se revoca anon de las RPC
 --    de admin/KDS/plataforma/equipo. Las RPC del comensal siguen abiertas
@@ -1413,6 +1436,7 @@ revoke execute on function rpc_platform_set_restaurant_status(uuid, text) from p
 revoke execute on function rpc_admin_list_staff(uuid) from public, anon;
 revoke execute on function rpc_admin_add_kitchen_staff(uuid, uuid) from public, anon;
 revoke execute on function rpc_admin_remove_kitchen_staff(uuid, uuid) from public, anon;
+revoke execute on function rpc_admin_confirm_kitchen_staff(uuid, uuid) from public, anon;
 
 grant execute on function rpc_platform_list_restaurants() to authenticated;
 grant execute on function rpc_platform_create_restaurant(text, text, text, uuid) to authenticated;
@@ -1421,6 +1445,7 @@ grant execute on function rpc_platform_set_restaurant_status(uuid, text) to auth
 grant execute on function rpc_admin_list_staff(uuid) to authenticated;
 grant execute on function rpc_admin_add_kitchen_staff(uuid, uuid) to authenticated;
 grant execute on function rpc_admin_remove_kitchen_staff(uuid, uuid) to authenticated;
+grant execute on function rpc_admin_confirm_kitchen_staff(uuid, uuid) to authenticated;
 
 -- ============================================================================
 -- 7. Lectura pública de menú: solo si el restaurante está activo
