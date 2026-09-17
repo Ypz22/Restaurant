@@ -1,41 +1,46 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { AdminShell } from '@/components/admin/admin-shell'
 import { RestaurantProvider } from '@/components/admin/restaurant-context'
-import { getRestaurantBySlug, type AdminRestaurant } from '@/lib/data/admin-restaurant'
+import { AccessMessage } from '@/components/auth/access-message'
 import { Toaster } from '@/components/ui/sonner'
+import { getStaffAccess } from '@/lib/auth/get-staff-access'
+import { restaurantSlugExists } from '@/lib/data/staff-restaurant-lookup'
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const params = useParams<{ restaurantSlug: string }>()
-  const [restaurant, setRestaurant] = useState<AdminRestaurant | null>(null)
-  const [notFound, setNotFound] = useState(false)
+export default async function AdminLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode
+  params: Promise<{ restaurantSlug: string }>
+}) {
+  const { restaurantSlug } = await params
+  const access = await getStaffAccess()
+  if (!access) redirect(`/login?next=/admin/${restaurantSlug}`)
+  if (access.mustChangePassword) redirect('/cambiar-contrasena')
 
-  useEffect(() => {
-    let active = true
-    getRestaurantBySlug(params.restaurantSlug).then((r) => {
-      if (!active) return
-      if (!r) setNotFound(true)
-      setRestaurant(r)
-    })
-    return () => { active = false }
-  }, [params.restaurantSlug])
+  const restaurant = access.restaurants.find((r) => r.slug === restaurantSlug)
 
-  if (notFound) {
+  if (!restaurant) {
+    const exists = await restaurantSlugExists(restaurantSlug)
     return (
-      <div className="flex min-h-dvh items-center justify-center bg-background p-6 text-center">
-        <p className="text-body-lg text-muted-foreground">No encontramos el restaurante &ldquo;{params.restaurantSlug}&rdquo;.</p>
-      </div>
+      <AccessMessage>
+        {exists
+          ? 'No tenés acceso a este restaurante.'
+          : `No encontramos el restaurante "${restaurantSlug}".`}
+      </AccessMessage>
     )
   }
 
-  if (!restaurant) {
-    return <div className="min-h-dvh bg-background" />
+  // El admin ve todo (menú, mesas, dashboard, equipo y el KDS); cocina solo
+  // ve el KDS.
+  if (restaurant.role === 'kitchen') redirect(`/kitchen/${restaurantSlug}`)
+
+  if (restaurant.status === 'suspended') {
+    return <AccessMessage>Este restaurante está suspendido.</AccessMessage>
   }
 
   return (
-    <RestaurantProvider restaurant={restaurant}>
+    <RestaurantProvider restaurant={{ id: restaurant.id, name: restaurant.name, slug: restaurant.slug }}>
       <AdminShell restaurantSlug={restaurant.slug} restaurantName={restaurant.name}>
         {children}
       </AdminShell>

@@ -1,6 +1,8 @@
+// @vitest-environment jsdom
 import { describe, it, expect } from 'vitest'
 import { createClient } from '@supabase/supabase-js'
 import { getSalesReport } from '@/lib/data/admin-dashboard'
+import { grantAdmin } from './helpers/staff-session'
 
 const admin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -10,6 +12,7 @@ const admin = createClient(
 async function makeRestaurant() {
   const { data } = await admin
     .from('restaurants').insert({ name: 'T', slug: 'dash-' + Date.now() + Math.random() }).select().single()
+  await grantAdmin(data!.id)
   return data!.id as string
 }
 
