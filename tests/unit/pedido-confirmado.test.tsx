@@ -27,6 +27,8 @@ describe('PedidoConfirmadoPage', () => {
     expect(screen.getByText('Costillar al Quebracho', { exact: false })).toBeInTheDocument()
     expect(within(screen.getByText('Total').parentElement!).getByText('$37.00')).toBeInTheDocument()
     expect(screen.getByText(/Sin frutos secos/)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Estado del pedido' })).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent('Recibido')
     expect(screen.getByRole('button', { name: /seguir pidiendo/i })).toBeInTheDocument()
   })
 })

@@ -18,6 +18,23 @@ export type LatestOrder = {
   total: number
 }
 
+export type OrderHistoryRound = LatestOrder
+
+type HistoryRow = {
+  round_id: string
+  submitted_at: string
+  round_status: LatestOrder['status']
+  kitchen_notes: string
+  items: Array<{
+    id: string
+    dish_id: string
+    dish_name: string
+    quantity: number
+    notes: string
+    unit_price: number | string
+  }>
+}
+
 export async function getLatestOrder(deviceToken: string): Promise<LatestOrder | null> {
   const { data, error } = await createClient().rpc('rpc_get_latest_order', {
     p_device_token: deviceToken,
@@ -54,4 +71,31 @@ export async function getLatestOrder(deviceToken: string): Promise<LatestOrder |
     items,
     total: items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0),
   }
+}
+
+export async function getOrderHistory(deviceToken: string): Promise<OrderHistoryRound[]> {
+  const { data, error } = await createClient().rpc('rpc_get_order_history', {
+    p_device_token: deviceToken,
+  })
+  if (error) throw new Error(error.message)
+
+  return ((data ?? []) as HistoryRow[]).map((row) => {
+    const items = row.items.map((item) => ({
+      id: item.id,
+      dishId: item.dish_id,
+      dishName: item.dish_name,
+      quantity: item.quantity,
+      notes: item.notes,
+      unitPrice: Number(item.unit_price),
+    }))
+
+    return {
+      id: row.round_id,
+      submittedAt: row.submitted_at,
+      status: row.round_status,
+      kitchenNotes: row.kitchen_notes,
+      items,
+      total: items.reduce((sum, item) => sum + item.quantity * item.unitPrice, 0),
+    }
+  })
 }
