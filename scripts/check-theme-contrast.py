@@ -12,7 +12,7 @@ import math
 import sys
 
 THEMES = {
-    "admin":  (250, 0.04, 70, 0.10, 250, 0.006),
+    "admin":  (252, 0.11, 70, 0.10, 252, 0.012),
     "brasa":  (28, 0.15, 55, 0.11, 60, 0.008),
     "mar":    (240, 0.11, 190, 0.08, 230, 0.008),
     "cafe":   (50, 0.06, 65, 0.11, 70, 0.010),
@@ -31,21 +31,29 @@ PAIRS = [
 ]
 
 
-def roles(bh, bc, ah, ac, nh, nc):
+def roles(bh, bc, ah, ac, nh, nc, *, admin=False):
+    contrast = {
+        "background": 0.975 if admin else 0.985,
+        "foreground": 0.18 if admin else 0.22,
+        "muted": 0.94 if admin else 0.955,
+        "muted-foreground": 0.46 if admin else 0.50,
+        "border": 0.86 if admin else 0.905,
+        "inverse": 0.18 if admin else 0.25,
+    }
     return {
-        "background": (0.985, nc, nh),
-        "foreground": (0.22, nc * 2, nh),
+        "background": (contrast["background"], nc, nh),
+        "foreground": (contrast["foreground"], nc * 2, nh),
         "card": (1, 0, 0),
-        "muted": (0.955, nc, nh),
-        "muted-foreground": (0.50, nc * 2, nh),
-        "border": (0.905, nc, nh),
+        "muted": (contrast["muted"], nc, nh),
+        "muted-foreground": (contrast["muted-foreground"], nc * 2, nh),
+        "border": (contrast["border"], nc, nh),
         "primary": (0.50, bc, bh),
         "primary-foreground": (0.99, 0, 0),
         "secondary": (0.945, bc * 0.15, bh),
         "secondary-foreground": (0.40, bc * 0.8, bh),
         "highlight": (0.94, ac * 0.3, ah),
         "highlight-foreground": (0.42, ac * 0.8, ah),
-        "inverse": (0.25, nc * 2, nh),
+        "inverse": (contrast["inverse"], nc * 2, nh),
         "inverse-foreground": (0.97, nc, nh),
     }
 
@@ -78,7 +86,7 @@ def contrast(x, y):
 
 
 def check(name, params):
-    rgb = {k: oklch_to_linear_srgb(*v) for k, v in roles(*params).items()}
+    rgb = {k: oklch_to_linear_srgb(*v) for k, v in roles(*params, admin=name == "admin").items()}
     errors = [f"{k} fuera de gamut" for k, v in rgb.items() if not in_gamut(v)]
     for fg, bg in PAIRS:
         ratio = contrast(rgb[fg], rgb[bg])

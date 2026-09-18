@@ -16,7 +16,7 @@ test('menú móvil y escritorio permiten buscar, filtrar y solicitar ayuda', asy
   await expect(mobileNav).toBeVisible()
   await expect(page.getByText('STITCH REMIX')).toHaveCount(0)
   await expect(page.getByRole('heading', { name: 'Costillar al Quebracho' }).first()).toBeVisible()
-  const menuDescription = page.locator('article.sb-card').filter({ hasText: 'Tacos de Asado al Carbón' }).locator('p')
+  const menuDescription = page.getByRole('heading', { name: 'Tacos de Asado al Carbón' }).locator('xpath=following-sibling::p[1]')
   await expect(menuDescription).toBeVisible()
   const menuTextColor = await menuDescription.evaluate((element) => ({
     color: getComputedStyle(element).color,

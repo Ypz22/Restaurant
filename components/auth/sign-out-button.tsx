@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 export function SignOutButton() {
   return (
     <form action={signOut}>
-      <Button type="submit" variant="ghost" size="sm">
+      <Button type="submit" variant="ghost" size="sm" className="border-inverse-foreground/30 text-inverse-foreground hover:bg-inverse-foreground/10">
         <LogOut className="size-4" />
         Cerrar sesión
       </Button>

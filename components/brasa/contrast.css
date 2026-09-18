@@ -1,7 +1,0 @@
-.sb-app .sb-subtitle,
-.sb-app .sb-hero-copy p,
-.sb-app .sb-card p,
-.sb-app .sb-row-main small,
-.sb-app .sb-chips button:not(.active) {
-  color: var(--muted-foreground);
-}
