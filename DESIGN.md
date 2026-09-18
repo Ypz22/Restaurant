@@ -10,7 +10,7 @@ Los prototipos de Stitch y `docs/referencias-stitch/` son inspiración; donde co
 1. **Un solo sistema, varios temas.** Tipografía, radios, spacing, elevación, iconos y anatomía de componentes son idénticos para todos los tenants. Lo único que cambia entre temas es la **tonalidad** (matiz y croma) de los colores.
 2. **Solo tokens.** Ningún componente usa hex, `rgb()`, `oklch()` literal ni colores de la paleta de Tailwind (`slate-500`, `amber-100`, `red-50`…). Solo clases semánticas (`bg-primary`, `text-muted-foreground`…).
 3. **El color comunica rol, no decoración.** Un mismo rol se ve igual de "fuerte" en todos los temas porque su luminosidad es fija.
-4. **Admin tranquilo.** Admin y KDS usan una paleta casi neutra ("Calma Operativa"). El rojo solo aparece para lo crítico (alérgenos graves, retraso crítico, acciones destructivas).
+4. **Admin operativo.** Admin y KDS usan carbón y blanco, con azul profundo para acción y selección. El rojo solo aparece para lo crítico (alérgenos graves, retraso crítico, acciones destructivas).
 5. **Solo modo claro** en esta fase. No se agregan variantes `dark:`.
 
 ---
@@ -59,9 +59,9 @@ El layout de `/r/[restaurante]` pone `data-theme={restaurant.theme}`; el layout 
 ```css
 /* Parámetros: admin por defecto */
 :root {
-  --brand-h: 250; --brand-c: 0.04;
+  --brand-h: 252; --brand-c: 0.11;
   --accent-h: 70;  --accent-c: 0.10;
-  --neutral-h: 250; --neutral-c: 0.006;
+  --neutral-h: 252; --neutral-c: 0.012;
 }
 [data-theme="brasa"]  { --brand-h: 28;  --brand-c: 0.15; --accent-h: 55;  --accent-c: 0.11; --neutral-h: 60;  --neutral-c: 0.008; }
 [data-theme="mar"]    { --brand-h: 240; --brand-c: 0.11; --accent-h: 190; --accent-c: 0.08; --neutral-h: 230; --neutral-c: 0.008; }
@@ -98,6 +98,16 @@ El layout de `/r/[restaurante]` pone `data-theme={restaurant.theme}`; el layout 
   --chart-4:              oklch(0.62 calc(var(--neutral-c) * 2) var(--neutral-h));
   --chart-5:              oklch(0.84 calc(var(--brand-c) * 0.6) var(--brand-h));
 }
+
+/* Solo admin/KDS: una escala neutra de mayor contraste. Los tenants conservan la receta anterior. */
+:root {
+  --background:           oklch(0.975 var(--neutral-c) var(--neutral-h));
+  --foreground:           oklch(0.18  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --muted:                oklch(0.94 var(--neutral-c) var(--neutral-h));
+  --muted-foreground:     oklch(0.46  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --border:               oklch(0.86 var(--neutral-c) var(--neutral-h));
+  --inverse:              oklch(0.18 calc(var(--neutral-c) * 2) var(--neutral-h));
+}
 ```
 
 Registrar cada rol en `@theme inline` (`--color-primary: var(--primary);`, etc.) para obtener las utilidades `bg-primary`, `text-highlight-foreground`, `bg-inverse`…
@@ -110,15 +120,15 @@ Contraste WCAG mínimo entre pares texto/fondo: **5.25:1 en todos los temas** (A
 
 | Rol | admin | brasa | mar | cafe | huerta |
 |---|---|---|---|---|---|
-| `background` | `#f7fafe` | `#fef9f5` | `#f5fbff` | `#fff9f3` | `#fafbf5` |
+| `background` | `#f1f8ff` | `#fef9f5` | `#f5fbff` | `#fff9f3` | `#fafbf5` |
 | `card` | `#ffffff` | `#ffffff` | `#ffffff` | `#ffffff` | `#ffffff` |
-| `muted` | `#edf0f4` | `#f4efeb` | `#ebf1f4` | `#f5efe9` | `#f0f1eb` |
-| `border` | `#dde0e3` | `#e4deda` | `#dbe1e4` | `#e4dfd9` | `#e0e0da` |
-| `foreground` | `#161b20` | `#201913` | `#131c21` | `#211910` | `#1b1b13` |
-| `muted-foreground` | `#5e646a` | `#6a615a` | `#5a656b` | `#6b6157` | `#63645a` |
-| `primary` | `#52657a` | `#a8372e` | `#0e6a9b` | `#7f5944` | `#3b723e` |
-| `secondary` | `#eaedf1` | `#fce8e4` | `#e3eff7` | `#f2ebe8` | `#e7f0e7` |
-| `secondary-foreground` | `#3b4959` | `#7c2620` | `#074d72` | `#5d4030` | `#29532b` |
+| `muted` | `#e6ecf3` | `#f4efeb` | `#ebf1f4` | `#f5efe9` | `#f0f1eb` |
+| `border` | `#cbd2d9` | `#e4deda` | `#dbe1e4` | `#e4dfd9` | `#e0e0da` |
+| `foreground` | `#0a121c` | `#201913` | `#131c21` | `#211910` | `#1b1b13` |
+| `muted-foreground` | `#4f5965` | `#6a615a` | `#5a656b` | `#6b6157` | `#63645a` |
+| `primary` | `#2e65a0` | `#a8372e` | `#0e6a9b` | `#7f5944` | `#3b723e` |
+| `secondary` | `#e5eef8` | `#fce8e4` | `#e3eff7` | `#f2ebe8` | `#e7f0e7` |
+| `secondary-foreground` | `#204975` | `#7c2620` | `#074d72` | `#5d4030` | `#29532b` |
 | `highlight` | `#f9e8d6` | `#fee6d7` | `#daf1ef` | `#fbe7d5` | `#efecd8` |
 | `highlight-foreground` | `#694413` | `#713e17` | `#165855` | `#6d410b` | `#564e19` |
 
@@ -185,24 +195,41 @@ Los HTML de Stitch usan nombres M3. Al portar, traducir así; **nunca** copiar l
 
 ## 5. Tipografía
 
-- **Única familia:** Plus Jakarta Sans vía `next/font/google` (pesos 400, 500, 600, 700). No se agregan otras fuentes.
+- **Dos familias, cada una con un rol fijo, vía `next/font/google`:**
+  - **Figtree** (`font-sans`, pesos 400/500/600/700) — familia por defecto en **todo** el sistema: admin, KDS y toda la interfaz del comensal que no sea un título de menú.
+  - **Young Serif** (`font-serif`, peso 400) — **solo** títulos del menú del comensal: nombre del plato en el detalle (`title-lg`), hero de bienvenida (`display-lg`) y encabezados equivalentes. Nunca en admin ni KDS, nunca en botones ni metadatos.
+- No se agregan más fuentes sin aprobación. La cocina (§5.1) usa Figtree igual que el resto — solo cambia la escala de tamaño, no la familia.
 - **Números:** precios, cantidades, mesas y cronómetros llevan `tabular-nums`.
 - **Mayúsculas:** solo en `label-sm` (badges, metadatos). Nunca en descripciones ni notas.
 
-| Token | Tamaño / interlineado | Peso | Tracking | Uso |
-|---|---|---|---|---|
-| `display-lg` | 40 / 48 px | 700 | -0.02em | Hero de bienvenida |
-| `headline-lg` | 32 / 40 px (móvil 26 / 32) | 700 | -0.01em | Títulos de página admin |
-| `headline-md` | 24 / 30 px | 600 | 0 | Precio destacado, número de ticket KDS |
-| `title-lg` | 20 / 26 px | 600 | 0 | Nombre de plato en detalle, secciones |
-| `title-md` | 16 / 22 px | 600 | 0.01em | Nombre de plato en card, nombre del restaurante |
-| `body-lg` | 16 / 24 px | 400 | 0 | Texto de lectura |
-| `body-md` | 14 / 20 px | 400 | 0 | Descripciones, texto por defecto |
-| `label-lg` | 14 / 18 px | 600 | 0.02em | Botones |
-| `label-md` | 12 / 16 px | 600 | 0.04em | Chips, metadatos |
-| `label-sm` | 11 / 14 px | 700 | 0.05em | Badges en mayúsculas |
+| Token | Tamaño / interlineado | Peso | Tracking | Familia | Uso |
+|---|---|---|---|---|---|
+| `display-lg` | 40 / 48 px | 700 | -0.02em | `font-serif` | Hero de bienvenida |
+| `headline-lg` | 32 / 40 px (móvil 26 / 32) | 700 | -0.01em | `font-sans` | Títulos de página admin |
+| `headline-md` | 24 / 30 px | 600 | 0 | `font-sans` | Precio destacado, número de ticket KDS |
+| `title-lg` | 20 / 26 px | 600 | 0 | `font-serif` en menú comensal, `font-sans` en admin | Nombre de plato en detalle, secciones |
+| `title-md` | 16 / 22 px | 600 | 0.01em | `font-sans` | Nombre de plato en card, nombre del restaurante |
+| `body-lg` | 16 / 24 px | 400 | 0 | `font-sans` | Texto de lectura |
+| `body-md` | 14 / 20 px | 400 | 0 | `font-sans` | Descripciones, texto por defecto |
+| `label-lg` | 14 / 18 px | 600 | 0.02em | `font-sans` | Botones |
+| `label-md` | 12 / 16 px | 600 | 0.03em | `font-sans` | Chips, metadatos |
+| `label-sm` | 11 / 14 px | 700 | 0.03em | `font-sans` | Badges en mayúsculas |
 
 Definir cada token como utilidad en `@theme` (`--text-title-md`, etc.). No usar `text-lg`, `text-xl`… sueltos.
+
+### 5.1 Escala especial de KDS
+
+La pantalla de cocina se lee de pie, a 1–2 m, en tablet o en un monitor de pared: necesita letras más grandes que un panel de oficina. Sigue en `font-sans` (Figtree, igual que el resto del sistema) — solo cambia la escala de tamaño, fluida con `clamp()`, no la familia.
+
+Los tamaños son **fluidos** (`clamp()`) para escalar entre tablet y pantalla de pared sin depender de breakpoints — no usar valores fijos para estos roles.
+
+| Token | Tamaño (clamp) | Peso | Uso |
+|---|---|---|---|
+| `kds-heading` | 20 → 26 px | 700 | Número de mesa en la cabecera del ticket |
+| `kds-item` | ~19 → 26 px | 600 | Nombre del plato (lo primero que se lee) |
+| `kds-qty` | ~22 → 30 px | 700 | Cantidad del plato, `tabular-nums` |
+| `kds-timer` | ~15 → 19 px | 600 | Cronómetro del ticket, `tabular-nums` |
+| `kds-meta` | ~14 → 16 px | 500 | Modificadores, notas, desglose por mesa |
 
 ---
 
@@ -213,8 +240,8 @@ Definir cada token como utilidad en `@theme` (`--text-title-md`, etc.). No usar 
 | Clase | Valor | Uso |
 |---|---|---|
 | `rounded-lg` | 8 px | Inputs pequeños, número de ticket, badges de admin |
-| `rounded-xl` | 12 px | Botones, inputs, icon containers |
-| `rounded-2xl` | 16 px | Cards de plato, tickets KDS, KPI cards, opciones de radio/checkbox grandes |
+| `rounded-xl` | 12 px | Botones, inputs, icon containers del menú cliente |
+| `rounded-2xl` | 16 px | Cards de plato y opciones grandes del menú cliente |
 | `rounded-t-3xl` | 24 px arriba | Bottom sheets |
 | `rounded-full` | pill | Chips, badges, stepper, avatares, toasts |
 
@@ -225,8 +252,8 @@ No usar valores arbitrarios (`rounded-[28px]`).
 Base de 4 px. Usar la escala estándar de Tailwind (`gap-2`, `p-4`…). Equivalencias con Stitch: `space-xs` = 1 (4 px), `space-sm` = 2 (8 px), `space-md` = 4 (16 px), `space-lg` = 6 (24 px), `space-xl` = 8 (32 px), `margin` móvil = 4 (16 px).
 
 - Cliente: columna única, `px-4`, `max-w-screen-sm mx-auto`. Zona de acciones principal en el tercio inferior (barra fija).
-- Admin: sidebar `w-64` desde `xl`, header `h-16`, contenido `max-w-[1440px]`.
-- KDS: grilla de tickets `grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6`.
+- Admin: sidebar de carbón `w-52` desde `xl`, header `h-14`, contenido `max-w-[1440px]` con `p-4`.
+- KDS: header de carbón `h-12`; grilla de tickets `grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3`.
 - Área táctil mínima **44 × 44 px** (`h-11`) en cliente y KDS.
 
 ### Elevación
@@ -273,8 +300,13 @@ Headers fijos: `bg-background/90 backdrop-blur` + `border-b border-border`. No s
 | `settings` | `Settings` |
 | `query_stats` | `ChartLine` |
 | `search` | `Search` |
+| — (estado de comanda) | `pending` → `CircleDot` · `preparing` → `Flame` · `ready` → `BellRing` · `delivered` → `CheckCheck` |
+| `sticky_note_2`, `chat_bubble` | `StickyNote` (notas de cocina), `MessageSquareText` (notas del comensal en el ítem) |
+| `soup_kitchen` | `ChefHat` (marca de cocina, resumen "Por hacer") |
 
 Si falta una equivalencia, elegir el icono lucide más literal y agregarlo a esta tabla.
+
+**KDS:** los iconos que acompañan texto de lectura rápida (estado, cabecera "Por hacer", notas) van a 20 px; los de un ícono aislado sin texto (icon-only en botón) pueden llegar a 24 px. No usar 16 px en KDS: a distancia se pierde el trazo.
 
 ---
 
@@ -306,9 +338,9 @@ Base: componentes de shadcn/ui (`Button`, `Badge`, `Card`, `Sheet`, `Dialog`, `I
 
 | Componente | Anatomía |
 |---|---|
-| **Shell** | Header `h-16 bg-card/90 backdrop-blur border-b`. Sidebar `w-64 bg-card border-r` con items `rounded-xl`; activo: `bg-secondary text-secondary-foreground`. Lienzo `bg-background`. |
-| **KPI card** | Nivel 1, `p-6`. Label `label-md text-muted-foreground`, icono en `rounded-xl bg-secondary p-2`, valor `headline-lg tabular-nums`, variación con `success-soft` / `danger-soft`. |
-| **Ticket KDS** | `article rounded-2xl bg-card border shadow-sm overflow-hidden`. Cabecera `bg-muted px-4 py-2 border-b`: número `headline-md tabular-nums` en `rounded-lg bg-card border`, mesa `title-md`, cronómetro `tabular-nums`. Estado con la tabla de la sección 3.4. Items con checkbox 44 px separados por `border-b`. Notas de cocina con borde izquierdo `border-l-4 border-warning-soft-foreground/40`. Botón de avance `h-11 w-full bg-primary`. |
+| **Shell** | Header `h-14 bg-inverse text-inverse-foreground border-b border-inverse`. Sidebar `w-52 bg-inverse` con items `rounded-lg`; activo: `bg-primary text-primary-foreground`. Lienzo `bg-background`. |
+| **KPI card** | Nivel 1, `rounded-lg p-4`. Label `label-md text-muted-foreground`, icono en `rounded-lg bg-secondary p-2`, valor `headline-lg tabular-nums`, variación con `success-soft` / `danger-soft`. |
+| **Ticket KDS** | `article` con la escala de §5.1, `rounded-lg bg-card border shadow-sm overflow-hidden`; borde `border-destructive` si está en retraso crítico. Cabecera `bg-muted px-4 py-2 border-b` en **dos filas** (nunca una sola con el badge intercalado): fila 1 = mesa `kds-heading` (nunca se trunca — identificar la mesa es crítico, si el texto no entra baja de línea) + cronómetro `kds-timer tabular-nums` a la derecha (con horas si pasa de 60 min, en pill `warning-soft`/`danger-soft` cuando está en aviso o retraso); fila 2 = badge de estado solo (icono de la tabla §7 + color de la sección 3.4; el badge `muted` lleva `border border-border` porque comparte fondo con la cabecera). Items: cantidad en círculo `kds-qty` ≥ 44 px, plato en `kds-item` (lo más grande de la fila), modificadores en `kds-meta`, checkbox nativo 24 px en fila ≥ 44 px. Nota de cocina con icono `StickyNote`. Botón de avance `h-11 w-full`: deshabilitado muestra cuántos platos faltan, no solo un color apagado. |
 | **Alerta de alérgeno** | `rounded-lg bg-danger-soft text-danger-soft-foreground border border-danger-soft-foreground/30 label-sm font-bold` + `TriangleAlert`. Solo para alérgenos graves o retraso crítico. |
 | **Tabla de datos** | shadcn `Table`. Header `bg-muted label-sm uppercase text-muted-foreground`, filas con `border-b` y `hover:bg-muted/50`. Números alineados a la derecha, `tabular-nums`. |
 | **Disponibilidad de plato** | `Switch` (encendido = `bg-primary`) + texto "Disponible" / "Agotado". |

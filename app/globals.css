@@ -1,17 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brasa-primary: #bc4749;
-  --color-primary-dark: #a7333b;
-  --color-onPrimary: #ffffff;
-  --color-secondary: #e29578;
-  --color-tertiary: #f4a261;
-  --color-brasa-background: #fdfbf7;
-  --color-surface: #f4f1ea;
-  --color-surface-elevated: #efece3;
-  --color-onSurface: #2c2523;
-  --color-outline: #d6cfc7;
-
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -19,7 +8,15 @@
   --radius-2xl: 16px;
   --radius-3xl: 24px;
 
-  --font-sans: var(--font-plus-jakarta), sans-serif;
+  /* DESIGN.md §5: Figtree para toda la interfaz, Young Serif solo para
+     títulos del menú del comensal. */
+  --font-sans: var(--font-figtree), sans-serif;
+  --font-serif: var(--font-young-serif), serif;
+
+  --text-display-lg: 40px;
+  --text-display-lg--line-height: 48px;
+  --text-display-lg--font-weight: 700;
+  --text-display-lg--letter-spacing: -0.02em;
 
   --text-headline-lg: 32px;
   --text-headline-lg--line-height: 40px;
@@ -55,28 +52,53 @@
   --text-label-md: 12px;
   --text-label-md--line-height: 16px;
   --text-label-md--font-weight: 600;
-  --text-label-md--letter-spacing: 0.04em;
+  --text-label-md--letter-spacing: 0.03em;
 
   --text-label-sm: 11px;
   --text-label-sm--line-height: 14px;
   --text-label-sm--font-weight: 700;
-  --text-label-sm--letter-spacing: 0.05em;
+  --text-label-sm--letter-spacing: 0.03em;
+
+  /* DESIGN.md §5.1: escala especial de KDS, en Figtree como el resto del
+     sistema. Fluida con clamp() para que crezca en pantallas de pared y se
+     mantenga legible en tablet, sin depender de breakpoints. */
+  --text-kds-heading: clamp(1.25rem, 0.9vw + 1rem, 1.625rem);
+  --text-kds-heading--line-height: 1.15;
+  --text-kds-heading--font-weight: 700;
+
+  --text-kds-item: clamp(1.2rem, 1vw + 0.95rem, 1.625rem);
+  --text-kds-item--line-height: 1.2;
+  --text-kds-item--font-weight: 600;
+
+  --text-kds-qty: clamp(1.35rem, 1.1vw + 1.05rem, 1.875rem);
+  --text-kds-qty--line-height: 1;
+  --text-kds-qty--font-weight: 700;
+
+  --text-kds-meta: clamp(0.85rem, 0.2vw + 0.8rem, 1rem);
+  --text-kds-meta--line-height: 1.3;
+  --text-kds-meta--font-weight: 500;
+
+  --text-kds-timer: clamp(0.95rem, 0.35vw + 0.85rem, 1.2rem);
+  --text-kds-timer--line-height: 1.1;
+  --text-kds-timer--font-weight: 600;
 }
 
 body {
-  background: var(--color-brasa-background);
-  color: var(--color-onSurface);
+  background: var(--background);
+  color: var(--foreground);
 }
 
 /*
  * Sistema de tokens de admin/KDS y temas de tenant (DESIGN.md §3).
- * No usado todavía por las páginas de cliente existentes (bg-surface,
- * text-onSurface arriba) — esa migración queda pendiente aparte.
+ * La bienvenida y el listado de menú del comensal (components/brasa/*)
+ * todavía son un prototipo aparte con su propio CSS y tipografía — esa
+ * migración queda pendiente en una tarea dedicada.
  */
 :root {
-  --brand-h: 250; --brand-c: 0.04;
+  /* Administración y cocina: carbón, blanco y azul profundo. */
+  --brand-h: 252; --brand-c: 0.11;
   --accent-h: 70;  --accent-c: 0.10;
-  --neutral-h: 250; --neutral-c: 0.006;
+  --neutral-h: 252; --neutral-c: 0.012;
 }
 [data-theme="brasa"]  { --brand-h: 28;  --brand-c: 0.15; --accent-h: 55;  --accent-c: 0.11; --neutral-h: 60;  --neutral-c: 0.008; }
 [data-theme="mar"]    { --brand-h: 240; --brand-c: 0.11; --accent-h: 190; --accent-c: 0.08; --neutral-h: 230; --neutral-c: 0.008; }
@@ -127,6 +149,16 @@ body {
   --diet-gluten-free-foreground: oklch(0.45 0.09 80);
   --diet-spicy:                oklch(0.95 0.024 35);
   --diet-spicy-foreground:     oklch(0.48 0.16 35);
+}
+
+/* El contraste más firme solo pertenece a las superficies internas. */
+:root {
+  --background:           oklch(0.975 var(--neutral-c) var(--neutral-h));
+  --foreground:           oklch(0.18  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --muted:                oklch(0.94 var(--neutral-c) var(--neutral-h));
+  --muted-foreground:     oklch(0.46  calc(var(--neutral-c) * 2) var(--neutral-h));
+  --border:               oklch(0.86 var(--neutral-c) var(--neutral-h));
+  --inverse:              oklch(0.18 calc(var(--neutral-c) * 2) var(--neutral-h));
 }
 
 @theme inline {
