@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import { NicknameForm } from '@/components/nickname-form'
 import { getTableByQrToken, type TableInfo } from '@/lib/data/table'
-import { startSession, resumeSession } from '@/lib/data/session'
-import { getDeviceToken, saveDeviceToken, clearDeviceToken } from '@/lib/session/device-token'
+import { startSession } from '@/lib/data/session'
+import { saveDeviceToken } from '@/lib/session/device-token'
 import Image from 'next/image'
 import '@/components/brasa/live.css'
 
@@ -21,28 +21,6 @@ export default function BienvenidaPage() {
     let active = true
     async function init() {
       try {
-        const existingToken = getDeviceToken()
-        if (existingToken) {
-          const resumed = await resumeSession(existingToken)
-        // Only resume when the session is open AND it belongs to the table
-        // this QR/URL actually points at. A stale device_token from a
-        // previous visit to a different table (or restaurant) must not
-        // silently resume the customer into the wrong session.
-          if (resumed && resumed.sessionStatus === 'open' && resumed.qrToken === params.tableId) {
-            if (resumed.restaurantSlug === params.restaurantSlug) {
-              router.replace(`/r/${params.restaurantSlug}/mesa/${params.tableId}/menu`)
-              return
-            }
-            // La sesión es válida, pero para otro restaurante que el que
-            // pide esta URL: no se toca el device_token (sigue sirviendo
-            // para su mesa real); esta URL simplemente no existe para ese
-            // comensal.
-            if (active) setTable(null)
-            return
-          }
-          clearDeviceToken()
-        }
-
         const info = await getTableByQrToken(params.tableId)
         if (active) setTable(info && info.restaurantSlug === params.restaurantSlug ? info : null)
       } catch { if (active) setError('No se pudo conectar a la mesa. Comprueba tu conexión.') }

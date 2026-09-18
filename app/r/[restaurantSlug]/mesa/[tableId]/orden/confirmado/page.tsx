@@ -6,8 +6,7 @@ import { BrasaShell } from '@/components/brasa/shell'
 import { getDeviceToken } from '@/lib/session/device-token'
 import { resumeSession } from '@/lib/data/session'
 import { getLatestOrder, type LatestOrder } from '@/lib/data/latest-order'
-
-const statusLabels: Record<LatestOrder['status'], string> = { pending: 'Recibido en cocina', preparing: 'En preparación', ready: 'Listo para servir', delivered: 'Entregado' }
+import { OrderStatusTracker } from '@/components/brasa/order-status-tracker'
 
 export default function PedidoConfirmadoPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string }>()
@@ -52,7 +51,7 @@ export default function PedidoConfirmadoPage() {
     <BrasaShell slug={params.restaurantSlug} tableId={params.tableId} tableLabel={tableLabel} active="orden"><main className="sb-main"><section className="sb-panel">
       {loading ? <p className="sb-subtitle">Consultando pedido…</p> : error ? <div className="sb-alert" role="alert">{error}</div> : order ? <>
         <div className="sb-confirm-icon">✓</div><span className="sb-eyebrow">COMANDA CONFIRMADA</span><h1 className="sb-title">¡Pedido enviado a cocina!</h1><p className="sb-subtitle">La ronda de {tableLabel} fue recibida. Puedes seguir agregando platos para una nueva ronda.</p>
-        <p className="sb-confirm-status" role="status">Estado: {statusLabels[order.status]}</p><p className="sb-subtitle">Enviado: {new Date(order.submittedAt).toLocaleString('es-EC')}</p>
+        <OrderStatusTracker status={order.status} /><p className="mt-4 sb-subtitle">Enviado: {new Date(order.submittedAt).toLocaleString('es-EC')}</p>
         <div className="sb-confirm-lines"><h2>Resumen de la ronda</h2>{order.items.map(item => <div key={item.id}><span>{item.quantity} × {item.dishName}{item.notes ? ` · ${item.notes}` : ''}</span><strong>${(item.quantity * item.unitPrice).toFixed(2)}</strong></div>)}</div>
         {order.kitchenNotes && <p className="sb-subtitle">Indicaciones para cocina: {order.kitchenNotes}</p>}<div className="sb-total"><span>Total</span><strong>${order.total.toFixed(2)}</strong></div>
       </> : <><h1 className="sb-title">Aún no hay una ronda enviada</h1><p className="sb-subtitle">Agrega platos a la orden y envíala cuando esté lista.</p></>}
