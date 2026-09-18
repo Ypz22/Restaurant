@@ -171,7 +171,7 @@ export default function AdminMesasPage() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h1 className="text-title-lg text-foreground">Mesas</h1>
+        <h1 className="text-headline-lg text-foreground">Mesas</h1>
         <Button onClick={() => setCreating(true)}><Plus /> Nueva mesa</Button>
       </div>
 

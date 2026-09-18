@@ -26,23 +26,23 @@ export default async function TeamPage({
   const rows = (staff ?? []) as StaffRow[]
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="text-title-lg text-foreground">Equipo</h1>
+    <div className="max-w-2xl">
+      <h1 className="text-headline-lg text-foreground">Equipo</h1>
       <p className="mt-1 text-body-md text-muted-foreground">
         Cuentas del staff de {restaurant.name}. Vos podés agregar y dar de baja cuentas de cocina; para agregar otro
         administrador, pedile a la plataforma.
       </p>
 
-      <section className="mt-6 rounded-2xl border border-border bg-card p-5">
+      <section className="mt-5 rounded-lg border border-border bg-card p-4">
         <h2 className="text-title-md text-foreground">Nueva cuenta de cocina</h2>
         <div className="mt-3">
           <AddKitchenStaffForm restaurantId={restaurant.id} restaurantSlug={restaurantSlug} />
         </div>
       </section>
 
-      <section className="mt-6 flex flex-col gap-2">
+      <section className="mt-5 flex flex-col gap-2">
         {rows.map((member) => (
-          <div key={member.user_id} className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4">
+          <div key={member.user_id} className="flex items-center gap-3 rounded-lg border border-border bg-card p-3">
             <div className="min-w-0 flex-1">
               <p className="text-label-lg text-foreground">{member.email}</p>
               <p className="text-label-sm uppercase text-muted-foreground">

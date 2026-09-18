@@ -111,9 +111,9 @@ export default function AdminMenuPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-title-lg text-foreground">Menú</h1>
+        <h1 className="text-headline-lg text-foreground">Menú</h1>
         <div className="flex items-center gap-2">
           <Button variant="secondary" onClick={() => setSectionBulkOpen(true)} disabled={dishes.length === 0}>Secciones del detalle</Button>
           <Button onClick={() => { setEditingDish(null); setDishSheetOpen(true) }} disabled={categories.length === 0}><Plus className="size-4" /> Nuevo plato</Button>

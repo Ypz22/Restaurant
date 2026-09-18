@@ -2,7 +2,10 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { toast } from 'sonner'
-import { ConciergeBell, CheckCheck, ChefHat, Timer, WifiOff } from 'lucide-react'
+import {
+  ConciergeBell, CheckCheck, ChefHat, Timer, WifiOff,
+  CircleDot, Flame, BellRing, StickyNote, Check,
+} from 'lucide-react'
 import { useAdminRestaurant } from '@/components/admin/restaurant-context'
 import {
   getActiveTickets, getDeliveredTickets, advanceOrderRound, setItemPrepared, summarizePending,
@@ -18,11 +21,14 @@ import { cn } from '@/lib/utils'
 const KDS_WARN_MINUTES = 10
 const KDS_LATE_MINUTES = 20
 
-const STATUS_BADGE: Record<OrderRoundStatus, { label: string; variant: 'muted' | 'warning' | 'success' }> = {
-  pending: { label: 'Nueva', variant: 'muted' },
-  preparing: { label: 'En preparación', variant: 'warning' },
-  ready: { label: 'Lista', variant: 'success' },
-  delivered: { label: 'Entregada', variant: 'muted' },
+const STATUS_BADGE: Record<
+  OrderRoundStatus,
+  { label: string; variant: 'muted' | 'warning' | 'success'; icon: typeof CircleDot }
+> = {
+  pending: { label: 'Nueva', variant: 'muted', icon: CircleDot },
+  preparing: { label: 'En preparación', variant: 'warning', icon: Flame },
+  ready: { label: 'Lista', variant: 'success', icon: BellRing },
+  delivered: { label: 'Entregada', variant: 'muted', icon: CheckCheck },
 }
 
 type Filter = 'all' | OrderRoundStatus
@@ -38,21 +44,25 @@ const FILTERS: { value: Filter; label: string }[] = [
 function elapsed(iso: string, now: number) {
   const seconds = Math.max(0, Math.floor((now - new Date(iso).getTime()) / 1000))
   const minutes = Math.floor(seconds / 60)
-  return { minutes, label: `${minutes}:${String(seconds % 60).padStart(2, '0')}` }
+  const hours = Math.floor(minutes / 60)
+  const label = hours > 0
+    ? `${hours}:${String(minutes % 60).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`
+    : `${minutes}:${String(seconds % 60).padStart(2, '0')}`
+  return { minutes, label }
 }
 
 function PendingList({ dishes }: { dishes: PendingDish[] }) {
   if (dishes.length === 0) {
-    return <p className="py-4 text-center text-body-md text-muted-foreground">Nada pendiente</p>
+    return <p className="py-4 text-center text-kds-meta text-muted-foreground">Nada pendiente</p>
   }
   return (
     <ul className="flex flex-col divide-y divide-border">
       {dishes.map((dish) => (
         <li key={dish.dishName} className="flex items-start gap-3 py-2.5">
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-warning-soft text-label-lg tabular-nums text-warning-soft-foreground">{dish.quantity}</span>
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-warning-soft text-kds-timer tabular-nums text-warning-soft-foreground">{dish.quantity}</span>
           <div className="min-w-0">
-            <p className="text-body-md font-medium text-foreground">{dish.dishName}</p>
-            <p className="text-label-md tabular-nums text-muted-foreground">
+            <p className="text-kds-meta font-semibold text-foreground">{dish.dishName}</p>
+            <p className="text-kds-meta tabular-nums text-muted-foreground">
               {dish.tables.map((t) => `${t.label} ×${t.quantity}`).join(' · ')}
             </p>
           </div>
@@ -71,48 +81,62 @@ function Ticket({
   onAdvance: (ticket: KitchenTicket) => void
 }) {
   const badge = STATUS_BADGE[ticket.status]
+  const BadgeIcon = badge.icon
   const time = elapsed(ticket.submittedAt, now)
   const done = ticket.items.filter((i) => i.preparedAt).length
   const total = ticket.items.length
   const allDone = done === total
   const locked = ticket.status === 'ready' || ticket.status === 'delivered'
+  const late = time.minutes >= KDS_LATE_MINUTES
+  const warn = !late && time.minutes >= KDS_WARN_MINUTES
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <header className="flex items-center justify-between gap-2 border-b border-border bg-muted px-4 py-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <h2 className="truncate text-title-md text-foreground">{ticket.tableLabel}</h2>
-          <Badge variant={badge.variant}>{badge.label}</Badge>
+    <article className={cn('flex flex-col overflow-hidden rounded-lg border bg-card shadow-sm', late ? 'border-destructive' : 'border-border')}>
+      <header className="flex flex-col gap-1.5 border-b border-border bg-muted px-4 py-2">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="min-w-0 break-words text-kds-heading text-foreground">{ticket.tableLabel}</h2>
+          <span
+            className={cn(
+              'flex shrink-0 items-center gap-1.5 text-kds-timer tabular-nums',
+              late ? 'rounded-full bg-danger-soft px-2.5 py-1 font-bold text-danger-soft-foreground'
+                : warn ? 'rounded-full bg-warning-soft px-2.5 py-1 text-warning-soft-foreground'
+                  : 'text-muted-foreground'
+            )}
+          >
+            <Timer className="size-4 shrink-0" aria-hidden="true" />
+            {time.label}
+          </span>
         </div>
-        <span
-          className={cn(
-            'flex shrink-0 items-center gap-1 text-label-lg tabular-nums',
-            time.minutes >= KDS_LATE_MINUTES ? 'text-destructive'
-              : time.minutes >= KDS_WARN_MINUTES ? 'text-warning-soft-foreground'
-                : 'text-muted-foreground'
-          )}
-        >
-          <Timer className="size-4" />
-          {time.label}
-        </span>
+        <Badge variant={badge.variant} className={cn('self-start gap-1', badge.variant === 'muted' && 'border border-border')}>
+          <BadgeIcon className="size-3.5" aria-hidden="true" /> {badge.label}
+        </Badge>
       </header>
 
       <ul className="flex flex-col divide-y divide-border px-2">
         {ticket.items.map((item) => (
           <li key={item.id}>
-            <label className={cn('flex min-h-11 items-start gap-3 rounded-xl px-2 py-2.5', !locked && 'cursor-pointer hover:bg-muted/50')}>
+            <label className={cn('flex min-h-11 items-start gap-3 rounded-lg px-2 py-3', !locked && 'cursor-pointer hover:bg-muted/50')}>
               <input
                 type="checkbox"
-                className="mt-0.5 size-5 shrink-0 accent-primary"
+                className="mt-1 size-6 shrink-0 accent-primary"
                 checked={!!item.preparedAt}
                 disabled={locked}
                 onChange={(e) => onToggle(ticket, item.id, e.target.checked)}
               />
-              <span className="min-w-0">
-                <span className={cn('block text-body-md text-foreground', item.preparedAt && 'text-muted-foreground line-through')}>
-                  <span className="font-semibold tabular-nums">{item.quantity}×</span> {item.dishName}
+              <span className="flex min-w-0 flex-1 items-start gap-3">
+                <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-warning-soft text-kds-qty tabular-nums text-warning-soft-foreground">
+                  {item.quantity}
                 </span>
-                {item.notes && <span className="block text-label-md text-muted-foreground">{item.notes}</span>}
+                <span className="min-w-0 pt-0.5">
+                  <span className={cn('block text-kds-item text-foreground', item.preparedAt && 'text-muted-foreground line-through')}>
+                    {item.dishName}
+                  </span>
+                  {item.notes && (
+                    <span className="mt-0.5 flex items-start gap-1 text-kds-meta text-muted-foreground">
+                      <StickyNote className="mt-0.5 size-4 shrink-0" aria-hidden="true" /> {item.notes}
+                    </span>
+                  )}
+                </span>
               </span>
             </label>
           </li>
@@ -120,18 +144,18 @@ function Ticket({
       </ul>
 
       {ticket.kitchenNotes && (
-        <p className="mx-4 mb-2 border-l-4 border-warning-soft-foreground/40 bg-warning-soft px-3 py-1.5 text-label-md text-warning-soft-foreground">
-          {ticket.kitchenNotes}
+        <p className="mx-4 mb-2 flex items-start gap-2 border-l-4 border-warning-soft-foreground/40 bg-warning-soft px-3 py-1.5 text-kds-meta text-warning-soft-foreground">
+          <StickyNote className="mt-0.5 size-4 shrink-0" aria-hidden="true" /> {ticket.kitchenNotes}
         </p>
       )}
 
-      <div className="mt-auto flex flex-col gap-2 px-4 pt-1 pb-4">
+      <div className="mt-auto flex flex-col gap-2 px-4 pt-1 pb-3">
         {total > 0 && (
           <div className="flex items-center gap-2">
             <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
               <div className="h-full rounded-full bg-primary transition-[width]" style={{ width: `${(done / total) * 100}%` }} />
             </div>
-            <span className="text-label-md tabular-nums text-muted-foreground">{done} de {total}</span>
+            <span className="text-kds-meta tabular-nums text-muted-foreground">{done} de {total}</span>
           </div>
         )}
         {ticket.status === 'delivered' ? (
@@ -143,8 +167,8 @@ function Ticket({
             <CheckCheck /> Marcar como entregada
           </Button>
         ) : (
-          <Button className="w-full" disabled={!allDone} onClick={() => onAdvance(ticket)}>
-            Todo listo
+          <Button variant={allDone ? 'primary' : 'secondary'} className="w-full" disabled={!allDone} onClick={() => onAdvance(ticket)}>
+            {allDone ? <><Check /> Todo listo</> : `Marca los platos (${done}/${total})`}
           </Button>
         )}
       </div>
@@ -237,7 +261,7 @@ export default function KitchenPage() {
     return (
       <div className="flex gap-4">
         <Skeleton className="hidden h-96 w-72 shrink-0 lg:block" />
-        <div className="grid flex-1 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">
+        <div className="grid flex-1 grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
           {Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-72 w-full" />)}
         </div>
       </div>
@@ -266,51 +290,54 @@ export default function KitchenPage() {
   return (
     <div className="flex flex-col gap-4">
       {offline && (
-        <div className="flex items-center justify-center gap-2 rounded-xl bg-warning-soft px-4 py-2 text-label-md text-warning-soft-foreground">
-          <WifiOff className="size-4" /> Sin conexión, reintentando…
+        <div className="flex items-center justify-center gap-2 rounded-xl bg-warning-soft px-4 py-2 text-kds-meta text-warning-soft-foreground">
+          <WifiOff className="size-5" aria-hidden="true" /> Sin conexión, reintentando…
         </div>
       )}
 
       <Tabs value={filter} onValueChange={(v) => setFilter(v as Filter)}>
         <TabsList aria-label="Filtrar comandas">
-          {FILTERS.map((f) => (
-            <TabsTrigger key={f.value} value={f.value} className="gap-1.5">
-              {f.label} <span className="tabular-nums opacity-80">{counts[f.value]}</span>
-            </TabsTrigger>
-          ))}
+          {FILTERS.map((f) => {
+            const Icon = f.value === 'all' ? null : STATUS_BADGE[f.value].icon
+            return (
+              <TabsTrigger key={f.value} value={f.value} className="gap-1.5">
+                {Icon && <Icon className="size-4" aria-hidden="true" />} {f.label} <span className="tabular-nums opacity-80">{counts[f.value]}</span>
+              </TabsTrigger>
+            )
+          })}
         </TabsList>
       </Tabs>
 
-      <details className="rounded-2xl border border-border bg-card px-4 lg:hidden">
+      <details className="rounded-lg border border-border bg-card px-4 lg:hidden">
         <summary className="flex min-h-11 cursor-pointer items-center gap-2 text-label-lg text-foreground">
-          <ChefHat className="size-4" /> Por hacer <span className="tabular-nums text-muted-foreground">{pendingTotal}</span>
+          <ChefHat className="size-5" aria-hidden="true" /> Por hacer <span className="tabular-nums text-muted-foreground">{pendingTotal}</span>
         </summary>
-        <p className="pb-2 text-label-md text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
+        <p className="pb-2 text-kds-meta text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
         <PendingList dishes={pending} />
       </details>
 
       <div className="flex items-start gap-4">
         <aside
           aria-label="Platos por hacer"
-          className="sticky top-16 hidden max-h-[calc(100dvh-5rem)] w-72 shrink-0 overflow-y-auto rounded-2xl border border-border bg-card px-4 py-3 shadow-sm lg:block"
+          className="sticky top-16 hidden max-h-[calc(100dvh-5rem)] w-64 shrink-0 overflow-y-auto rounded-lg border border-border bg-card px-4 py-3 shadow-sm lg:block"
         >
           <h2 className="flex items-center gap-2 text-label-lg text-foreground">
-            <ChefHat className="size-4" /> Por hacer
+            <ChefHat className="size-5" aria-hidden="true" /> Por hacer
             <span className="ml-auto tabular-nums text-muted-foreground">{pendingTotal}</span>
           </h2>
-          <p className="pb-1 pt-0.5 text-label-md text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
+          <p className="pb-1 pt-0.5 text-kds-meta text-muted-foreground">Suma de platos sin marcar en las comandas nuevas y en preparación, para priorizar la cocina.</p>
           <PendingList dishes={pending} />
         </aside>
 
         {visible.length === 0 ? (
           <div className="flex flex-1 flex-col items-center gap-3 rounded-2xl border border-border bg-card p-12 text-center">
             <ConciergeBell className="size-6 text-muted-foreground" />
-            <p className="text-body-md text-muted-foreground">
+            <p className="text-kds-meta text-muted-foreground">
               {tickets.length === 0 ? 'No hay comandas activas por ahora.' : 'No hay comandas con este estado.'}
             </p>
           </div>
         ) : (
-          <div className="grid min-w-0 flex-1 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] items-start gap-4">
+          <div className="grid min-w-0 flex-1 grid-cols-[repeat(auto-fill,minmax(280px,1fr))] items-start gap-3">
             {visible.map((ticket) => (
               <Ticket key={ticket.roundId} ticket={ticket} now={now} onToggle={handleToggle} onAdvance={handleAdvance} />
             ))}

@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { ChefHat } from 'lucide-react'
 import { RestaurantProvider } from '@/components/admin/restaurant-context'
 import { AccessMessage } from '@/components/auth/access-message'
 import { SignOutButton } from '@/components/auth/sign-out-button'
@@ -38,10 +39,11 @@ export default async function KitchenLayout({
   return (
     <RestaurantProvider restaurant={{ id: restaurant.id, name: restaurant.name, slug: restaurant.slug }}>
       <div className="min-h-dvh bg-background">
-        <header className="sticky top-0 z-40 h-12 border-b border-border bg-card/90 backdrop-blur">
+        <header className="sticky top-0 z-40 h-12 border-b border-inverse bg-inverse text-inverse-foreground">
           <div className="mx-auto flex h-full items-center gap-2 px-4">
-            <span className="text-label-lg text-foreground">{restaurant.name}</span>
-            <span className="text-label-sm uppercase text-muted-foreground">Cocina</span>
+            <ChefHat className="size-5 shrink-0" aria-hidden="true" />
+            <span className="text-label-lg">{restaurant.name}</span>
+            <span className="text-label-sm uppercase text-inverse-foreground/65">Cocina</span>
             <div className="ml-auto">
               <SignOutButton />
             </div>

@@ -54,7 +54,7 @@ function Panel({ title, icon: Icon, className, children, aside }: {
   title: string; icon: typeof ChartLine; className?: string; children: React.ReactNode; aside?: React.ReactNode
 }) {
   return (
-    <section className={cn('flex min-w-0 flex-col gap-4 rounded-2xl border border-border bg-card p-5 shadow-sm', className)}>
+    <section className={cn('flex min-w-0 flex-col gap-3 rounded-lg border border-border bg-card p-4 shadow-sm', className)}>
       <header className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="flex items-center gap-2 text-title-md text-foreground">
           <Icon className="size-4 text-muted-foreground" /> {title}
@@ -77,10 +77,10 @@ function KpiCard({
   const Trend = up ? TrendingUp : TrendingDown
 
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm">
+    <div className="flex flex-col gap-2 rounded-lg border border-border bg-card p-4 shadow-sm">
       <div className="flex items-center justify-between gap-2">
         <p className="text-label-md text-muted-foreground">{label}</p>
-        <span className="rounded-xl bg-secondary p-2 text-secondary-foreground"><Icon className="size-4" /></span>
+        <span className="rounded-lg bg-secondary p-2 text-secondary-foreground"><Icon className="size-4" /></span>
       </div>
       <p className="text-headline-md tabular-nums text-foreground">{value}</p>
       {emptyNote ? (
