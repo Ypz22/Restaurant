@@ -2,11 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { BrasaShell } from '@/components/brasa/shell'
+import { CircleCheck } from 'lucide-react'
+import { ClientShell } from '@/components/client-shell'
+import { Button } from '@/components/ui/button'
+import { OrderStatusTracker } from '@/components/brasa/order-status-tracker'
 import { getDeviceToken } from '@/lib/session/device-token'
 import { resumeSession } from '@/lib/data/session'
 import { getLatestOrder, type LatestOrder } from '@/lib/data/latest-order'
-import { OrderStatusTracker } from '@/components/brasa/order-status-tracker'
 
 export default function PedidoConfirmadoPage() {
   const params = useParams<{ restaurantSlug: string; tableId: string }>()
@@ -29,13 +31,16 @@ export default function PedidoConfirmadoPage() {
           || session.restaurantSlug !== params.restaurantSlug
         ) { router.replace(base); return }
         const latest = await getLatestOrder(token!)
-        if (active) { setTableLabel(session.tableLabel); setOrder(latest) }
+        if (active) {
+          setTableLabel(session.tableLabel)
+          setOrder(latest)
+        }
       } catch { if (active) setError('No se pudo consultar el pedido. Inténtalo de nuevo.') }
       finally { if (active) setLoading(false) }
     }
     load()
     return () => { active = false }
-  }, [base, params.tableId, router])
+  }, [base, params.tableId, params.restaurantSlug, router])
 
   useEffect(() => {
     if (!orderId) return
@@ -48,14 +53,43 @@ export default function PedidoConfirmadoPage() {
   }, [orderId])
 
   return (
-    <BrasaShell slug={params.restaurantSlug} tableId={params.tableId} tableLabel={tableLabel} active="orden"><main className="sb-main"><section className="sb-panel">
-      {loading ? <p className="sb-subtitle">Consultando pedido…</p> : error ? <div className="sb-alert" role="alert">{error}</div> : order ? <>
-        <div className="sb-confirm-icon">✓</div><span className="sb-eyebrow">COMANDA CONFIRMADA</span><h1 className="sb-title">¡Pedido enviado a cocina!</h1><p className="sb-subtitle">La ronda de {tableLabel} fue recibida. Puedes seguir agregando platos para una nueva ronda.</p>
-        <OrderStatusTracker status={order.status} /><p className="mt-4 sb-subtitle">Enviado: {new Date(order.submittedAt).toLocaleString('es-EC')}</p>
-        <div className="sb-confirm-lines"><h2>Resumen de la ronda</h2>{order.items.map(item => <div key={item.id}><span>{item.quantity} × {item.dishName}{item.notes ? ` · ${item.notes}` : ''}</span><strong>${(item.quantity * item.unitPrice).toFixed(2)}</strong></div>)}</div>
-        {order.kitchenNotes && <p className="sb-subtitle">Indicaciones para cocina: {order.kitchenNotes}</p>}<div className="sb-total"><span>Total</span><strong>${order.total.toFixed(2)}</strong></div>
-      </> : <><h1 className="sb-title">Aún no hay una ronda enviada</h1><p className="sb-subtitle">Agrega platos a la orden y envíala cuando esté lista.</p></>}
-      <div className="sb-inline-actions"><button className="sb-primary" onClick={() => router.push(`${base}/menu`)}>Seguir pidiendo</button><button className="sb-secondary" onClick={() => router.push(`${base}/orden`)}>Ver mi orden</button></div>
-    </section></main></BrasaShell>
+    <ClientShell base={base} restaurantName="Menú del restaurante" tableLabel={tableLabel} active="orden">
+      {loading ? (
+        <p className="py-8 text-center text-body-lg text-muted-foreground">Consultando pedido…</p>
+      ) : error ? (
+        <p role="alert" className="rounded-xl bg-danger-soft p-3 text-body-md text-danger-soft-foreground">{error}</p>
+      ) : order ? (
+        <>
+          <span className="grid size-16 place-items-center rounded-full bg-success-soft text-success-soft-foreground"><CircleCheck className="size-8" aria-hidden="true" /></span>
+          <span className="mt-3 block text-label-sm uppercase text-muted-foreground">Comanda confirmada</span>
+          <h1 className="text-headline-lg text-foreground">¡Pedido enviado a cocina!</h1>
+          <p className="mt-1 text-body-lg text-muted-foreground">La ronda de {tableLabel} fue recibida. Puedes seguir agregando platos para una nueva ronda.</p>
+          <OrderStatusTracker status={order.status} />
+          <p className="mt-4 text-body-md text-muted-foreground">Enviado: {new Date(order.submittedAt).toLocaleString('es-EC')}</p>
+          <section className="mt-4">
+            <h2 className="text-title-md font-semibold text-foreground">Resumen de la ronda</h2>
+            <div className="mt-2 border-y border-border">
+              {order.items.map(item => (
+                <div key={item.id} className="flex items-start justify-between gap-4 border-b border-border py-3 last:border-b-0">
+                  <span className="text-body-md text-foreground">{item.quantity} × {item.dishName}{item.notes ? ` · ${item.notes}` : ''}</span>
+                  <strong className="shrink-0 text-title-md tabular-nums text-foreground">${(item.quantity * item.unitPrice).toFixed(2)}</strong>
+                </div>
+              ))}
+            </div>
+            {order.kitchenNotes && <p className="mt-3 text-body-md text-muted-foreground">Indicaciones para cocina: {order.kitchenNotes}</p>}
+            <div className="mt-3 flex items-center justify-between text-title-lg font-semibold text-foreground"><span>Total</span><span className="tabular-nums">${order.total.toFixed(2)}</span></div>
+          </section>
+        </>
+      ) : (
+        <>
+          <h1 className="text-headline-lg text-foreground">Aún no hay una ronda enviada</h1>
+          <p className="mt-1 text-body-lg text-muted-foreground">Agrega platos a la orden y envíala cuando esté lista.</p>
+        </>
+      )}
+      <div className="mt-5 flex flex-wrap gap-3">
+        <Button onClick={() => router.push(`${base}/menu`)}>Seguir pidiendo</Button>
+        <Button variant="secondary" onClick={() => router.push(`${base}/orden`)}>Ver mi orden</Button>
+      </div>
+    </ClientShell>
   )
 }

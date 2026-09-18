@@ -20,7 +20,7 @@ export function NicknameForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <label htmlFor="nickname" className="text-title-md font-semibold text-onSurface">
+      <label htmlFor="nickname" className="text-title-md font-semibold text-foreground">
         ¿Cómo te llamamos?
       </label>
       <input
@@ -29,12 +29,12 @@ export function NicknameForm({
         value={nickname}
         onChange={(e) => setNickname(e.target.value)}
         placeholder="Tu apodo"
-        className="rounded-md border border-outline bg-surface px-4 py-3 text-onSurface"
+        className="rounded-xl border border-input bg-card px-4 py-3 text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       />
       <button
         type="submit"
         disabled={disabled}
-        className="rounded-md bg-brasa-primary px-6 py-3 font-semibold text-onPrimary disabled:opacity-50"
+        className="h-11 rounded-xl bg-primary px-6 font-semibold text-primary-foreground disabled:opacity-50"
       >
         Entrar
       </button>

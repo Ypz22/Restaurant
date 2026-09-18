@@ -92,7 +92,7 @@ export function DishDetail({ dish, onAdd, adding = false, offline = false, error
     </div>
     <div className="space-y-3" style={{ order: 1 }}>
       <div className="flex items-start justify-between gap-3">
-        <h1 className="min-w-0 text-title-lg text-balance">{dish.name}</h1>
+        <h1 className="min-w-0 font-serif text-title-lg text-balance">{dish.name}</h1>
         <span className="shrink-0 text-title-lg text-primary tabular-nums">${dish.price.toFixed(2)}</span>
       </div>
       {dish.description && <p className="text-body-md leading-relaxed text-muted-foreground">{dish.description}</p>}
